@@ -3,7 +3,6 @@
 {
     environment.systemPackages = with pkgs; [
       firefox
-      # git
       kate
       keepassxc
       obsidian
@@ -12,7 +11,6 @@
       rustup
       thunderbird
       vim
-      vscodium
 
       neofetch
       tree
@@ -37,16 +35,5 @@
     nixpkgs.config.permittedInsecurePackages = [
       "electron-25.9.0"
     ];
-
-    # idk how to configure this properly, but something like this is required to run minecraft
-#     environment.sessionVariables = {
-#         LD_LIBRARY_PATH = "/run/opengl-driver/lib:/run/opengl-driver-32/lib";
-#     };
-#    hardware.opengl = {
-#      enable = true;
-#      driSupport = true;
-#      driSupport32Bit = true;
-#      setLdLibraryPath = true;
-#    };
 }
 

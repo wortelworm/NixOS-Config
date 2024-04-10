@@ -7,50 +7,44 @@
 {
   imports =
     [
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # include programs list
+      ./desktop.nix
       ./program-list.nix
 
       inputs.home-manager.nixosModules.default
     ];
+  
 
+  networking.hostName = "nixos-testing";
 
-  # custom things
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.wortelworm = {
-      isNormalUser = true;
-      description = "Wortel Worm";
-      extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [
-        # I think I might as well install it sytem wide
-      ];
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.wortelworm = {
+    isNormalUser = true;
+    description = "Wortel Worm";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+
+    ];
+  };
+
+  home-manager = {
+    # also pass inputs to home-manager modules?
+    users = {
+      "wortelworm" = import ./home.nix;
     };
+  };
 
-    home-manager = {
-      # also pass inputs to home-manager modules
-      users = {
-        "wortelworm" = import ./home.nix;
-      };
-    };
+  # Enable networking
+  networking.networkmanager.enable = true;
 
-    # Enable automatic login for the user.
-    # services.xserver.displayManager.autoLogin.enable = true;
-    # services.xserver.displayManager.autoLogin.user = "wortelworm";
-
-    # Enable networking
-    networking.networkmanager.enable = true;
-
-    # enable bluetooth
-    hardware.bluetooth.enable = true;
-    hardware.bluetooth.powerOnBoot = true;
-
+  # enable bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos-testing"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
@@ -70,13 +64,6 @@
     LC_TELEPHONE = "nl_NL.UTF-8";
     LC_TIME = "nl_NL.UTF-8";
   };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
