@@ -6,6 +6,10 @@
   home.username = "wortelworm";
   home.homeDirectory = "/home/wortelworm";
 
+  imports = [
+    ./desktop/desktop-home.nix
+  ];
+
   programs = {
     git = {
       enable = true;

@@ -12,13 +12,27 @@
   # 'Nixos and Hyprland - Best Match Ever'
   programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [
+    # terminal
     kitty
-    waybar
-    swww
 
+    # bar
+    waybar
+
+    # network stuff in the bar
+    networkmanagerapplet
+
+    # wallpaper
+    swww
+    
+    # notification daemon
     dunst
     libnotify
-  ]
+  ];
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
+
+
+  # Optional, hint electron apps to use wayland:
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
