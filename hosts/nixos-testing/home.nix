@@ -22,8 +22,17 @@
       package = pkgs.vscodium;
       extensions = [
         pkgs.vscode-extensions.vscodevim.vim
-        # to be added: rust
+        pkgs.vscode-extensions.jnoortheen.nix-ide
+        # to be added: rust-analyzer
       ];
+      userSettings = {
+        "git.enableSmartCommit" = true;
+        "git.confirmSync" = false;
+        "vim.useCtrlKeys" = false;
+        "vim.handleKeys" = {
+          "<C-[>" = true;
+        };
+      };
     };
   };
 
