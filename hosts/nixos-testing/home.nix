@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -7,55 +7,8 @@
   home.homeDirectory = "/home/wortelworm";
 
   imports = [
-    ./desktop/desktop-home.nix
-  ];
-
-  programs = {
-    git = {
-      enable = true;
-      userName = "wortelworm";
-      userEmail = "wortelworm@gmail.com";
-    };
-    
-    vscode = {
-      enable = true;
-      package = pkgs.vscodium;
-      extensions = [
-        pkgs.vscode-extensions.vscodevim.vim
-        pkgs.vscode-extensions.jnoortheen.nix-ide
-        # to be added: rust-analyzer
-      ];
-      userSettings = {
-        "git.enableSmartCommit" = true;
-        "git.confirmSync" = false;
-        "vim.useCtrlKeys" = false;
-        "vim.handleKeys" = {
-          "<C-[>" = true;
-        };
-      };
-    };
-  };
-
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    ./desktop/plasma-home.nix
+    ../../modules/home-manager/programming.nix
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

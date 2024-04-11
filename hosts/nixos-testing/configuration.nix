@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ inputs, ... }:
 
 {
   imports =
@@ -22,24 +22,18 @@
     isNormalUser = true;
     description = "Wortel Worm";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-
-    ];
+    # packages = with pkgs; [];
   };
 
   home-manager = {
     # also pass inputs to home-manager modules?
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
     users = {
       "wortelworm" = import ./home.nix;
     };
   };
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # enable bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -70,6 +64,13 @@
     layout = "us";
     xkbVariant = "";
   };
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # enable bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
