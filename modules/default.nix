@@ -3,9 +3,10 @@
 {
   imports = [
     ./users
+    ./desktop
     ./services.nix
     ./localization.nix
-    ./programs/misc.nix
+    ./programs/basics.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

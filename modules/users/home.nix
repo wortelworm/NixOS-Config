@@ -11,6 +11,7 @@
     # organize by thing, not home/nixos
     ../desktop/plasma-home.nix
     ../programs/programming.nix
+    ../programs/games.nix
   ];
 
   # manage plain files
@@ -27,6 +28,6 @@
   programs.home-manager.enable = true;
 
   # version of default settings to use
-  # CHECK RELEASE NOTES BEFORE UPDATING
+  # CHECK RELEASE NOTES IF UPDATING
   home.stateVersion = "23.11";
 }
