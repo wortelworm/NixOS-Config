@@ -12,6 +12,7 @@
       userEmail = "wortelworm@gmail.com";
     };
     
+    # maybe replace it with neovim one day
     vscode = {
       enable = true;
       package = pkgs.vscodium;
@@ -22,6 +23,7 @@
       ];
       userSettings = {
         "explorer.confirmDragAndDrop" = false;
+        "explorer.confirmDelete" = false;
 
         "git.autofetch" = true;
         "git.confirmSync" = false;
