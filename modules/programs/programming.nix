@@ -7,6 +7,11 @@
   ];
 
   programs = {
+    bash = {
+      enable = true;
+      initExtra = "eval \"$(zoxide init bash)\"";
+    };
+
     git = {
       enable = true;
       userName = "wortelworm";
