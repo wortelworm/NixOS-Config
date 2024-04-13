@@ -30,8 +30,8 @@
   # I currently do not care that much about things being unfree
   nixpkgs.config.allowUnfree = true;
 
-  # currently required as obsidian uses outdated version of electron
-  # nixpkgs.config.permittedInsecurePackages = [
-  #   "electron-25.9.0"
-  # ];
+  # currently required as obsidian uses outdated version of electron :(
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
 }

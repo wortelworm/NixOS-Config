@@ -12,6 +12,7 @@
     ../desktop/plasma-home.nix
     ../programs/programming.nix
     ../programs/games.nix
+    ../programs/misc.nix
   ];
 
   # manage plain files

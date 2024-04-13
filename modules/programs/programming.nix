@@ -25,7 +25,7 @@
       extensions = [
         pkgs.vscode-extensions.vscodevim.vim
         pkgs.vscode-extensions.jnoortheen.nix-ide
-        # to be added: rust-analyzer
+        pkgs.vscode-extensions.rust-lang.rust-analyzer
       ];
       userSettings = {
         "explorer.confirmDragAndDrop" = false;
