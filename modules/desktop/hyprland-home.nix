@@ -1,5 +1,8 @@
 { ... }:
 
+let
+  mainMod = "SUPER";
+in
 {
   wayland.windowManager.hyprland.enable = true;
 
@@ -10,8 +13,14 @@
     # See https://wiki.hyprland.org/Configuring/Monitors/
     monitor = ",preferred,auto,auto";
 
-    bind = let mainMod="SUPER"; in [
-      "${mainMod}, S, exec, rofi -show drun -show-icons"
+    # open app launcher on release of SUPER key
+    bindr = [
+      # idk why the '_L'
+      "${mainMod}, ${mainMod}_L, exec, rofi -show drun -show-icons"
+    ];
+
+    # other keybindings
+    bind = [
       "${mainMod}, Q, exec, konsole"
       "${mainMod}, E, exec, dolphin"
       "${mainMod}, V, togglefloating"

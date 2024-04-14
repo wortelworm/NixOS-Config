@@ -18,6 +18,8 @@
 
     # bar
     waybar
+    # font that the bar uses
+    font-awesome
 
     # network stuff in the bar
     networkmanagerapplet

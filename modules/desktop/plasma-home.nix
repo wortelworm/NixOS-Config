@@ -22,7 +22,7 @@
     panels = [
       # Windows-like panel at the bottom
       {
-        location = "left";
+        location = "down";
         height = 48;
         hiding = "autohide";
         # opacity does not seem to be supported yet...
