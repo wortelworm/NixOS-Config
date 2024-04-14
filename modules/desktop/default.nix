@@ -10,6 +10,6 @@
 
   # todo: hyprland, wayfire and sway?
   imports = [
-
+    ./hyprland.nix
   ];
 }

@@ -10,6 +10,7 @@
     # all over the place, as I want to primaraly
     # organize by thing, not home/nixos
     ../desktop/plasma-home.nix
+    ../desktop/hyprland-home.nix
     ../programs/programming.nix
     ../programs/games.nix
     ../programs/misc.nix
