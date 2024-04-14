@@ -13,13 +13,14 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # terminal, lets try using konsole instead
-    # kitty
+    # terminal
+    kitty
 
-    # bar
-    waybar
+    # bar, let give eww a try
+    eww-wayland
+    # waybar
     # font that the bar uses
-    font-awesome
+    # font-awesome
 
     # network stuff in the bar
     networkmanagerapplet
@@ -33,6 +34,9 @@
     # notification daemon
     dunst
     libnotify
+
+    # calculator
+    qalculate-qt
   ];
 
   # I believe this enables things like file opening
