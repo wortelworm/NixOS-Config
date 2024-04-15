@@ -16,8 +16,8 @@
     # terminal
     kitty
 
-    # bar, let give eww a try
-    eww-wayland
+    # bar, let give eww a try. it is in the home-manager now
+    # eww-wayland
     # waybar
     # font that the bar uses
     # font-awesome

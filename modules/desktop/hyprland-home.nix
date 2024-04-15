@@ -4,6 +4,12 @@ let
   mainMod = "SUPER";
 in
 {
+  # bar
+  programs.eww = {
+    enable = true;
+    configDir = ./eww;
+  };
+
   wayland.windowManager.hyprland.enable = true;
 
   wayland.windowManager.hyprland.settings = {
@@ -27,6 +33,13 @@ in
 
       inactive_opacity = 0.8;
     };
+
+    input = {
+      # not supported in this version yet...
+      # scroll_factor = 0.8;
+      # todo: touchpad
+    };
+
 
     # special workspaces exists, idk if I want to use them
     # see also: Qalculate program
@@ -94,10 +107,10 @@ in
       "${mainMod}, mouse_down, workspace, e+1"
       "${mainMod}, mouse_up, workspace, e-1"
 
-      # special keys, does not appear to be working
-      ",XKB_KEY_XF86Calculator, exec, qalculate-qt"
+      # special keys
+      ",XF86Calculator, exec, qalculate-qt"
       # ",3270_PrintScreen, exec, TODO"
-      ",XKB_KEY_XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     ];
 
     # allow holding and while locked 

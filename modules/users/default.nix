@@ -12,7 +12,7 @@
     # also pass inputs to home-manager modules?
     useGlobalPkgs = true;
     useUserPackages = true;
-    sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
+    # sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
     users = {
       "wortelworm" = import ./home.nix;
     };

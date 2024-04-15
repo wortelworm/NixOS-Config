@@ -35,6 +35,7 @@
         "git.confirmSync" = false;
         "git.enableSmartCommit" = true;
 
+        "vim.smartRelativeLine" = true;
         "vim.useCtrlKeys" = false;
         "vim.handleKeys" = {
           "<C-[>" = true;

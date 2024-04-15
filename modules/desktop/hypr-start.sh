@@ -14,9 +14,10 @@ swww init &
 # something with networks
 nm-applet --indicator &
 
-# the bar
-# waybar &
-eww daemon
+# the bar, TODO should test if the open bar also needs a delay
+# maybe the eww open command is enough
+# eww daemon &
+eww open bar &
 
 # notifications
 dunst
