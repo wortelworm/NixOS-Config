@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 let
   mainMod = "SUPER";
@@ -8,6 +8,8 @@ in
   programs.eww = {
     enable = true;
     configDir = ./eww;
+    # in a later version this can be removed
+    package = pkgs.eww-wayland;
   };
 
   wayland.windowManager.hyprland.enable = true;
