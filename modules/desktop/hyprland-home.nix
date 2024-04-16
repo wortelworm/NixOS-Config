@@ -61,6 +61,7 @@ in
       "${mainMod}, C, killactive"
       "${mainMod}, M, exit"
       "${mainMod}, V, togglefloating,"
+      # todo: screen locking
 
       # dwindle
       "${mainMod}, P, pseudo,"

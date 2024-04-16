@@ -18,7 +18,9 @@
 (defvar time_rev false)
 (deflisten workspace "scripts/workspace")
 
-(defvar eww "$HOME/.local/bin/eww/eww -c $HOME/.config/eww/bar")
+;; (defvar eww "$HOME/.local/bin/eww/eww -c $HOME/.config/eww/bar")
+(defvar eww "eww")
+(defvar barpath "~/.dotfiles/modules/desktop/eww/bar")
 
 
 (defpoll COL_WLAN :interval "1m" "~/.config/eww/bar/scripts/wifi --COL")
@@ -91,19 +93,25 @@
     (label :class "separ" :text "|")))
 
 (defwidget clock_module []
-  (eventbox :onhover "${eww} update time_rev=true"
-			  :onhoverlost "${eww} update time_rev=false"
+  (eventbox
+    :onhover "${eww} update time_rev=true"
+    :onhoverlost "${eww} update time_rev=false"
     (box :class "module" :space-evenly "false" :orientation "h" :spacing "3" 
       (label :text clock_time :class "clock_time_class" )
-      (label :text "" :class "clock_time_sep" )
+      (label :text "" :class "clock_time_sep" )
       (label :text clock_minute :class "clock_minute_class")
-	  (revealer :transition "slideleft"
-			  :reveal time_rev
-			  :duration "350ms"
-      (button :class "clock_date_class"
-             :onclick "$HOME/.config/eww/bar/scripts/pop calendar" clock_date
+      (revealer
+        :transition "slideleft"
+        :reveal time_rev
+        :duration "350ms"
+        (button
+          :class "clock_date_class"
+          :onclick "$HOME/.config/eww/bar/scripts/pop calendar" clock_date
         )
-  ))))
+      )
+    )
+  )
+)
   
 (defwidget volume []
   (eventbox :onhover "${eww} update vol_reveal=true"
@@ -159,23 +167,6 @@
 	(box
     :orientation "h" 
     :space-evenly false  
-    :halign "end"
-    :class "left_modules"
-    (bright)
-    (volume)
-    (wifi)
-    (sep)
-    (bat)
-    (mem)
-    (sep)
-    (clock_module)
-  )
-)
-
-(defwidget right []
-	(box
-    :orientation "h" 
-    :space-evenly false  
     :halign "start"
     :class "right_modules"
     (workspaces)
@@ -192,13 +183,30 @@
   )
 )
 
+(defwidget right []
+	(box
+    :orientation "h" 
+    :space-evenly false  
+    :halign "end"
+    :class "left_modules"
+    (bright)
+    (volume)
+    (wifi)
+    (sep)
+    (bat)
+    (mem)
+    (sep)
+    (clock_module)
+  )
+)
+
 (defwidget bar_1 []
   (box
     :class "bar_class"
     :orientation "h"
-    (right)
-    (center)
     (left)
+    (center)
+    (right)
   )
 )
 
@@ -209,8 +217,6 @@
   :windowtype "dock"
   :exclusive true
   :reserve (struts :side "top" :distance "4%")
-  
-
   :geometry
     (geometry
       :x "0%"
@@ -219,9 +225,7 @@
       :height "30px"
       :anchor "top center"
     )
-
-;;  (bar_1)
-  "Dit een test, hier moet die bar komen te staan..."
+  (bar_1)
 )
 
 

@@ -20,7 +20,7 @@
     # eww-wayland
     # waybar
     # font that the bar uses
-    # font-awesome
+    font-awesome
 
     # network stuff in the bar
     networkmanagerapplet

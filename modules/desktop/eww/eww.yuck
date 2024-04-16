@@ -1,49 +1,22 @@
 ;; I really liked the look of https://github.com/Saimoomedits/eww-widgets,
 ;; so that is what this is based upon
-;; (include "./bar/eww.yuck")
+(include "./bar/eww.yuck")
 
 ;; (defwindow bar
-;;   :monitor 0
+;;   ;; X11
 ;;   :windowtype "dock"
-;;   :geometry (geometry :x "0%"
-;;                       :y "0%"
-;;                       :width "90%"
-;;                       :height "10px"
-;;                       :anchor "top center")
 ;;   :reserve (struts :side "top" :distance "4%")
-;;   "Hier moet een topbar komen")
-
-(defwindow bar
-  ;; X11
-  :windowtype "dock"
-  :reserve (struts :side "top" :distance "4%")
-
-  ;; wayland
-  :exclusive true
-  :focusable false
-  :namespace "bar"
-
-
-  ;; both
-  :monitor 0
-  :stacking "fg"
-  :geometry
-  (geometry :anchor "top center" :y "0" :height "30" :width "100%")
-  "Dit is waar de tekst moet staat"
-)
-
-;; (defwindow example
-;;            :monitor 0
-;;            :geometry (geometry :x "0%"
-;;                                :y "20px"
-;;                                :width "90%"
-;;                                :height "30px"
-;;                                :anchor "top center")
-;;            :stacking "fg"
-;;            :reserve (struts :distance "40px" :side "top")
-;;            :windowtype "dock"
-;;            :wm-ignore false
-;;   "example content")
-
-
-
+;; 
+;;   ;; wayland
+;;   :exclusive true
+;;   :focusable false
+;;   :namespace "bar"
+;; 
+;; 
+;;   ;; both
+;;   :monitor 0
+;;   :stacking "fg"
+;;   :geometry
+;;   (geometry :anchor "top center" :y "0" :height "30" :width "100%")
+;;   "Dit is waar de tekst moet staat"
+;; )
