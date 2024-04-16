@@ -1,8 +1,12 @@
 /** EWW.SCSS
-Created by saimoom **/
+Created by saimoom, edited by wortelworm **/
+
+// TODO: make everything relative to the height of the bar?
+$height: 30px;
 *{
 	all: unset;
   font-family: 'hack', 'Font Awesome 6 Free Solid';
+
 	// font-family: feather;
 	// font-family: DaddyTimeMono NF;
 }
@@ -145,6 +149,24 @@ font-size: 27px;
 font-weight: normal;
 margin: 5px 0px 0px 20px;
 background-color: #0f0f17;
+}
+
+.w {
+  // all: revert
+  margin: 0px 10px 0px 0px;
+  color: #3e424f;
+  font-size: calc($height * 0.8);
+
+  font-family: 'Font Awesome 6 Free Regular';
+  font-weight: 400;
+}
+.w.occupied {
+  color: #bfc9db;
+}
+.w.active {
+  color: #a1bdce;
+  font-family: 'Font Awesome 6 Free Solid';
+  font-weight: 900;
 }
 
 // .0 , .01, .02, .03, .04, .05, .06,

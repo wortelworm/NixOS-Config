@@ -1,22 +1,4 @@
 ;; I really liked the look of https://github.com/Saimoomedits/eww-widgets,
-;; so that is what this is based upon
+;; so that is what this is based upon.
+;; It took wayy too much time to make it work...
 (include "./bar/eww.yuck")
-
-;; (defwindow bar
-;;   ;; X11
-;;   :windowtype "dock"
-;;   :reserve (struts :side "top" :distance "4%")
-;; 
-;;   ;; wayland
-;;   :exclusive true
-;;   :focusable false
-;;   :namespace "bar"
-;; 
-;; 
-;;   ;; both
-;;   :monitor 0
-;;   :stacking "fg"
-;;   :geometry
-;;   (geometry :anchor "top center" :y "0" :height "30" :width "100%")
-;;   "Dit is waar de tekst moet staat"
-;; )

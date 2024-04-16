@@ -34,6 +34,7 @@
         "git.autofetch" = true;
         "git.confirmSync" = false;
         "git.enableSmartCommit" = true;
+        "git.allowForcePush" = true;
 
         "vim.smartRelativeLine" = true;
         "vim.useCtrlKeys" = false;

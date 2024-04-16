@@ -1,27 +1,29 @@
 ;; Variables
-(defpoll clock_time :interval "5m" "date +\%I")
-(defpoll clock_minute :interval "5s" "date +\%M")
-(defpoll clock_date :interval "10h" "date '+%d/%m'")
+(defpoll clock_date_time :interval "5s" `date +'{"year":"%Y","month":"%m","day":"%d","hour":"%H","minute":"%M"}'`)
+
 (defpoll volume_percent :interval "3s" "amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
 (defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
 (defpoll brightness_percent :interval "5s" "brightnessctl -m -d intel_backlight | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
-(defpoll battery :interval "15s" "./scripts/battery --bat")
-(defpoll battery_status :interval "1m" "./scripts/battery --bat-st")
-(defpoll memory :interval "15s" "scripts/memory")
-(defpoll memory_used_mb :interval "2m" "scripts/mem-ad used")
-(defpoll memory_total_mb :interval "2m" "scripts/mem-ad total")
-(defpoll memory_free_mb :interval "2m" "scripts/mem-ad free")
+
+;; find out how to run a command to set the var eventually
+(defvar battery_id "BAT0")
+
+;; (defpoll memory :interval "15s" "scripts/memory")
+;; (defpoll memory_used_mb :interval "2m" "scripts/mem-ad used")
+;; (defpoll memory_total_mb :interval "2m" "scripts/mem-ad total")
+;; (defpoll memory_free_mb :interval "2m" "scripts/mem-ad free")
+
 (defvar vol_reveal false)
 (defvar br_reveal false)
 (defvar music_reveal false)
 (defvar wifi_rev false)
 (defvar time_rev false)
-(deflisten workspace "scripts/workspace")
+(deflisten workspace "~/.dotfiles/modules/desktop/eww/bar/scripts/workspace.sh")
 
 ;; (defvar eww "$HOME/.local/bin/eww/eww -c $HOME/.config/eww/bar")
 (defvar eww "eww")
 (defvar barpath "~/.dotfiles/modules/desktop/eww/bar")
-
+(defvar monitor 0)
 
 (defpoll COL_WLAN :interval "1m" "~/.config/eww/bar/scripts/wifi --COL")
 (defpoll ESSID_WLAN :interval "1m" "~/.config/eww/bar/scripts/wifi --ESSID")
@@ -33,9 +35,6 @@
 (defpoll current_status :interval "1s"  "~/.config/eww/bar/scripts/music_info --time")
 (defpoll song_status :interval "2s"  "~/.config/eww/bar/scripts/music_info --status")
 (defpoll cover_art :interval "2s"  "~/.config/eww/bar/scripts/music_info --cover")
-
-(defpoll calendar_day :interval "20h" "date '+%d'")
-(defpoll calendar_year :interval "20h" "date '+%Y'")
 
 ;; widgets
 
@@ -58,29 +57,37 @@
 
 
 (defwidget bat []
-		(box :class "bat_module" :vexpand "false" :hexpand "false" 
-            (circular-progress :value battery
-                :class "batbar"
-                :thickness 4
-            (button 
-                :class "iconbat"
-                :limit-width 2
-                :tooltip "battery on ${battery}%"
-                :show_truncated false
-                :onclick "$HOME/.config/eww/bar/scripts/pop system"
-                :wrap false
-                ""))))
+	(box
+    :class "bat_module"
+    :vexpand "false"
+    :hexpand "false"
+    (circular-progress
+      :value {EWW_BATTERY[battery_id].capacity} 
+      :class "batbar"
+      :thickness 4
+      (button 
+        :class "iconbat"
+        :limit-width 2
+        :tooltip "battery on ${EWW_BATTERY.BAT0.capacity}%"
+        :show_truncated false
+        :onclick "$HOME/.config/eww/bar/scripts/pop system"
+        :wrap false
+        ""
+      )
+    )
+  )
+)
 
 
 (defwidget mem []
 		(box :class "mem_module" :vexpand "false" :hexpand "false" 
-            (circular-progress :value memory
+            (circular-progress :value {EWW_RAM.used_mem_perc}
                 :class "membar"
                 :thickness 4
             (button 
                 :class "iconmem"
                 :limit-width 2
-                :tooltip "using ${memory}% ram"
+                :tooltip "using ${EWW_RAM.used_mem_perc}% ram"
                 :onclick "$HOME/.config/eww/bar/scripts/pop system"
                 :show_truncated false
                 :wrap false
@@ -97,16 +104,17 @@
     :onhover "${eww} update time_rev=true"
     :onhoverlost "${eww} update time_rev=false"
     (box :class "module" :space-evenly "false" :orientation "h" :spacing "3" 
-      (label :text clock_time :class "clock_time_class" )
+      (label :text {clock_date_time.hour} :class "clock_time_class" )
       (label :text "" :class "clock_time_sep" )
-      (label :text clock_minute :class "clock_minute_class")
+      (label :text {clock_date_time.minute} :class "clock_minute_class")
       (revealer
         :transition "slideleft"
         :reveal time_rev
         :duration "350ms"
         (button
           :class "clock_date_class"
-          :onclick "$HOME/.config/eww/bar/scripts/pop calendar" clock_date
+          :onclick "~/.config/eww/bar/scripts/pop calendar"
+          "${clock_date_time.year}-${clock_date_time.month}-${clock_date_time.day}"
         )
       )
     )
@@ -168,7 +176,6 @@
     :orientation "h" 
     :space-evenly false  
     :halign "start"
-    :class "right_modules"
     (workspaces)
   )
 )
@@ -178,7 +185,6 @@
     :orientation "h" 
     :space-evenly false  
     :halign "center"
-    :class "center_modules"
     (music)
   )
 )
@@ -188,11 +194,12 @@
     :orientation "h" 
     :space-evenly false  
     :halign "end"
-    :class "left_modules"
-    (bright)
-    (volume)
-    (wifi)
-    (sep)
+
+    ;; TODO: make them work
+    ;; (bright)
+    ;; (volume)
+    ;; (wifi)
+    ;; (sep)
     (bat)
     (mem)
     (sep)
@@ -205,7 +212,7 @@
     :class "bar_class"
     :orientation "h"
     (left)
-    (center)
+    ;; (center)
     (right)
   )
 )
@@ -235,7 +242,7 @@
 (defwidget system []
   (box :class "sys_win" :orientation "v" :space-evenly "false" :hexpand "false" :vexpand "false" :spacing 0
   (box :class "sys_bat_box" :orientation "h" :space-evenly "false"
-      (circular-progress :value battery
+      (circular-progress :value {EWW_BATTERY[battery_id].capacity}
                 :class "sys_bat"
                 :thickness 9
             (label :text ""
@@ -250,13 +257,13 @@
                 :limit-width 9
                 :show_truncated false
                 :wrap false)
-            (label :text "${battery}%"
+            (label :text "${EWW_BATTERY.BAT0.capacity}%"
                 :halign "start"
                 :class "sys_text_bat_sub"
                 :limit-width 22
                 :show_truncated false
                 :wrap false)
-            (label :text "${battery_status}"
+            (label :text "${EWW_BATTERY.BAT0.status}"
                 :halign "start"
                 :class "sys_text_bat_sub"
                 :limit-width 22
@@ -264,7 +271,7 @@
                 :wrap false)))
             (label :text "" :class "sys_sep" :halign "center")
   (box :class "sys_mem_box" :orientation "h" :space-evenly "false" :halign "start"
-      (circular-progress :value memory
+      (circular-progress :value {EWW_RAM.used_mem_perc}
                 :class "sys_mem"
                 :thickness 9
             (label :text ""
@@ -280,13 +287,13 @@
                 :limit-width 9
                 :show_truncated false
                 :wrap false)
-            (label :text "${memory_used_mb} | ${memory_total_mb}mb "
+            (label :text "${EWW_RAM.used_mem} | ${EWW_RAM.total_mem}mb "
                 :halign "start"
                 :class "sys_text_mem_sub"
                 :limit-width 22
                 :show_truncated false
                 :wrap false)
-            (label :text "${memory_free_mb}mb free"
+            (label :text "${EWW_RAM.free_mem}mb free"
                 :halign "start"
                 :class "sys_text_mem_sub"
                 :limit-width 22
@@ -294,19 +301,31 @@
                 :wrap false)))))
 
 (defwidget cal []
-	(box :class "cal" :orientation "v"
-	(box :class "cal-in"
-	(calendar :class "cal" 
-			  :day calendar_day 
-			  :year calendar_year))))
+	(box
+    :class "cal"
+    :orientation "v"
+    (box
+      :class "cal-in"
+      (calendar
+        :class "cal" 
+        :day {clock_date_time.day} 
+        :year {clock_date_time.year}
+      )
+    )
+  )
+)
 
 (defwindow calendar
-	:geometry (geometry :x "-20px" 
-						:y "7%" 
-                        :anchor "top right"
-						:width "270px" 
-						:height "60px")
-(cal))
+  :monitor 0
+	:geometry (geometry
+    :x "-20px" 
+    :y "7%" 
+    :anchor "top right"
+    :width "270px" 
+    :height "60px"
+  )
+  (cal)
+)
 
 
 

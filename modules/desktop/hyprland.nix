@@ -21,6 +21,8 @@
     # waybar
     # font that the bar uses
     font-awesome
+    # used to listen to workspace changes
+    socat
 
     # network stuff in the bar
     networkmanagerapplet
