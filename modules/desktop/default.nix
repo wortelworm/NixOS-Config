@@ -5,7 +5,8 @@
   services.xserver.enable = true;
 
   # KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
   # todo: hyprland, wayfire and sway?
