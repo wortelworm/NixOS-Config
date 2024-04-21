@@ -8,8 +8,8 @@
   # services.xserver.displayManager.sddm.enable = true;
   services.displayManager.sddm = {
     enable = true;
-    # Altough expirimental, scaling seems to work better in sddm wayland
-    wayland.enable = true;
+    # custom scaling, '-nolisten tcp' is default
+    settings.X11.ServerArguments="-nolisten tcp -dpi 200";
   };
   services.xserver.desktopManager.plasma5.enable = true;
 
