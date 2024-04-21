@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -9,5 +9,14 @@
     ./programs/basics.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  options.wortel = {
+    fingerprint = lib.mkEnableOption "Enables fingerprint reader";
+
+    # todo: make this actually do things
+    nvdia = lib.mkEnableOption "Enables nvdia GPU";
+  };
+
+  config = {
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  };
 }

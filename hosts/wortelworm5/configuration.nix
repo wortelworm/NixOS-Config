@@ -7,6 +7,11 @@
 {
   networking.hostName = "wortelworm5";
 
+  wortel = {
+    fingerprint = true;
+    nvdia = true;
+  };
+
   imports = [
     ./hardware-configuration.nix
     ../../modules

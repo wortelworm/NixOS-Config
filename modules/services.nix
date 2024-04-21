@@ -1,6 +1,12 @@
-{ ... }:
+{ lib, config, ... }:
 
 {
+  services.fprintd = lib.mkIf config.wortel.fingerprint {
+    # to enroll, use kde's ui??
+    # it is not working (yet)
+    enable = true;
+  };
+
   # Enable networking
   networking.networkmanager.enable = true;
   # seems to already work? Enables wireless via wpa_supplicant
