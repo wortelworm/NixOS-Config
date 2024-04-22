@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     nil
     rustup
+    nodejs_21
   ];
 
   programs = {

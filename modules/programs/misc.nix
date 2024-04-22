@@ -6,6 +6,9 @@
     onedrivegui
     thunderbird
     discord
+
+    # remote desktop
+    remmina
   ];
 
 }

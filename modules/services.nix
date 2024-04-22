@@ -3,7 +3,7 @@
 {
   services.fprintd = lib.mkIf config.wortel.fingerprint {
     # to enroll, use kde's ui??
-    # it is not working (yet)
+    # it is not working :(
     enable = true;
   };
 
