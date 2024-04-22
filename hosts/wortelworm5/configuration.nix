@@ -34,6 +34,7 @@
       # boot into last os used
       default = "saved";
 
+      splashImage = ../../resources/wallpaper.png;
       font = ../../resources/font.ttf;
       fontSize = 32;
     };
