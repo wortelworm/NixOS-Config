@@ -20,8 +20,27 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    timeout = 5;
+    efi = {
+      efiSysMountPoint = "/boot";
+      canTouchEfiVariables = true;
+    };
+    grub = {
+      enable = true;
+      device = "nodev";
+      useOSProber = true;
+      efiSupport = true;
+      # boot into last os used
+      default = "saved";
+
+      font = ../../resources/font.ttf;
+      fontSize = 32;
+    };
+  };
+  
+  # This is only here for dualbooting with windows
+  time.hardwareClockInLocalTime = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are
