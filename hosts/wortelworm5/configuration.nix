@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   networking.hostName = "wortelworm5";
@@ -34,9 +34,21 @@
       # boot into last os used
       default = "saved";
 
-      splashImage = ../../resources/wallpaper.png;
-      font = ../../resources/font.ttf;
-      fontSize = 32;
+      # splashImage = ../../resources/wallpaper.png;
+      # font = ../../resources/font.ttf;
+      # fontSize = 32;
+      # todo: choose which one I want
+      theme = pkgs.stdenv.mkDerivation {
+        pname = "distro-grub-themes";
+        version = "3.1";
+        src = pkgs.fetchFromGitHub {
+          owner = "AdisonCavani";
+          repo = "distro-grub-themes";
+          rev = "v3.1";
+          hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
+        };
+        installPhase = "cp -r customize/nixos $out";
+      };
     };
   };
   
