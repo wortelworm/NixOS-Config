@@ -56,18 +56,19 @@
   };
   boot.plymouth = {
     enable = true;
+    # try without themes
     # Do not download all themes (~524M)
-    themePackages = [(pkgs.adi1090x-plymouth-themes.override{ 
-      selected_themes = [ "infinite_seal" ];
-    })];
-    theme = "infinite_seal";
+    # themePackages = [(pkgs.adi1090x-plymouth-themes.override{ 
+    #   selected_themes = [ "infinite_seal" ];
+    # })];
+    # theme = "infinite_seal";
   };
 
   # These options I believe are send to plymouth
-  boot.kernelParams = [
-    "quiet"
-    "splash"
-  ];
+  # boot.kernelParams = [
+  #   "quiet"
+  #   "splash"
+  # ];
   
   # This is only here for dualbooting with windows
   time.hardwareClockInLocalTime = true;
