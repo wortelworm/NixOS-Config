@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   networking.hostName = "wortelworm5";
@@ -34,9 +34,6 @@
       # boot into last os used
       default = "saved";
 
-      # I think this might also specify splash used by linux kernel
-      # splashImage = ../../resources.wallpaper.png;
-
       # minegrub, not fully working
       # theme = pkgs.stdenv.mkDerivation rec {
       #   name = "minegrub-world-sel-theme";
@@ -57,9 +54,17 @@
       screen = "4k";
     };
   };
+  boot.plymouth = {
+    enable = true;
+    # Do not download all themes (~524M)
+    themePackages = [(pkgs.adi1090x-plymouth-themes.override{ 
+      selected_themes = [ "infinite_seal" ];
+    })];
+    theme = "infinite_seal";
+  };
 
-  # make booting look nicer
-  boot.kernelParams = [ 
+  # These options I believe are send to plymouth
+  boot.kernelParams = [
     "quiet"
     "splash"
   ];

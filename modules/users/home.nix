@@ -1,6 +1,6 @@
 { ... }:
 
-rec {
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "wortelworm";
@@ -24,7 +24,7 @@ rec {
   # environment variables
   home.sessionVariables = {
     # EDITOR = "vim";
-    FLAKE = "/home/${home.username}/.dotfiles";
+    FLAKE = "path:~/.dotfiles";
   };
 
   # Let Home Manager install and manage itself.
