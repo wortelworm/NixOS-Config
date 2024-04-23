@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 
 {
   networking.hostName = "wortelworm5";
@@ -54,22 +54,7 @@
       screen = "4k";
     };
   };
-  boot.plymouth = {
-    enable = true;
-    # try without themes
-    # Do not download all themes (~524M)
-    # themePackages = [(pkgs.adi1090x-plymouth-themes.override{ 
-    #   selected_themes = [ "infinite_seal" ];
-    # })];
-    # theme = "infinite_seal";
-  };
 
-  # These options I believe are send to plymouth
-  # boot.kernelParams = [
-  #   "quiet"
-  #   "splash"
-  # ];
-  
   # This is only here for dualbooting with windows
   time.hardwareClockInLocalTime = true;
 
