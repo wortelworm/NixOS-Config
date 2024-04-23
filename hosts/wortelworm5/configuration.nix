@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 
 {
   networking.hostName = "wortelworm5";
@@ -34,8 +34,10 @@
       # boot into last os used
       default = "saved";
 
-      # todo: configure further
-      # minegrub
+      # I think this might also specify splash used by linux kernel
+      # splashImage = ../../resources.wallpaper.png;
+
+      # minegrub, not fully working
       # theme = pkgs.stdenv.mkDerivation rec {
       #   name = "minegrub-world-sel-theme";
       #   src = pkgs.fetchFromGitHub {
@@ -55,6 +57,12 @@
       screen = "4k";
     };
   };
+
+  # make booting look nicer
+  boot.kernelParams = [ 
+    "quiet"
+    "splash"
+  ];
   
   # This is only here for dualbooting with windows
   time.hardwareClockInLocalTime = true;
