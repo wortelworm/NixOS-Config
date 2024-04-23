@@ -37,18 +37,28 @@
       # splashImage = ../../resources/wallpaper.png;
       # font = ../../resources/font.ttf;
       # fontSize = 32;
-      # todo: choose which one I want
-      theme = pkgs.stdenv.mkDerivation {
-        pname = "distro-grub-themes";
-        version = "3.1";
+      # todo: configure further
+      theme = pkgs.stdenv.mkDerivation rec {
+        name = "minegrub-world-sel-theme";
         src = pkgs.fetchFromGitHub {
-          owner = "AdisonCavani";
-          repo = "distro-grub-themes";
-          rev = "v3.1";
-          hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
+          owner = "Lxtharia";
+          repo = "${name}";
+          rev = "9db8c052dc";
+          hash = "sha256-uhTUsI9bRr/TWQL9BqWT4OB74isQjVJdHvpgW/w4ayE=";
         };
-        installPhase = "cp -r customize/nixos $out";
+        installPhase = "cp -r minegrub-world-selection $out";
       };
+      # theme = pkgs.stdenv.mkDerivation {
+      #   pname = "distro-grub-themes";
+      #   version = "3.1";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "AdisonCavani";
+      #     repo = "distro-grub-themes";
+      #     rev = "v3.1";
+      #     hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
+      #   };
+      #   installPhase = "cp -r customize/nixos $out";
+      # };
     };
   };
   

@@ -24,6 +24,7 @@
   # environment variables
   home.sessionVariables = {
     # EDITOR = "vim";
+    FLAKE = "~/.dotfiles";
   };
 
   # Let Home Manager install and manage itself.
