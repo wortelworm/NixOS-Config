@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # plasma-manager = {
     #   url = "github:pjones/plasma-manager";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +21,7 @@
     # };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, grub2-themes, ... }@inputs: {
     nixosConfigurations = {
 
       nixos-testing = nixpkgs.lib.nixosSystem {
@@ -34,6 +39,7 @@
           ./hosts/wortelworm5/configuration.nix
 
           inputs.home-manager.nixosModules.default
+          grub2-themes.nixosModules.default
         ];
       };
       
