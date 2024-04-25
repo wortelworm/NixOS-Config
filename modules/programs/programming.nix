@@ -5,6 +5,10 @@
     nil
     rustup
     nodejs_21
+
+    mono
+    gcc
+    gdb
   ];
 
   programs = {
@@ -27,6 +31,8 @@
         pkgs.vscode-extensions.vscodevim.vim
         pkgs.vscode-extensions.jnoortheen.nix-ide
         pkgs.vscode-extensions.rust-lang.rust-analyzer
+        # pkgs.vscode-extensions.ms-vscode.cpptools
+        # pkgs.vscode-extensions.ms-dotnettools.csharp
       ];
       userSettings = {
         "explorer.confirmDragAndDrop" = false;

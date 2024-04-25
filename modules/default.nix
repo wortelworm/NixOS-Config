@@ -4,6 +4,8 @@
   imports = [
     ./users
     ./desktop
+    ./grub.nix
+    ./nvidia.nix
     ./services.nix
     ./localization.nix
     ./programs/basics.nix
@@ -12,8 +14,7 @@
   options.wortel = {
     fingerprint = lib.mkEnableOption "Enables fingerprint reader";
 
-    # todo: make this actually do things
-    nvdia = lib.mkEnableOption "Enables nvdia GPU";
+    nvidia = lib.mkEnableOption "Enables nvidia GPU drivers etc FOR WORTELWORM5 ONLY";
   };
 
   config = {

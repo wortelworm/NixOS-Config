@@ -24,7 +24,9 @@
   # environment variables
   home.sessionVariables = {
     # EDITOR = "vim";
-    FLAKE = "path:~/.dotfiles";
+    # FLAKE = "path:~/.dotfiles";
+    FLAKE = "path:/home/wortelworm/.dotfiles";
+    DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 
   # Let Home Manager install and manage itself.
