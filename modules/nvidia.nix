@@ -16,10 +16,10 @@
 
     hardware.nvidia = {
       prime = {
-        # use command line tool `lshw` to find out these addresses
+        # use command line tool `sudo lshw -c display` to find out these addresses
         # make sure to convert them to correct format and decimal!
-        nvidiaBusId = "PCI:0:1:0";
-        amdgpuBusId = "PCI:0:4:0";
+        nvidiaBusId = "PCI:1:0:0";
+        amdgpuBusId = "PCI:4:0:0";
 
         # offload is better for battery than sync, so I will use this for now
         offload = {
