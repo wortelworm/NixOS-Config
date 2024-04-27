@@ -9,6 +9,8 @@
     mono
     gcc
     gdb
+
+    chromium
   ];
 
   programs = {
