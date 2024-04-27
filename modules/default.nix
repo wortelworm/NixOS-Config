@@ -15,6 +15,8 @@
     fingerprint = lib.mkEnableOption "Enables fingerprint reader";
 
     nvidia = lib.mkEnableOption "Enables nvidia GPU drivers etc FOR WORTELWORM5 ONLY";
+
+    hyprland = lib.mkEnableOption "Enables testing hyprland";
   };
 
   config = {

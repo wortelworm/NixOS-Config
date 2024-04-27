@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -12,7 +12,7 @@
     # also pass inputs to home-manager modules?
     useGlobalPkgs = true;
     useUserPackages = true;
-    # sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
+    extraSpecialArgs = { inherit (config) wortel; };
     users = {
       "wortelworm" = import ./home.nix;
     };

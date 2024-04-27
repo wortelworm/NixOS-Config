@@ -13,7 +13,8 @@
   };
   services.xserver.desktopManager.plasma5.enable = true;
 
-  # todo: hyprland, wayfire and sway?
+  # maybe make the hyprland work properly and
+  # test wayfire and sway as well one day...
   imports = [
     ./hyprland.nix
   ];

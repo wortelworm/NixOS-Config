@@ -10,6 +10,7 @@
   wortel = {
     fingerprint = true;
     nvidia = true;
+    hyprland = false;
   };
 
   imports = [

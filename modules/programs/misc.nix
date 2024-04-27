@@ -6,12 +6,9 @@
     onedrivegui
     thunderbird
     discord
-    # blender has to be build locally because
-    # of the override, but during this build
-    # everything for some reason freezes...
-    # (blender.override {
-    #   cudaSupport = true;
-    # })
+    # todo: figure out how to use the
+    # nvidia card with cycles
+    blender
 
     # remote desktop
     remmina
