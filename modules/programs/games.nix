@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     prismlauncher
+    airshipper
   ];
 
   # steam is always installed currently...
