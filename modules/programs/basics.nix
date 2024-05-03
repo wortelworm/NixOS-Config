@@ -4,6 +4,7 @@
   # will be only non-home manager packages
   environment.systemPackages = with pkgs; [
     firefox
+    libreoffice-qt # qt version because I'm using kde
     keepassxc
 
     # command line utils

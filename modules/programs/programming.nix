@@ -11,6 +11,7 @@
     gdb
 
     chromium
+    sqlite
   ];
 
   programs = {
