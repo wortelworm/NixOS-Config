@@ -29,7 +29,7 @@
     ### other audio things if it doesnt work yet
     ### (jack is more modern than alsa I believe)
     # jack.enable = true;
-    # alsa.enable = true;
+    alsa.enable = true; # used by veloren
     # alsa.support32Bit = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
