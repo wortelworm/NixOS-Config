@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     nil
     rustup
-    nodejs_21
+    nodejs_20
 
     mono
     gcc
