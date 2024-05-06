@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     prismlauncher
-    airshipper
+    # airshipper # plasma 6 breaks the ui...
   ];
 
   # steam is always installed currently...
