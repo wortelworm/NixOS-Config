@@ -16,6 +16,8 @@
 
     nvidia = lib.mkEnableOption "Enables nvidia GPU drivers etc FOR WORTELWORM5 ONLY";
 
+    newerPlasma = lib.mkEnableOption "Switches from plasma 5 to plasma 6";
+
     hyprland = lib.mkEnableOption "Enables testing hyprland";
   };
 
