@@ -7,8 +7,12 @@
   # KDE Plasma Desktop Environment.
   services.displayManager.sddm = {
     enable = true;
-    # custom scaling, '-nolisten tcp' is default
-    settings.X11.ServerArguments="-nolisten tcp -dpi 200";
+    settings = {
+      # custom scaling, '-nolisten tcp' is default
+      # X11.ServerArguments="-nolisten tcp -dpi 200";
+      # this seems to be the setting since plasma 6
+      General.GreeterEnvironment="QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
+    };
   };
   services.desktopManager.plasma6.enable = true;
 
