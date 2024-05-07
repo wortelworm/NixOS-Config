@@ -18,8 +18,7 @@
     cmatrix
   ];
 
-  # steam can only be installed globally...
-  # idk how to make this toggable inside home-manager (yet)
+  # one day I should make lutris manage steam
   programs.steam = {
     enable = true;
     # Open ports in the firewall for Steam Remote Play
@@ -31,9 +30,4 @@
   # A lot of software is disabled by default,
   # I currently do not care that much about things being unfree
   nixpkgs.config.allowUnfree = true;
-
-  # currently required as obsidian uses outdated version of electron :(
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-  ];
 }
