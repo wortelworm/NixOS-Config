@@ -6,8 +6,7 @@
     onedrivegui
     thunderbird
     discord
-    # todo: figure out how to use the
-    # nvidia card with cycles
+    # todo: figure out how to make blender use nvidia drivers
     blender
 
     # remote desktop

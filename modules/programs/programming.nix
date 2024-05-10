@@ -29,13 +29,14 @@
     # maybe replace it with neovim one day
     vscode = {
       enable = true;
-      package = pkgs.vscodium;
-      extensions = [
-        pkgs.vscode-extensions.vscodevim.vim
-        pkgs.vscode-extensions.jnoortheen.nix-ide
-        pkgs.vscode-extensions.rust-lang.rust-analyzer
-        # pkgs.vscode-extensions.ms-vscode.cpptools
-        # pkgs.vscode-extensions.ms-dotnettools.csharp
+      # package = pkgs.vscodium;
+      extensions = with pkgs.vscode-extensions; [
+        vscodevim.vim
+        jnoortheen.nix-ide
+        rust-lang.rust-analyzer
+        ms-vscode.cpptools
+        ms-dotnettools.csharp
+        arrterian.nix-env-selector
       ];
       userSettings = {
         "explorer.confirmDragAndDrop" = false;
