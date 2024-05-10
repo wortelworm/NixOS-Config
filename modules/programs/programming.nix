@@ -36,7 +36,9 @@
         rust-lang.rust-analyzer
         ms-vscode.cpptools
         ms-dotnettools.csharp
-        arrterian.nix-env-selector
+        # appear to not be working...
+        # arrterian.nix-env-selector
+        # vadimcn.vscode-lldb
       ];
       userSettings = {
         "explorer.confirmDragAndDrop" = false;
