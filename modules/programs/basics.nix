@@ -6,6 +6,7 @@
     firefox
     libreoffice-qt # qt version because I'm using kde
     keepassxc
+    # bottles
 
     # command line utils
     vim
