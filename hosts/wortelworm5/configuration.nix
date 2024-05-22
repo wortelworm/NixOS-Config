@@ -9,7 +9,7 @@
 
   wortel = {
     fingerprint = true;
-    nvidia = true;
+    nvidia = false;
     newerPlasma = true;
     hyprland = false;
   };
