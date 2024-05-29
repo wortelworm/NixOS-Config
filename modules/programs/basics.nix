@@ -8,11 +8,12 @@
     keepassxc
     bottles
 
-    # command line utils
+    # utils
     vim
     zoxide
     tree
     nh
+    gparted
 
     # funs
     neofetch
