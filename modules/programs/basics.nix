@@ -13,7 +13,7 @@
     zoxide
     tree
     nh
-    gparted
+    gparted ntfs3g
 
     # funs
     neofetch
