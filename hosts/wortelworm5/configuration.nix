@@ -11,7 +11,7 @@
     fingerprint = true;
     nvidia = true;
     newerPlasma = true;
-    hyprland = false;
+    games = true;
   };
 
   imports = [

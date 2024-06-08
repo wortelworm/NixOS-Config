@@ -1,4 +1,0 @@
-;; I really liked the look of https://github.com/Saimoomedits/eww-widgets,
-;; so that is what this is based upon.
-;; It took wayy too much time to make it work...
-(include "./bar/eww.yuck")
