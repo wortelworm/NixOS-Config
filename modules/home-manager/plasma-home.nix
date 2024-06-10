@@ -2,8 +2,17 @@
 
 {
   # see https://github.com/pjones/plasma-manager
+  # it does not work great, something is wrong with the size of the bars
+  # if this project has matured a bit more I might try again.
+
+  # things that are configured:
+  #   theme & wallpaper
+  #   virtualDesktops
+  #   effects: cube and wobbly windows
+  #   application launcher
+
   programs.plasma = {
-    enable = true;
+    enable = (abort "Do not use plasma-home yet!");
 
     # anything not configured here will be set to its defaults
     overrideConfig = true;
@@ -20,7 +29,7 @@
     };
 
     configFile."kwinrc".Plugins = {
-      # cubeEnabled = true;
+      cubeEnabled = true;
       wobblywindowsEnabled = true;
     };
 
@@ -34,18 +43,7 @@
         floating = false;
         widgets = [
           "org.kde.plasma.kickoff"
-          {
-            name = "org.kde.plasma.icontasks";
-            config = {
-              General.launchers = [
-                "applications:org.kde.dolphin.desktop"
-                "applications:org.kde.konsole.desktop"
-
-                # todo: make these work
-                "applications:firefox"
-              ];
-            };
-          }
+          "org.kde.plasma.icontasks"
           "org.kde.plasma.systemtray"
           "org.kde.plasma.digitalclock"
         ];

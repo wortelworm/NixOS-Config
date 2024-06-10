@@ -8,7 +8,7 @@
 
   imports = [
     ./programs
-    ./plasma-home.nix
+    # ./plasma-home.nix
   ];
 
   # manage plain files
