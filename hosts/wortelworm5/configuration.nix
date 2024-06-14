@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, ... }:
+{ ... }:
 
 {
   networking.hostName = "wortelworm5";
@@ -17,8 +17,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules
-
-    inputs.home-manager.nixosModules.default
   ];
 
   # This is only here for dualbooting with windows

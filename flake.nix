@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,9 +27,9 @@
     # };
   };
 
-  outputs = { self, nixpkgs, grub2-themes, ... }@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations = {
-
+      
       nixos-testing = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
@@ -37,10 +42,10 @@
       wortelworm5 = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/wortelworm5/configuration.nix
-
           inputs.home-manager.nixosModules.default
-          grub2-themes.nixosModules.default
+          inputs.grub2-themes.nixosModules.default
+
+          ./hosts/wortelworm5/configuration.nix
         ];
       };
       

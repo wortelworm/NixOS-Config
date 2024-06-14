@@ -20,6 +20,11 @@
     cmatrix
   ];
 
+  # font
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+  ];
+
   # it has to be installed system wide...
   programs.steam = lib.mkIf config.wortel.games {
     enable = true;

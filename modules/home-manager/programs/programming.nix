@@ -1,14 +1,17 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./neovim
+  ];
+
   home.packages = with pkgs; [
     nil
     rustup
     nodejs_20
 
     mono
-    gcc
-    gdb
+    gcc gdb clang-tools
 
     chromium
     sqlite
