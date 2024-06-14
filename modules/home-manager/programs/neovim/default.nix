@@ -1,4 +1,3 @@
-    wh
 { inputs, ... }:
 
 {
@@ -8,6 +7,8 @@
 
   # adds and configures neovim using
   # https://github.com/nix-community/nixvim
+  # todo: git, better terminal oil settings,
+  # number of tabs, oil settings
   programs.nixvim = {
     enable = true;
 
@@ -29,7 +30,10 @@
       lualine.enable = true;
       comment.enable = true;
       telescope.enable = true;
-      treesitter.enable = true;
+      treesitter = {
+        enable = true;
+
+      };
       oil = {
         enable = true;
         settings.delete_to_trash = true;
