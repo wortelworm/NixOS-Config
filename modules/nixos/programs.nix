@@ -14,6 +14,8 @@
     tree
     nh
     gparted ntfs3g
+    dust
+    btop
 
     # funs
     neofetch
