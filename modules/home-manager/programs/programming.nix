@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./neovim
+    ./neovim.nix
   ];
 
   home.packages = with pkgs; [

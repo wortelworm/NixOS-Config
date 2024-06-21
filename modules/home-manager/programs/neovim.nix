@@ -8,8 +8,9 @@
   # adds and configures neovim using
   # https://github.com/nix-community/nixvim
   # todo: git, better terminal, oil settings
-  # automatic brackets and indentation, clipboard, tabs
-  # latex
+  # automatic brackets and indentation, clipboard, tabs, better scrolling
+  # latex, competative programming, ...
+  # transparency?
   programs.nixvim = {
     enable = true;
 
@@ -17,12 +18,17 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    colorschemes.vscode.enable = true;
+    colorschemes.onedark = {
+      enable = true;
+      # make sure this is lowercase and matches exactly
+      settings.style = "dark";
+    };
+    
+    # use clipboard with ctrl+shift c
+    # does not fully work yet :(
+    clipboard.register = "unnamedplus";
 
     opts = {
-      # apperently this is being set by gitgutter
-      # updatetime = 500;
-
       expandtab = true;
       autoindent = true;
 
@@ -35,20 +41,30 @@
       comment.enable = true;
       telescope.enable = true;
       gitgutter.enable = true;
+      nvim-autopairs.enable = true;
       treesitter = {
         enable = true;
         indent = true;
 	# maybe disable some contexts because I dont need them all
       };
-      oil = {
+      neo-tree = {
         enable = true;
-        settings.delete_to_trash = true;
+        closeIfLastWindow = true;
+      };
+      toggleterm = {
+        enable = true;
+        settings = {
+          direction = "horizontal";
+          size = 15;
+        };
       };
 
       lsp = {
         enable = true;
         servers = {
-          # tsserver.enable = true;
+          tsserver.enable = true;
+          clangd.enable = true;
+          nil-ls.enable = true;
 
           rust-analyzer = {
             enable = true;
@@ -66,12 +82,14 @@
           {name = "buffer";}
         ];
         settings.mapping = {
-          # "<C-e>" = "cmp.mapping.close()";
-          "<CR>" = "cmp.mapping.confirm({ select = true })";
+          "<C-e>" = "cmp.mapping.close()";
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
+
+          # this is really annoying, can just use tab for this
+          # "<CR>" = "cmp.mapping.confirm({ select = true })";
         };
       };
 
@@ -87,16 +105,33 @@
           inherit action key;
         })
         {
+          # show tree sidebar
+          "<C-b>" = ":Neotree <CR>";
+
+          # show terminal
+          "<C-\\>" = ":ToggleTerm <CR>";
+          
+          # clipboard
+          # "<CS-C>" = ;
+          # "<CS-V>" = ;
+
           # Using tabs like in other programs
-          "<C-t>" = ":tabnew <CR>";
-          "<C-Tab>" = ":tabnext + <CR>";
-          "<CS-Tab>" = ":tabnext - <CR>";
-          "<C-e>" = "<C-w>";
-          "<C-w>" = ":tabclose <CR>";
-  
-          # integrated terminal?
+          # this is not working ????
+          "<C-t> <C-t>" = ":tabnew <CR>";
+          "<C-t> l" = ":tabnext + <CR>";
+          "<C-t> h" = ":tabnext - <CR>";
+          "<C-t> <C-w>" = ":tabclose <CR>";
+        };
+      visual =
+        lib.mapAttrsToList
+        (key: action: {
+          mode = "v";
+          inherit action key;
+        })
+        {
+          
         };
       in
-        normal;
+        normal ++ visual;
   };
 }
