@@ -24,6 +24,11 @@
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 
+  programs.kitty = {
+    enable = true;
+    extraConfig = "confirm_os_window_close 0";
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
