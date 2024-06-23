@@ -4,12 +4,14 @@
   # see: https://nixos.wiki/wiki/Nvidia
   # THIS IS MADE SPECIFICLY FOR WORTELWORM5
   config = lib.mkIf config.wortel.nvidia {
-
-    hardware.opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
+    
+    # has been renamed to hardware.graphics?
+    # TODO
+    # hardware.opengl = {
+    #   enable = true;
+    #   driSupport = true;
+    #   driSupport32Bit = true;
+    # };
 
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
