@@ -7,7 +7,7 @@
 
   # adds and configures neovim using
   # https://github.com/nix-community/nixvim
-  # todo: git, better terminal, oil settings
+  # todo: git, zooming in and out,
   # automatic brackets and indentation, clipboard, tabs, better scrolling
   # latex, competative programming, ...
   # transparency?
@@ -25,15 +25,16 @@
     };
     
     # use clipboard with ctrl+shift c
-    # does not fully work yet :(
+    # pasting works, but copying doesnt :(
     clipboard.register = "unnamedplus";
 
     opts = {
-      expandtab = true;
-      autoindent = true;
-
       relativenumber = true;
       number = true; # Display the absolute line number of the current line
+
+      expandtab = true;
+      autoindent = true;
+      shiftwidth = 4;
     };
 
     plugins = {
@@ -42,6 +43,11 @@
       telescope.enable = true;
       gitgutter.enable = true;
       nvim-autopairs.enable = true;
+      diffview.enable = true;
+      neoscroll.enable = true;
+      # would be cool to see the background as a toggle,
+      # but I would need to configure kitty to work with that
+      # transparent.enable = true;
       treesitter = {
         enable = true;
         indent = true;
@@ -111,10 +117,6 @@
           # show terminal
           "<C-\\>" = ":ToggleTerm <CR>";
           
-          # clipboard
-          # "<CS-C>" = ;
-          # "<CS-V>" = ;
-
           # Using tabs like in other programs
           # this is not working ????
           "<C-t> <C-t>" = ":tabnew <CR>";

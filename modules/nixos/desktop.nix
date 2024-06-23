@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   # KDE Plasma Desktop Environment.
@@ -19,11 +19,6 @@
       settings.X11.ServerArguments = "-nolisten tcp -dpi 200";
     };
     xserver.desktopManager.plasma5.enable = true;
-  };
-  # replace terminal
-  environment = {
-    plasma6.excludePackages = [ pkgs.kdePackages.konsole ];
-    systemPackages = [ pkgs.kitty ];
   };
 
 
