@@ -28,6 +28,9 @@
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
+  # For virtual machines
+  virtualisation.vmware.host.enable = true;
+
   # it has to be installed system wide...
   programs.steam = lib.mkIf config.wortel.games {
     enable = true;

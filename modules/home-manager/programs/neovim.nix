@@ -45,23 +45,11 @@
       lualine.enable = true;
       comment.enable = true;
       telescope.enable = true;
-      gitgutter.enable = true;
       nvim-autopairs.enable = true;
       diffview.enable = true;
       neoscroll.enable = true;
-      barbar = {
-        enable = true;
-        keymaps = {
-          next.key = "<TAB>";
-          previous.key = "<S-TAB>";
-          close.key = "<C-x>";
-        };
-        settings = {
-          # hide tabline when 5 or less buffers are open
-          # can I change this to amount of tabs open?
-          autohide = 5;
-        };
-      };
+      # maybe use gitsigns?
+      gitgutter.enable = true;
       # would be cool to see the background as a toggle,
       # but I would need to configure kitty to work with that
       # transparent.enable = true;
@@ -124,6 +112,8 @@
       # todo more stuff
     };
 
+    globals.mapleader = " ";
+
     keymaps = let
       normal =
         lib.mapAttrsToList
@@ -138,15 +128,10 @@
           # show terminal
           "<C-\\>" = ":ToggleTerm <CR>";
 
-          # copy pasting
-          "<CS-c>" = "\"+y";
-          "<CS-v>" = "\"+p";
-          
-          # TODO: make shortcuts for diffview
-
           # Using tabs like in other programs
           # this is not working ????
           # lets try to use barbar
+          # or maybe dont show any tabs what so ever?
           # "<C-t> <C-t>" = ":tabnew <CR>";
           # "<C-t>" = ":tabnew <CR>";
           # "<C-t> l" = ":tabnext + <CR>";
@@ -158,17 +143,22 @@
           "<C-Down>" = ":resize +2<CR>";
           "<C-Left>" = ":vertical resize +2<CR>";
           "<C-Right>" = ":vertical resize -2<CR>";
+
+          # TODO: make shortcuts for diffview
+          # or use telescope to view git stuff
         };
-      visual =
+      visnorm =
         lib.mapAttrsToList
         (key: action: {
-          mode = "v";
+          mode = "nv";
           inherit action key;
         })
         {
-          
+          # copy pasting
+          "<CS-c>" = "\"+y";
+          "<CS-v>" = "\"+p";
         };
       in
-        normal ++ visual;
+        normal ++ visnorm;
   };
 }
