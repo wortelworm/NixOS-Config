@@ -150,7 +150,7 @@
       visnorm =
         lib.mapAttrsToList
         (key: action: {
-          mode = "nv";
+          mode = [ "n" "v" ];
           inherit action key;
         })
         {
