@@ -21,14 +21,14 @@
     colorschemes.onedark = {
       enable = true;
       # make sure this is lowercase and matches exactly
-      settings.style = "dark";
+      settings.style = "darker";
     };
     
     # use clipboard with ctrl+shift c
     # pasting works, but copying doesnt :(
     clipboard = {
       register = "unnamedplus";
-      # providers.wl-copy.enable = true;
+      providers.wl-copy.enable = true;
     };
 
     opts = {
@@ -110,14 +110,12 @@
           {name = "buffer";}
         ];
         settings.mapping = {
+          "<CR>" = "cmp.mapping.confirm({ select = true })";
           "<C-e>" = "cmp.mapping.close()";
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
-
-          # this is really annoying, can just use tab for this
-          # "<CR>" = "cmp.mapping.confirm({ select = true })";
         };
       };
 
@@ -157,6 +155,11 @@
           "<C-Left>" = ":vertical resize +2<CR>";
           "<C-Right>" = ":vertical resize -2<CR>";
 
+          # lsp stuff?
+          # autofix menu
+          "<leader>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+          "<leader>e" = "<cmd>lua vim.diagnostic.open_float()<CR>";
+
           # TODO: make shortcuts for diffview
           # or use telescope to view git stuff
         };
@@ -167,16 +170,13 @@
           inherit action key;
         })
         {
-          # copy pasting
+          # copy, cut, paste
           "<CS-c>" = "\"+y";
+          "<CS-x>" = "\"+c";
           "<CS-v>" = "\"+p";
 
           # saving
           "<C-s>" = "<cmd>w<CR>";
-
-          # lsp stuff?
-          # autofix menu
-          "<C-.>" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
         };
       in
         normal ++ visnorm;

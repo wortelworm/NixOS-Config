@@ -5,11 +5,12 @@
   # it does not work great, something is wrong with the size of the bars
   # if this project has matured a bit more I might try again.
 
-  # things that are configured:
+  # things that are to be configured:
   #   theme & wallpaper
   #   virtualDesktops
   #   effects: cube and wobbly windows
   #   application launcher
+  #   caps+esc swapped
 
   programs.plasma = {
     enable = (abort "Do not use plasma-home yet!");

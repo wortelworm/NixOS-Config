@@ -18,8 +18,7 @@
 
   # environment variables
   home.sessionVariables = {
-    # EDITOR = "vim";
-    # FLAKE = "path:~/.dotfiles";
+    EDITOR = "vim";
     FLAKE = "path:/home/wortelworm/.dotfiles";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
