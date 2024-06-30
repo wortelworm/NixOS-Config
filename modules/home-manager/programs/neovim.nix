@@ -44,7 +44,6 @@
     plugins = {
       lualine.enable = true;
       comment.enable = true;
-      telescope.enable = true;
       nvim-autopairs.enable = true;
       diffview.enable = true;
       neoscroll.enable = true;
@@ -74,6 +73,16 @@
         };
       };
 
+      telescope = {
+        enable = true;
+
+        extensions = {
+          # better selection ui, used for code actions
+          ui-select.enable = true;
+        };
+      };
+
+
       lsp = {
         enable = true;
         servers = {
@@ -86,6 +95,10 @@
             # these are managed by rustup
             installCargo = false;
             installRustc = false;
+            settings = {
+              check.command = "clippy";
+              inlayHints.bindingModeHints.enable = true;
+            };
           };
         };
       };
@@ -157,6 +170,13 @@
           # copy pasting
           "<CS-c>" = "\"+y";
           "<CS-v>" = "\"+p";
+
+          # saving
+          "<C-s>" = "<cmd>w<CR>";
+
+          # lsp stuff?
+          # autofix menu
+          "<C-.>" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
         };
       in
         normal ++ visnorm;
