@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-sudo nixos-rebuild test --flake path:$HOME/.dotfiles
+# sudo nixos-rebuild test --flake path:$HOME/.dotfiles
+nh os test
