@@ -32,7 +32,7 @@ git commit -m "$1 - `hostname` $NEXT_GENERATION_NUMBER"
 git push
 
 
-if [ $2 == "--boot" ]; then
+if [ $# == 2 ]; then
     nh os boot
 else
     nh os switch

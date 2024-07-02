@@ -85,6 +85,7 @@
 
       lsp = {
         enable = true;
+        inlayHints = true;
         servers = {
           tsserver.enable = true;
           clangd.enable = true;
@@ -97,7 +98,7 @@
             installRustc = false;
             settings = {
               check.command = "clippy";
-              inlayHints.bindingModeHints.enable = true;
+              # inlayHints.bindingModeHints.enable = true;
             };
           };
         };
@@ -157,16 +158,17 @@
 
           # lsp stuff?
           # autofix menu
+          "<leader>h" = "<cmd>lua vim.lsp.buf.hover()<CR>";
           "<leader>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
           "<leader>e" = "<cmd>lua vim.diagnostic.open_float()<CR>";
 
           # TODO: make shortcuts for diffview
           # or use telescope to view git stuff
         };
-      visnorm =
+      vni =
         lib.mapAttrsToList
         (key: action: {
-          mode = [ "n" "v" ];
+          mode = [ "n" "v" "i" ];
           inherit action key;
         })
         {
@@ -179,6 +181,6 @@
           "<C-s>" = "<cmd>w<CR>";
         };
       in
-        normal ++ visnorm;
+        normal ++ vni;
   };
 }
