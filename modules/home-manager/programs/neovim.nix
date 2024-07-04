@@ -24,10 +24,8 @@
       settings.style = "darker";
     };
     
-    # use clipboard with ctrl+shift c
-    # pasting works, but copying doesnt :(
+    # keyboard shortcuts below
     clipboard = {
-      register = "unnamedplus";
       providers.wl-copy.enable = true;
     };
 
@@ -156,10 +154,14 @@
           "<C-Left>" = ":vertical resize +2<CR>";
           "<C-Right>" = ":vertical resize -2<CR>";
 
-          # lsp stuff?
-          # autofix menu
-          "<leader>h" = "<cmd>lua vim.lsp.buf.hover()<CR>";
+          # lsp stuff
+          "<leader>" = "<NOP>";
           "<leader>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+          "<leader>D" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
+          "<leader>d" = "<cmd>lua vim.lsp.buf.definition()<CR>";
+          "<leader>h" = "<cmd>lua vim.lsp.buf.hover()<CR>";
+          "<leader>r" = "<cmd>lua vim.lsp.buf.rename()<CR>";
+          "<leader>R" = "<cmd>lua vim.lsp.buf.references()<CR>";
           "<leader>e" = "<cmd>lua vim.diagnostic.open_float()<CR>";
 
           # TODO: make shortcuts for diffview
