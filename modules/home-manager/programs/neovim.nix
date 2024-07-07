@@ -8,20 +8,17 @@
   # adds and configures neovim using
   # https://github.com/nix-community/nixvim
   # todo: git, zooming in and out,
-  # automatic brackets and indentation, clipboard, tabs, better scrolling
+  # better indentation,
   # latex, competative programming, ...
   # transparency?
   programs.nixvim = {
     enable = true;
 
     viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-
-    colorschemes.onedark = {
+    
+    colorschemes.tokyonight = {
       enable = true;
-      # make sure this is lowercase and matches exactly
-      settings.style = "darker";
+      settings.style = "night";
     };
     
     # keyboard shortcuts below
@@ -55,14 +52,7 @@
         indent = true;
         # maybe disable some contexts because I dont need them all
       };
-      neo-tree = {
-        enable = true;
-        closeIfLastWindow = true;
-        window = {
-          width = 30;
-          autoExpandWidth = true;
-        };
-      };
+      # maybe fullscreen?
       toggleterm = {
         enable = true;
         settings = {
@@ -77,7 +67,16 @@
         extensions = {
           # better selection ui, used for code actions
           ui-select.enable = true;
+          media-files.enable = true;
+          # file-browser = {
+          #   enable = true;
+          #   settings.hijack_netrw = true;
+          # };
         };
+      };
+
+      competitest = {
+        enable = true;
       };
 
 
@@ -114,7 +113,7 @@
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-f>" = "cmp.mapping.scroll_docs(4)";
+          "<C-u>" = "cmp.mapping.scroll_docs(4)";
         };
       };
 
@@ -132,30 +131,17 @@
           inherit action key;
         })
         {
-          # show tree sidebar
-          "<C-b>" = ":Neotree <CR>";
-
           # show terminal
-          "<C-\\>" = ":ToggleTerm <CR>";
+          "<C-\\>" = "<cmd>ToggleTerm<CR>";
 
-          # Using tabs like in other programs
-          # this is not working ????
-          # lets try to use barbar
-          # or maybe dont show any tabs what so ever?
-          # "<C-t> <C-t>" = ":tabnew <CR>";
-          # "<C-t>" = ":tabnew <CR>";
-          # "<C-t> l" = ":tabnext + <CR>";
-          # "<C-t> h" = ":tabnext - <CR>";
-          # "<C-t> <C-w>" = ":tabclose <CR>";
-
-          # resize windows with arrows
-          "<C-Up>" = ":resize -2<CR>";
-          "<C-Down>" = ":resize +2<CR>";
-          "<C-Left>" = ":vertical resize +2<CR>";
-          "<C-Right>" = ":vertical resize -2<CR>";
+          # telescope
+          "<leader>" = "<NOP>";
+          "<leader>f" = "<cmd>Telescope find_files<CR>";
+          "<leader>s" = "<cmd>Telescope buffers<CR>";
+          "<leader>c" = "<cmd>Telescope git_bcommits<CR>";
+          "<leader>g" = "<cmd>Telescope git_status<CR>";
 
           # lsp stuff
-          "<leader>" = "<NOP>";
           "<leader>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
           "<leader>D" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
           "<leader>d" = "<cmd>lua vim.lsp.buf.definition()<CR>";
@@ -163,6 +149,12 @@
           "<leader>r" = "<cmd>lua vim.lsp.buf.rename()<CR>";
           "<leader>R" = "<cmd>lua vim.lsp.buf.references()<CR>";
           "<leader>e" = "<cmd>lua vim.diagnostic.open_float()<CR>";
+
+          # resize windows with arrows
+          "<C-Up>"    = "<cmd>resize -2<CR>";
+          "<C-Down>"  = "<cmd>resize +2<CR>";
+          "<C-Left>"  = "<cmd>vertical resize +2<CR>";
+          "<C-Right>" = "<cmd>vertical resize -2<CR>";
 
           # TODO: make shortcuts for diffview
           # or use telescope to view git stuff
@@ -175,9 +167,9 @@
         })
         {
           # copy, cut, paste
-          "<CS-c>" = "\"+y";
-          "<CS-x>" = "\"+c";
-          "<CS-v>" = "\"+p";
+          "<CS-c>" = "\\\"+y";
+          "<CS-x>" = "\\\"+c";
+          "<CS-v>" = "\\\"+p";
 
           # saving
           "<C-s>" = "<cmd>w<CR>";

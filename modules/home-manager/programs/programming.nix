@@ -17,6 +17,10 @@
     sqlite
   ];
 
+  home.shellAliases = {
+    v = "f(){ z \"$@\"; nvim .; }; f";
+  };
+
   programs = {
     bash = {
       enable = true;
@@ -40,9 +44,6 @@
         rust-lang.rust-analyzer
         ms-vscode.cpptools
         ms-dotnettools.csharp
-        # appear to not be working...
-        # arrterian.nix-env-selector
-        # vadimcn.vscode-lldb
       ];
       userSettings = {
         "explorer.confirmDragAndDrop" = false;

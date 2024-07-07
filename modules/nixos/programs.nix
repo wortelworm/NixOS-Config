@@ -23,10 +23,10 @@
     cmatrix
   ];
 
-  # font
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
-  ];
+  # font, I dont know if this is needed
+  # fonts.packages = with pkgs; [
+  #   (nerdfonts.override { fonts = [ "FiraCode" ]; })
+  # ];
 
   # For virtual machines
   virtualisation.vmware.host.enable = true;
