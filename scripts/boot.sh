@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ $# == 0 ]; then
-    ./switch.sh
+    echo "Usage: boot.sh <description>"
 else
     ./switch.sh "$1" --boot
 fi

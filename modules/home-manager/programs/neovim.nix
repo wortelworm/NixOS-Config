@@ -13,8 +13,6 @@
   # transparency?
   programs.nixvim = {
     enable = true;
-
-    viAlias = true;
     
     colorschemes.tokyonight = {
       enable = true;
@@ -112,8 +110,8 @@
           "<C-e>" = "cmp.mapping.close()";
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-u>" = "cmp.mapping.scroll_docs(4)";
+          "<C-u>" = "cmp.mapping.scroll_docs(-4)";
+          "<C-d>" = "cmp.mapping.scroll_docs(4)";
         };
       };
 

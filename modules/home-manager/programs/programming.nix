@@ -18,7 +18,8 @@
   ];
 
   home.shellAliases = {
-    v = "f(){ z \"$@\"; nvim .; }; f";
+    v = "f(){ z \"$@\"; vi; }; f";
+    vi = "nvim +\"Telescope find_files\"";
   };
 
   programs = {
