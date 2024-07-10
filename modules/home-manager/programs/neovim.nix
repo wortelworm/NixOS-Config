@@ -1,8 +1,13 @@
-{ inputs, lib, ... }:
+{ inputs, lib, pkgs, ... }:
 
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
+  ];
+
+  home.packages = [
+    # used by telescope find_files
+    pkgs.fd
   ];
 
   # adds and configures neovim using
@@ -14,9 +19,9 @@
   programs.nixvim = {
     enable = true;
     
-    colorschemes.tokyonight = {
-      enable = true;
-      settings.style = "night";
+    colorschemes.onedark = {
+        enable = true;
+        settings.style = "deep";
     };
     
     # keyboard shortcuts below
@@ -40,8 +45,7 @@
       nvim-autopairs.enable = true;
       diffview.enable = true;
       neoscroll.enable = true;
-      # maybe use gitsigns?
-      gitgutter.enable = true;
+      gitsigns.enable = true;
       # would be cool to see the background as a toggle,
       # but I would need to configure kitty to work with that
       # transparent.enable = true;
@@ -50,7 +54,6 @@
         indent = true;
         # maybe disable some contexts because I dont need them all
       };
-      # maybe fullscreen?
       toggleterm = {
         enable = true;
         settings = {
@@ -66,6 +69,7 @@
           # better selection ui, used for code actions
           ui-select.enable = true;
           media-files.enable = true;
+          fzf-native.enable = true;
           # file-browser = {
           #   enable = true;
           #   settings.hijack_netrw = true;
@@ -132,20 +136,19 @@
           # show terminal
           "<C-\\>" = "<cmd>ToggleTerm<CR>";
 
-          # telescope
+          # telescope & lsp stuff
           "<leader>" = "<NOP>";
           "<leader>f" = "<cmd>Telescope find_files<CR>";
-          "<leader>s" = "<cmd>Telescope buffers<CR>";
+          "<leader>b" = "<cmd>Telescope buffers<CR>";
           "<leader>c" = "<cmd>Telescope git_bcommits<CR>";
           "<leader>g" = "<cmd>Telescope git_status<CR>";
+          "<leader>d" = "<cmd>Telescope lsp_definitions<CR>";
+          "<leader>R" = "<cmd>Telescope lsp_references<CR>";
 
-          # lsp stuff
           "<leader>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
           "<leader>D" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
-          "<leader>d" = "<cmd>lua vim.lsp.buf.definition()<CR>";
           "<leader>h" = "<cmd>lua vim.lsp.buf.hover()<CR>";
           "<leader>r" = "<cmd>lua vim.lsp.buf.rename()<CR>";
-          "<leader>R" = "<cmd>lua vim.lsp.buf.references()<CR>";
           "<leader>e" = "<cmd>lua vim.diagnostic.open_float()<CR>";
 
           # resize windows with arrows

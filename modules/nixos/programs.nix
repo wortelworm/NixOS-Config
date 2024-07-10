@@ -1,4 +1,4 @@
-{config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # will be only non-home manager packages

@@ -20,7 +20,4 @@
     };
     xserver.desktopManager.plasma5.enable = true;
   };
-
-
-  # maybe also have gnome installed?
 }
