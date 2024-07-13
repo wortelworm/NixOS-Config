@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-nh clean all -keep 2 -ask
+nh clean all --keep 2 --ask
 
 # note: boot options only gets deleted with rebuild!
 # this below is the thing without nh

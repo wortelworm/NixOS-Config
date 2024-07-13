@@ -46,6 +46,7 @@
       diffview.enable = true;
       neoscroll.enable = true;
       gitsigns.enable = true;
+      hop.enable = true;
       # would be cool to see the background as a toggle,
       # but I would need to configure kitty to work with that
       # transparent.enable = true;
@@ -135,6 +136,9 @@
         {
           # show terminal
           "<C-\\>" = "<cmd>ToggleTerm<CR>";
+
+          # hop!
+          "f" = "<cmd>HopWord<CR>";
 
           # telescope & lsp stuff
           "<leader>" = "<NOP>";

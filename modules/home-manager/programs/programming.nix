@@ -18,6 +18,8 @@
   ];
 
   home.shellAliases = {
+    nd = "nix develop";
+    zn = "f(){ z \"$@\"; nd; }; f";
     v = "f(){ z \"$@\"; vi; }; f";
     vi = "nvim +\"Telescope find_files\"";
   };
