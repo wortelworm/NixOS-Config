@@ -19,9 +19,13 @@
 
   home.shellAliases = {
     nd = "nix develop";
-    zn = "f(){ z \"$@\"; nd; }; f";
-    v = "f(){ z \"$@\"; vi; }; f";
+    zd = "f(){ z \"$@\"; nd; }; f";
+
+    v  = "f(){ z \"$@\"; vi; }; f";
+    vd = "f(){ z \"$@\"; nd --command nvim +\"Telescope find_files\"; }; f";
     vi = "nvim +\"Telescope find_files\"";
+
+    cc = "cargo clippy";
   };
 
   programs = {
@@ -37,7 +41,7 @@
       extraConfig.init.defaultBranch = "main";
     };
     
-    # maybe replace it with neovim one day
+    # has been mostly replaced by nvim
     vscode = {
       enable = true;
       # package = pkgs.vscodium;
