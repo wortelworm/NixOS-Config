@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   # Bootloader.
@@ -25,17 +25,17 @@
     };
   };
 
-  # Display eyecandy while computer is starting
+  # Display eye candy while computer is starting
   boot = {
     plymouth = {
       enable = true;
-      # theme = "infinite_seal";
-      # themePackages = with pkgs; [
-      #   # By default we would install all themes
-      #   (adi1090x-plymouth-themes.override {
-      #     selected_themes = [ "infinite_seal" ];
-      #   })
-      # ];
+      theme = "infinite_seal";
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "infinite_seal" ];
+        })
+      ];
     };
 
     # Enable "Silent Boot"
