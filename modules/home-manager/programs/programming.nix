@@ -26,6 +26,10 @@
     vi = "nvim +\"Telescope find_files\"";
 
     cc = "cargo clippy";
+    ct = "cargo test";
+    cr = "cargo run";
+    
+    gs = "git status";
   };
 
   programs = {

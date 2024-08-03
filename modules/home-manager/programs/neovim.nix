@@ -98,7 +98,11 @@
             installRustc = false;
             settings = {
               check.command = "clippy";
-              # inlayHints.bindingModeHints.enable = true;
+
+              # I never use them and they take up a lot of space on the menu
+              completion.postfix.enable = false;
+
+              inlayHints.chainingHints.enable = false;
             };
           };
         };
@@ -172,6 +176,7 @@
         })
         {
           # copy, cut, paste
+          # TODO: why does pasting work but not copying in visual mode???
           "<CS-c>" = "\\\"+y";
           "<CS-x>" = "\\\"+c";
           "<CS-v>" = "\\\"+p";
