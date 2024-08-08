@@ -21,6 +21,8 @@
     # funs
     neofetch
     cmatrix
+    cbonsai
+    cava
   ];
 
   # font, used automaticly by kitty
@@ -30,6 +32,9 @@
 
   # For virtual machines
   virtualisation.vmware.host.enable = true;
+
+  # Could be cool to use in like 2028
+  # programs.ladybird.enable = true;
 
   # it has to be installed system wide...
   programs.steam = lib.mkIf config.wortel.games {
