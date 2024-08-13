@@ -7,9 +7,9 @@
   ];
 
   options.wortel = {
+    # cosmic = lib.mkEnableOption "Installs the cosmic desktop environment";
     fingerprint = lib.mkEnableOption "Enables fingerprint reader";
     games = lib.mkEnableOption "Installs game launchers";
-    newerPlasma = lib.mkEnableOption "Switches from plasma 5 to plasma 6";
     nvidia = lib.mkEnableOption "Enables nvidia GPU drivers etc FOR WORTELWORM5 ONLY";
   };
 

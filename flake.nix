@@ -18,6 +18,12 @@
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    # see modules/nixos/desktop.nix
+    # nixos-cosmic = {
+    #   url = "github:lilyinstarlight/nixos-cosmic";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # see modules/home-manager/plasma-home.nix
     # plasma-manager = {
@@ -28,27 +34,31 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations = {
-      
-      nixos-testing = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/nixos-testing/configuration.nix
+    nixosConfigurations = builtins.listToAttrs (
+      builtins.map (hostname: {
+        name = hostname;
+        value = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
+          modules = [
+            # note: the order might matter
+            # {
+            #   nix.settings = {
+            #     substituters = [ "https://cosmic.cachix.org/" ];
+            #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+            #   };
+            # }
+            # inputs.nixos-cosmic.nixosModules.default
 
-          inputs.home-manager.nixosModules.default
-        ];
-      };
+            inputs.home-manager.nixosModules.default
+            inputs.grub2-themes.nixosModules.default
 
-      wortelworm5 = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          inputs.home-manager.nixosModules.default
-          inputs.grub2-themes.nixosModules.default
-
-          ./hosts/wortelworm5/configuration.nix
-        ];
-      };
-      
-    };
+            ./hosts/${hostname}/configuration.nix
+          ];
+        };
+      }) [
+        "wortelworm5"
+        "nixos-testing"
+      ]
+    );
   };
 }
