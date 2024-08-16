@@ -17,6 +17,7 @@
     gparted ntfs3g
     dust
     btop
+    bat
 
     # funs
     neofetch

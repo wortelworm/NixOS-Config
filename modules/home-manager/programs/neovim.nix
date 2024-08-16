@@ -6,7 +6,7 @@
   ];
 
   home.packages = [
-    # used by telescope find_files
+    # used by telescope find_files and file_browser
     pkgs.fd
   ];
 
@@ -47,9 +47,14 @@
       neoscroll.enable = true;
       gitsigns.enable = true;
       hop.enable = true;
+
+      # Does not exist yet?
+      # guess-indent.enable = true;
+
       # would be cool to see the background as a toggle,
       # but I would need to configure kitty to work with that
       # transparent.enable = true;
+
       treesitter = {
         enable = true;
         indent = true;
@@ -71,17 +76,25 @@
           ui-select.enable = true;
           media-files.enable = true;
           fzf-native.enable = true;
-          # file-browser = {
-          #   enable = true;
-          #   settings.hijack_netrw = true;
-          # };
+          file-browser = {
+            enable = true;
+            settings.hijack_netrw = true;
+          };
         };
       };
 
       competitest = {
         enable = true;
       };
-
+      
+      # dap = {
+      #   enable = true;
+      #
+      #   extensions.dap-ui = {
+      #     enable = true;
+      #
+      #   };
+      # };
 
       lsp = {
         enable = true;
@@ -152,12 +165,13 @@
           "<leader>g" = "<cmd>Telescope git_status<CR>";
           "<leader>d" = "<cmd>Telescope lsp_definitions<CR>";
           "<leader>R" = "<cmd>Telescope lsp_references<CR>";
+          "<leader>e" = "<cmd>Telescope file_browser<CR>";
 
           "<leader>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
           "<leader>D" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
           "<leader>h" = "<cmd>lua vim.lsp.buf.hover()<CR>";
           "<leader>r" = "<cmd>lua vim.lsp.buf.rename()<CR>";
-          "<leader>e" = "<cmd>lua vim.diagnostic.open_float()<CR>";
+          "<leader>o" = "<cmd>lua vim.diagnostic.open_float()<CR>";
 
           # resize windows with arrows
           "<C-Up>"    = "<cmd>resize -2<CR>";
