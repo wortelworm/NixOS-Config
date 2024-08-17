@@ -74,7 +74,6 @@
         extensions = {
           # better selection ui, used for code actions
           ui-select.enable = true;
-          media-files.enable = true;
           fzf-native.enable = true;
           file-browser = {
             enable = true;
@@ -144,10 +143,10 @@
     globals.mapleader = " ";
 
     keymaps = let
-      normal =
+      normalVisual =
         lib.mapAttrsToList
         (key: action: {
-          mode = "n";
+          mode = [ "n" "v" ];
           inherit action key;
         })
         {
@@ -199,6 +198,6 @@
           "<C-s>" = "<cmd>w<CR>";
         };
       in
-        normal ++ vni;
+        normalVisual ++ vni;
   };
 }

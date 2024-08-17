@@ -35,7 +35,9 @@
   programs = {
     bash = {
       enable = true;
-      initExtra = "eval \"$(zoxide init bash)\"";
+      initExtra = ''
+        eval "$(zoxide init bash)"
+      '';
     };
 
     git = {
@@ -43,6 +45,30 @@
       userName = "wortelworm";
       userEmail = "wortelworm@gmail.com";
       extraConfig.init.defaultBranch = "main";
+    };
+
+    alacritty = {
+      enable = true;
+      settings = {
+        import = [
+            "${pkgs.alacritty-theme}/xterm.toml"
+        ];
+        cursor = {
+          style = {
+            shape = "Beam";
+            blinking = "On";
+          };
+          vi_mode_style = {
+            shape = "Block";
+            blinking = "Off";
+          };
+          blink_interval = 500;
+          thickness = 0.175;
+        };
+        window = {
+          opacity = 0.6;
+        };
+      };
     };
     
     # has been mostly replaced by nvim

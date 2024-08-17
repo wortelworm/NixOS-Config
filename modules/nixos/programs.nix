@@ -7,7 +7,7 @@
     libreoffice-qt # qt version because I'm using kde
     keepassxc
     bottles
-    kitty
+    alacritty
 
     # utils
     vim

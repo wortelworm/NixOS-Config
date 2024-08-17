@@ -11,6 +11,7 @@
   #   effects: cube and wobbly windows
   #   application launcher
   #   caps+esc swapped
+  #   delay and rate for repeated keys
 
   programs.plasma = {
     enable = (abort "Do not use plasma-home yet!");
