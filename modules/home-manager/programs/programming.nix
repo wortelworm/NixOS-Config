@@ -32,6 +32,8 @@
     gs = "git status";
 
     amc = "alacritty msg config";
+
+    f = "fastfetch";
   };
 
   programs = {

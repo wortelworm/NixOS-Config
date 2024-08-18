@@ -20,7 +20,7 @@
     bat
 
     # funs
-    neofetch
+    fastfetch
     cmatrix
     cbonsai
     cava
