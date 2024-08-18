@@ -30,6 +30,8 @@
     cr = "cargo run";
     
     gs = "git status";
+
+    amc = "alacritty msg config";
   };
 
   programs = {
@@ -65,9 +67,29 @@
           blink_interval = 500;
           thickness = 0.175;
         };
+        font.normal.family = "Hack";
         window = {
           opacity = 0.6;
+          startup_mode = "Fullscreen";
+          position = { x = 100; y = 100; };
         };
+        keyboard.bindings = [
+          {
+            key = "F11";
+            action = "ToggleFullscreen";
+          }
+          {
+            key = "Escape";
+            mode = "~AppCursor | ~AppKeypad | ~Vi";
+            action = "ToggleViMode";
+          }
+          {
+            key = "Backspace";
+            mods = "Control";
+            # this is ^W
+            chars = "\\u0017";
+          }
+        ];
       };
     };
     

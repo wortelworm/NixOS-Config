@@ -21,7 +21,10 @@
     
     colorschemes.onedark = {
         enable = true;
-        settings.style = "deep";
+        settings = {
+          style = "deep";
+          transparent = true;
+        };
     };
     
     # keyboard shortcuts below
