@@ -42,6 +42,10 @@
       tabstop = 4;
     };
 
+    # TODO Should be removed when upgrading from 24.05,
+    # see plugins.lsp.inlayHints
+    package = (import inputs.nixos-unstable { inherit (pkgs) system; }).neovim-unwrapped;
+
     plugins = {
       lualine.enable = true;
       comment.enable = true;
@@ -100,7 +104,16 @@
 
       lsp = {
         enable = true;
-        inlayHints = true;
+        # inlayHints = true;
+        # TODO enable once upgrading from 24.05
+        onAttach = ''
+          -- LSP Inlay Hints {{{
+          if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+          end
+          -- }}}
+        '';
+
         servers = {
           tsserver.enable = true;
           clangd.enable = true;

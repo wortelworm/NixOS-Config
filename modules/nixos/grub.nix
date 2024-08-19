@@ -1,6 +1,11 @@
-{ pkgs, ... }:
+{ inputs, ... }:
 
 {
+  imports = [
+    inputs.grub2-themes.nixosModules.default
+  ];
+
+
   # Bootloader.
   boot.loader = {
     timeout = 5;

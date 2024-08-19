@@ -8,6 +8,7 @@
   networking.hostName = "wortelworm5";
 
   wortel = {
+    cosmic = true;
     fingerprint = true;
     nvidia = true;
     games = true;

@@ -2,28 +2,29 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos.url = "github:nixos/nixpkgs/nixos-24.05";
+
+    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixos";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim/nixos-24.05";
+      inputs.nixpkgs.follows = "nixos";
     };
 
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixos";
     };
     
-    # see modules/nixos/desktop.nix
-    # nixos-cosmic = {
-    #   url = "github:lilyinstarlight/nixos-cosmic";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixos";
+    };
 
     # see modules/home-manager/plasma-home.nix
     # plasma-manager = {
@@ -33,24 +34,23 @@
     # };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations = builtins.listToAttrs (
+  outputs = { self, nixos, ... }@inputs: {
+    nixosConfigurations =
+    builtins.listToAttrs (
       builtins.map (hostname: {
         name = hostname;
-        value = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+        value = nixos.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+          };
           modules = [
             # note: the order might matter
-            # {
-            #   nix.settings = {
-            #     substituters = [ "https://cosmic.cachix.org/" ];
-            #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-            #   };
-            # }
-            # inputs.nixos-cosmic.nixosModules.default
-
-            inputs.home-manager.nixosModules.default
-            inputs.grub2-themes.nixosModules.default
+            {
+              nix.settings = {
+                substituters = [ "https://cosmic.cachix.org/" ];
+                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+              };
+            }
 
             ./hosts/${hostname}/configuration.nix
           ];

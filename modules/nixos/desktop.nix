@@ -1,6 +1,10 @@
-{ ... }:
+{ config, inputs, lib, ... }:
 
 {
+  imports = [
+    inputs.nixos-cosmic.nixosModules.default
+  ];
+
   services = {
     xserver.enable = true;
 
@@ -14,8 +18,8 @@
 
     # Seems like the cache is not working properly yet
     # And my laptop is unable to build it :(
-    # desktopManager.cosmic = lib.mkIf config.wortel.cosmic {
-    #     enable = true;
-    # };
+    desktopManager.cosmic = lib.mkIf config.wortel.cosmic {
+        enable = true;
+    };
   };
 }
