@@ -19,6 +19,9 @@
   # environment variables
   home.sessionVariables = {
     EDITOR = "vim";
+    BROWSER = "firefox";
+    TERMINAL = "alacritty";
+    
     FLAKE = "path:/home/wortelworm/.dotfiles";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
