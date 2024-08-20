@@ -71,6 +71,7 @@
         };
         font.normal.family = "Hack";
         window = {
+          blur = true;
           opacity = 0.6;
           startup_mode = "Fullscreen";
           position = { x = 100; y = 100; };

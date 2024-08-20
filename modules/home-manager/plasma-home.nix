@@ -12,6 +12,7 @@
   #   application launcher
   #   caps+esc swapped
   #   delay and rate for repeated keys
+  #   blur strength
 
   programs.plasma = {
     enable = (abort "Do not use plasma-home yet!");
