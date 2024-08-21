@@ -49,6 +49,15 @@
     # see plugins.lsp.inlayHints
     package = (import inputs.nixos-unstable { inherit (pkgs) system; }).neovim-unwrapped;
 
+    # Automaticly open and close dap-ui
+    extraConfigLuaPost = ''
+      local dap, dapui = require("dap"), require("dapui")
+      dap.listeners.before.attach.dapui_config = dapui.open
+      dap.listeners.before.launch.dapui_config = dapui.open
+      dap.listeners.before.event_terminated.dapui_config = dapui.close
+      dap.listeners.before.event_exited.dapui_config = dapui.close
+    '';
+
     plugins = {
       lualine.enable = true;
       comment.enable = true;
@@ -98,7 +107,19 @@
       dap = {
         enable = true;
 
-        extensions.dap-ui.enable = true;
+        extensions.dap-ui ={
+          enable = true;
+          
+          # TODO: layout
+        };
+
+        signs = {
+          dapBreakpoint.text = " ";
+          dapBreakpointCondition.text = " ";
+          dapBreakpointRejected.text = " ";
+          dapLogPoint.text = " ";
+          dapStopped.text = " ";
+        };
 
         adapters.servers = {
           # Used for c++ and rust
@@ -111,16 +132,23 @@
           };
         };
 
-        configurations = {
-          # For supported names see :h dap-configuration
+        configurations = let
+          # For all supported subsitutions see :h dap-configuration
+          workspace = "\${workspaceFolder}";
+          sourceNoExt = "\${fileDirname}/\${fileBasenameNoExtension}";
+          # source = "\${fileDirname}/\${file}";
+        in {
           cpp = [
             {
               name = "Debug cpp file";
               type = "codelldb";
               request = "launch";
-              program = "\${fileDirname}/\${fileBasenameNoExtension}";
-              cwd = "\${workspaceFolder}";
+              program = sourceNoExt;
+              cwd = workspace;
               expressions = "native";
+              # The -g flag compiles with debug info
+              # This is not working, maybe use https://github.com/Shatur/neovim-tasks
+              # preRunCommands = "g++ -g -o ${sourceNoExt} ${source}";
             }
           ];
         };
@@ -128,6 +156,7 @@
         
       # TODO this could be cool as a toggle
       # lsp-lines.enable = true;
+
       lsp = {
         enable = true;
         # TODO enable once upgrading from 24.05
@@ -200,31 +229,34 @@
           # hop!
           "f" = "<cmd>HopWord<CR>";
 
-          # telescope & lsp stuff
-          "<leader>" = "<NOP>";
-          "t" = "<NOP>";
+          # Setup for custom keybinds
+          ";" = "<NOP>";
+          "<space>" = "<NOP>";
+        
+          # Telescope
+          "<space>f" = "<cmd>Telescope find_files<CR>";
+          "<space>b" = "<cmd>Telescope buffers<CR>";
+          "<space>c" = "<cmd>Telescope git_bcommits<CR>";
+          "<space>g" = "<cmd>Telescope git_status<CR>";
+          "<space>d" = "<cmd>Telescope lsp_definitions<CR>";
+          "<space>R" = "<cmd>Telescope lsp_references<CR>";
+          "<space>e" = "<cmd>Telescope file_browser<CR>";
+          
+          # Lsp
+          "<space>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+          "<space>D" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
+          "<space>h" = "<cmd>lua vim.lsp.buf.hover()<CR>";
+          "<space>r" = "<cmd>lua vim.lsp.buf.rename()<CR>";
+          "<space>o" = "<cmd>lua vim.diagnostic.open_float()<CR>";
 
-          "tf" = "<cmd>Telescope find_files<CR>";
-          "tb" = "<cmd>Telescope buffers<CR>";
-          "tc" = "<cmd>Telescope git_bcommits<CR>";
-          "tg" = "<cmd>Telescope git_status<CR>";
-          "td" = "<cmd>Telescope lsp_definitions<CR>";
-          "tR" = "<cmd>Telescope lsp_references<CR>";
-          "te" = "<cmd>Telescope file_browser<CR>";
-
-          "<leader>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
-          "<leader>D" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
-          "<leader>h" = "<cmd>lua vim.lsp.buf.hover()<CR>";
-          "<leader>r" = "<cmd>lua vim.lsp.buf.rename()<CR>";
-          "<leader>o" = "<cmd>lua vim.diagnostic.open_float()<CR>";
-
-          # debugger
+          # Debugger
           "<F5>" = "<cmd>lua require('dap').continue()<CR>";
+          "<F8>" = "<cmd>lua require('dap').terminate()<CR>";
           "<F10>" = "<cmd>lua require('dap').step_over()<CR>";
           "<F11>" = "<cmd>lua require('dap').step_into()<CR>";
           "<F12>" = "<cmd>lua require('dap').step_out()<CR>";
-          "<leader>b" = "<cmd>lua require('dap').toggle_breakpoint()<CR>";
-          "<leader>B" = "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>";
+          ";d" = "<cmd>lua require('dap').toggle_breakpoint()<CR>";
+          ";c" = "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>";
 
           # resize windows with arrows
           "<C-Up>"    = "<cmd>resize -2<CR>";
