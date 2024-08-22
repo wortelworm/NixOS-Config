@@ -109,8 +109,27 @@
 
         extensions.dap-ui ={
           enable = true;
-          
-          # TODO: layout
+
+          layouts = [
+            {
+              elements = [
+                { id = "breakpoints"; size = 0.25; }
+                { id = "stacks"; size = 0.25; }
+                { id = "watches"; size = 0.25; }
+                { id = "scopes"; size = 0.25; }
+              ];
+              position = "left";
+              size = 40;
+            }
+            {
+              elements = [
+                { id = "repl"; size = 0.7; }
+                { id = "console"; size = 0.3; }
+              ];
+              position = "bottom";
+              size = 10;
+            }
+          ];
         };
 
         signs = {
@@ -135,25 +154,30 @@
         configurations = let
           # For all supported subsitutions see :h dap-configuration
           workspace = "\${workspaceFolder}";
-          sourceNoExt = "\${fileDirname}/\${fileBasenameNoExtension}";
-          # source = "\${fileDirname}/\${file}";
         in {
           cpp = [
             {
               name = "Debug cpp file";
               type = "codelldb";
               request = "launch";
-              program = sourceNoExt;
               cwd = workspace;
               expressions = "native";
-              # The -g flag compiles with debug info
-              # This is not working, maybe use https://github.com/Shatur/neovim-tasks
-              # preRunCommands = "g++ -g -o ${sourceNoExt} ${source}";
+              program = { __raw = ''
+                function()
+                  local fileName = vim.fn.expand("%:p");
+                  local exeName = fileName .. ".exe";
+                  -- The -g flag compiles with debug info
+                  vim.system({"g++", "-g", "-o", exeName, fileName}):wait();
+                  return exeName;
+                end
+              ''; };
             }
           ];
         };
       };
-        
+
+
+      
       # TODO this could be cool as a toggle
       # lsp-lines.enable = true;
 
