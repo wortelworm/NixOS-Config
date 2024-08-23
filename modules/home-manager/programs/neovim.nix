@@ -102,6 +102,22 @@
 
       competitest = {
         enable = true;
+        settings = {
+          template_file.cpp = "${./cp-template.cpp}";
+          evaluate_template_modifiers = true;
+          date_format = "%Y-%m-%d %H:%M:%S";
+
+          testcases_use_single_file = true;
+          testcases_single_file_format = "./tests/$(FNOEXT).testcases";
+
+          compile_command.cpp = {
+            exec = "g++";
+            args = [ "-Wall" "$(FNAME)" "-o" "./bin/$(FNOEXT)" ];
+          };
+          run_command.cpp = {
+            exec = "./bin/$(FNOEXT)";
+          };
+        };
       };
       
       dap = {
@@ -164,11 +180,15 @@
               expressions = "native";
               program = { __raw = ''
                 function()
-                  local fileName = vim.fn.expand("%:p");
-                  local exeName = fileName .. ".exe";
+                  local sourceFile = vim.fn.expand("%");
+                  local resFolder = vim.fn.expand("%:h") .. "/bin/"
+                  local exeFile = resFolder .. vim.fn.expand("%:t:r") .. ".dap";
+
                   -- The -g flag compiles with debug info
-                  vim.system({"g++", "-g", "-o", exeName, fileName}):wait();
-                  return exeName;
+                  vim.system({"mkdir", resFolder}):wait();
+                  vim.system({"g++", "-g", sourceFile, "-o", exeFile}):wait();
+
+                  return exeFile;
                 end
               ''; };
             }
@@ -281,6 +301,13 @@
           "<F12>" = "<cmd>lua require('dap').step_out()<CR>";
           ";d" = "<cmd>lua require('dap').toggle_breakpoint()<CR>";
           ";c" = "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>";
+
+          # Competitest
+          ";r" = "<cmd>CompetiTest receive problem<CR>";
+          ";t" = "<cmd>CompetiTest run<CR>";
+          ";a" = "<cmd>CompetiTest add_testcase<CR>";
+          ";e" = "<cmd>CompetiTest edit_testcase<CR>";
+          ";l" = "<cmd>CompetiTest delete_testcase<CR>";
 
           # resize windows with arrows
           "<C-Up>"    = "<cmd>resize -2<CR>";
