@@ -9,7 +9,9 @@
 using namespace std;
 
 int main() {
+    // freopen("./", "r", stdin);
+
     cout << "Hello world!";
 
-	return 0;
+    return 0;
 }
