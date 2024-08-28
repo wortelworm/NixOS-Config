@@ -43,6 +43,7 @@
           };
         };
       };
+
       cmp = {
         enable = true;
         settings.sources = [
@@ -59,7 +60,6 @@
           "<C-d>" = "cmp.mapping.scroll_docs(4)";
         };
       };
-
 
     };
   };

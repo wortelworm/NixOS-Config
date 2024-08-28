@@ -25,11 +25,9 @@
 
     withRuby = false;
     
-    colorschemes.nightfox = {
+    colorschemes.onedark = {
       enable = true;
-      settings.options = {
-        transparent = true;
-      };
+      settings.style = "darker";
     };
     
     clipboard = {
@@ -86,8 +84,6 @@
         };
       };
 
-     
     };
-
   };
 }
