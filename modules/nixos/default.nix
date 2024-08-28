@@ -1,4 +1,5 @@
 { ... }:
+
 {
   imports = [
     ./desktop.nix
@@ -7,5 +8,6 @@
     ./nvidia.nix
     ./programs.nix
     ./services.nix
+    ./virtualization.nix
   ];
 }

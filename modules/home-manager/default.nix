@@ -9,7 +9,15 @@
   users.users.wortelworm = {
     isNormalUser = true;
     description = "Wortel Worm";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      # Allows me to use docker without sudo
+      # Docker is being run in rootless mode, so it should be fine
+      "docker"
+
+      # idk what these do
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   home-manager = {

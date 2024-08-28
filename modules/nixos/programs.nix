@@ -31,9 +31,6 @@
     (nerdfonts.override { fonts = [ "Hack" ]; })
   ];
 
-  # For virtual machines
-  virtualisation.vmware.host.enable = true;
-
   # Could be cool to use in like 2028
   # programs.ladybird.enable = true;
 
