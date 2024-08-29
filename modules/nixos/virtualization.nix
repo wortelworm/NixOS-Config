@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   # See also: https://wiki.nixos.org/wiki/Virt-manager
@@ -6,7 +6,7 @@
   programs.virt-manager.enable = true;
   virtualisation.libvirtd = {
     enable = true;
-    qemu.vhostUserPackages = [ pkgs.virtiofsd ];
+    # qemu.vhostUserPackages = [ pkgs.virtiofsd ];
   };
 
 
