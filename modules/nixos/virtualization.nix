@@ -1,19 +1,23 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  virtualisation = {
-    # Should try to do qemu with gpu passthrough for windows one day
+  # See also: https://wiki.nixos.org/wiki/Virt-manager
+  # Try to make windows vm
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.vhostUserPackages = [ pkgs.virtiofsd ];
+  };
 
 
-    # Want to set up pi-hole with this
-    docker = {
+  # Used to test pihole
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
       enable = true;
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
-
-      # Daemon settings?
+      setSocketVariable = true;
     };
+
+    # Daemon settings?
   };
 }
