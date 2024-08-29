@@ -6,6 +6,8 @@
   programs.virt-manager.enable = true;
   virtualisation.libvirtd = {
     enable = true;
+    onBoot = "ignore";
+    qemu.runAsRoot = false;
     # qemu.vhostUserPackages = [ pkgs.virtiofsd ];
   };
 
