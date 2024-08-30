@@ -40,9 +40,6 @@
     after = [ "network.target" ];
     wantedBy = [ "default.target" ];
     description = "Wortel dns port redirection";
-    serviceConfig = {
-        Type = "simple";
-        ExecStart = ''iptables -t nat -A OUTPUT -d 127.0.0.1 -p udp --dport 53 -j REDIRECT --to-ports 5353'';
-    };
+    script = ''iptables -t nat -A OUTPUT -d 127.0.0.1 -p udp --dport 53 -j REDIRECT --to-ports 5353'';
   };
 }
