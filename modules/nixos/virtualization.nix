@@ -35,7 +35,7 @@
   };
   
   # Redirect local dns port to point at pi-hole
-  systemd.user.services.wortel-dns-redirect = {
+  systemd.services.wortel-dns-redirect = {
     enable = true;
     after = [ "network.target" ];
     wantedBy = [ "default.target" ];
