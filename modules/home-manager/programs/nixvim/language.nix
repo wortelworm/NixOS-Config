@@ -1,14 +1,25 @@
 { ... }:
 {
   programs.nixvim = {
+    # Some langauges have indentation of 2 spaces by default
+      # autocmd FileType typescript setlocal shiftwidth=2
+      # events file-patern command
+    # to view current filetype: lua vim.fn.input(vim.bo.filetype)
+    autoCmd = builtins.map (name: {
+      event = "FileType";
+      pattern = name;
+      command = "setlocal shiftwidth=2";
+    })
+    [ "nix" "haskell" ];
+
+
     plugins = {
       treesitter = {
         enable = true;
         indent = true;
       };
 
-      # TODO this could be handy as a toggle
-      # lsp-lines.enable = true;
+      lsp-lines.enable = true;
 
       lsp = {
         enable = true;
@@ -26,6 +37,7 @@
           tsserver.enable = true;
           clangd.enable = true;
           nil-ls.enable = true;
+          hls.enable = true;
 
           rust-analyzer = {
             enable = true;

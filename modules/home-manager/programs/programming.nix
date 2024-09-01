@@ -6,6 +6,9 @@
   ];
 
   home.packages = with pkgs; [
+    chromium
+    sqlite
+
     nil
     rustup
     nodejs_20
@@ -13,8 +16,9 @@
     mono
     gcc gdb clang-tools
 
-    chromium
-    sqlite
+
+    # haskell
+    ghc hlint
   ];
 
   home.shellAliases = {
@@ -28,6 +32,8 @@
     cc = "cargo clippy";
     ct = "cargo test";
     cr = "cargo run";
+
+    h = "f() { rm -f ./Main.hi; echo == hlint ========================================= && hlint Main.hs && echo && echo == ghc =========================================== && ghc -Wall --make Main.hs && echo && echo == ./Main ======================================== && ./Main '$@' && echo ; }; f";
     
     gs = "git status";
 
@@ -39,7 +45,11 @@
   programs = {
     bash = {
       enable = true;
+      # I could also add git branch to PS1 using PROMPT_COMMAND and set window title
+      # Default: PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\]'
       initExtra = ''
+        PS1='\n\e[0m\e[1;32m[\u:\w]\n\e[0;32m$\e[0m '
+
         eval "$(zoxide init bash)"
       '';
     };
