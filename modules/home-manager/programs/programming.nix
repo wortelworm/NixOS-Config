@@ -18,10 +18,12 @@
 
 
     # haskell
-    ghc hlint
+    ghc cabal-install hlint
   ];
 
   home.shellAliases = {
+    e  = "exit";
+
     nd = "nix develop";
     zd = "f(){ z \"$@\"; nd; }; f";
 
@@ -89,6 +91,7 @@
         keyboard.bindings = [
           {
             key = "F11";
+            mods = "Control";
             action = "ToggleFullscreen";
           }
           {

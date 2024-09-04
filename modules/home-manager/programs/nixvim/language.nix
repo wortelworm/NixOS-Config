@@ -51,6 +51,9 @@
               completion.postfix.enable = false;
 
               inlayHints.chainingHints.enable = false;
+
+              # Idk why this shows up
+              diagnostics.disabled = [ "unresolved-proc-macro" ];
             };
           };
         };

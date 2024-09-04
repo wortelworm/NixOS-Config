@@ -106,6 +106,22 @@
               ''; };
             }
           ];
+          rust = [
+            {
+              # Did not get this working: https://github.com/vadimcn/codelldb/blob/master/MANUAL.md#cargo-support
+              # So instead this follows: https://alighorab.github.io/neovim/nvim-dap/
+              name = "Debug cargo project";
+              type = "codelldb";
+              request = "launch";
+              expressions = "native";
+              program = { __raw = ''
+                function ()
+                  os.execute("cargo build &> /dev/null")
+                  return "target/debug/''${workspaceFolderBasename}"
+                end
+              ''; };
+            }
+          ];
         };
       };
 
