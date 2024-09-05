@@ -25,17 +25,17 @@
     e  = "exit";
 
     nd = "nix develop";
-    zd = "f(){ z \"$@\"; nd; }; f";
+    zd = "__f(){ z \"$@\"; nd; }; __f";
 
-    v  = "f(){ z \"$@\"; vi; }; f";
-    vd = "f(){ z \"$@\"; nd --command nvim +\"Telescope find_files\"; }; f";
+    v  = "__f(){ z \"$@\"; vi; }; __f";
+    vd = "__f(){ z \"$@\"; nd --command nvim +\"Telescope find_files\"; }; __f";
     vi = "nvim +\"Telescope find_files\"";
 
     cc = "cargo clippy";
     ct = "cargo test";
     cr = "cargo run";
 
-    h = "f() { rm -f ./Main.hi; echo == hlint ========================================= && hlint Main.hs && echo && echo == ghc =========================================== && ghc -Wall --make Main.hs && echo && echo == ./Main ======================================== && ./Main '$@' && echo ; }; f";
+    h = "__f() { rm -f ./Main.hi; echo == hlint ========================================= && hlint Main.hs && echo && echo == ghc =========================================== && ghc -Wall --make Main.hs && echo && echo == ./Main ======================================== && ./Main '$@' && echo ; }; __f";
     
     gs = "git status";
 
@@ -85,7 +85,7 @@
         window = {
           blur = true;
           opacity = 0.6;
-          startup_mode = "Fullscreen";
+          startup_mode = "Maximized";
           position = { x = 100; y = 100; };
         };
         keyboard.bindings = [
