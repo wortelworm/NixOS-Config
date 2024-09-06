@@ -26,6 +26,12 @@
       inputs.nixpkgs.follows = "nixos";
     };
 
+    kmonad = {
+      # url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
+      url = "github:kmonad/kmonad?submodules=1&dir=nix";
+      inputs.nixpkgs.follows = "nixos";
+    };
+
     # see modules/home-manager/plasma-home.nix
     # plasma-manager = {
     #   url = "github:pjones/plasma-manager";

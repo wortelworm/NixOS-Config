@@ -14,9 +14,11 @@
       # Docker is being run in rootless mode, so it should be fine
       "docker"
 
+      # Used for kmonad
+      "input" "uinput"
+
       # idk what these do
-      "networkmanager"
-      "wheel"
+      "networkmanager" "wheel"
     ];
   };
 
