@@ -7,19 +7,19 @@
 
   services.kmonad = {
     enable = true;
-    keyboards = {
-      externalWirelessLogitec = {
-        device = "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
-        defcfg = {
-          enable = true;
-          fallthrough = true;
-          compose.key = null;
-          allowCommands = false;
-        };
-        config = builtins.readFile ./kmonad.kbd;
+    keyboards = builtins.mapAttrs (name: value: {
+      # Settings are the same for all keyboards
+      device = value;
+      defcfg = {
+        enable = true;
+        fallthrough = true;
+        compose.key = null;
+        allowCommands = false;
       };
-
-      # TODO: builtin platform keyboard
+      config = builtins.readFile ./kmonad.kbd;
+    }) {
+      externalWirelessLogitec =  "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
+      builtinPlatform = "/dev/input/by-path/platform-AMDI0010:03-event-kbd";
     };
   };
 }
