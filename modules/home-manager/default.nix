@@ -17,6 +17,9 @@
       # Used for kmonad
       "input" "uinput"
 
+      # Used by virt-manager
+      "libvirtd"
+
       # idk what these do
       "networkmanager" "wheel"
     ];

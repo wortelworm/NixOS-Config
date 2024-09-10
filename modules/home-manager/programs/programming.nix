@@ -49,6 +49,7 @@
       enable = true;
       # I could also add git branch to PS1 using PROMPT_COMMAND and set window title
       # Default: PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\]'
+      # It does not work properly everywhere just yet...
       initExtra = ''
         PS1='\n\e[0m\e[1;32m[\u:\w]\n\e[0;32m$\e[0m '
 
