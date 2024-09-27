@@ -49,9 +49,12 @@
       enable = true;
       # I could also add git branch to PS1 using PROMPT_COMMAND and set window title
       # Default: PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\]'
-      # It does not work properly everywhere just yet...
+      # Add \[ and \] around the colour codes to enable bash to calculate the line length correctly. TODO
+      # PS1: \n
+      #      \[ \e[0m \e[1;32m \] [\u:\w] \n
+      #      \[ \e[0;32m \]  $  \[ \e[0m \]
       initExtra = ''
-        PS1='\n\e[0m\e[1;32m[\u:\w]\n\e[0;32m$\e[0m '
+        PS1='\n\[\e[0m\e[1;32m\][\u:\w]\n\[\e[0;32m\]$ \[\e[0m\]'
 
         eval "$(zoxide init bash)"
       '';
@@ -96,8 +99,8 @@
             action = "ToggleFullscreen";
           }
           {
-            key = "Escape";
-            mode = "~AppCursor | ~AppKeypad | ~Vi";
+            key = "v";
+            mods = "Control | Alt";
             action = "ToggleViMode";
           }
           {
