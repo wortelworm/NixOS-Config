@@ -55,12 +55,16 @@
       comment.enable = true;
       nvim-autopairs.enable = true;
       diffview.enable = true;
-      neoscroll.enable = true;
       gitsigns.enable = true;
       hop.enable = true;
 
       # Does not exist yet?
       # guess-indent.enable = true;
+
+      neoscroll = {
+        enable = true;
+        settings.hide_cursor = false;
+      };
 
       toggleterm = {
         enable = true;
