@@ -11,7 +11,7 @@
 
     # utils
     vim
-    zoxide
+    zoxide # Database location: ~/.local/share/zoxide/
     tree
     nh
     gparted ntfs3g

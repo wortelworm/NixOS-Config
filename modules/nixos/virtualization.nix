@@ -1,7 +1,16 @@
 { pkgs, ... }:
 
 {
+  # For future me, if you messed up everything like just now:
+  #     Boot from an usb stick (press escape during pre-boot)
+  #     Use `sudo mount /dev/nvme0n1p6 /mnt` and then `sudo nixos-enter`
+  #     check that /var/lib/nixos/gid-map and /var/lib/nixos/uid-map are valid json
+  #     If home-manager fails, check journalctl for error messages
+  #     A bunch of files may be corrupted
+  #     
+
   # Notes on virt-manager:
+  #   If getting a triple fault: remove '/dev/' from the pool thing from /var/lib/libvirt/storage/
   #   see also: https://wiki.nixos.org/wiki/Virt-manager
   #   Enable more graphs: preferences -> polling
   #   Fix screen: view -> scale display -> autoresize vm to window
