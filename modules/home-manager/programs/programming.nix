@@ -64,7 +64,10 @@
       enable = true;
       userName = "wortelworm";
       userEmail = "wortelworm@gmail.com";
-      extraConfig.init.defaultBranch = "main";
+      extraConfig = {
+        init.defaultBranch = "main";
+        pull.rebase = "false";
+      };
     };
 
     alacritty = {

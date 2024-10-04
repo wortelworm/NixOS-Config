@@ -32,23 +32,23 @@
   };
 
 
-  # Used to test pihole
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-
-    # Daemon settings?
-  };
-  
-  # Redirect local dns port to point at pi-hole
-  systemd.services.wortel-dns-redirect = {
-    enable = true;
-    after = [ "network.target" ];
-    wantedBy = [ "default.target" ];
-    description = "Wortel dns port redirection";
-    script = ''/run/current-system/sw/bin/iptables -t nat -A OUTPUT -d 127.0.0.1 -p udp --dport 53 -j REDIRECT --to-ports 5353'';
-  };
+  # # Used to test pihole
+  # virtualisation.docker = {
+  #   enable = true;
+  #   rootless = {
+  #     enable = true;
+  #     setSocketVariable = true;
+  #   };
+  #
+  #   # Daemon settings?
+  # };
+  #
+  # # Redirect local dns port to point at pi-hole
+  # systemd.services.wortel-dns-redirect = {
+  #   enable = true;
+  #   after = [ "network.target" ];
+  #   wantedBy = [ "default.target" ];
+  #   description = "Wortel dns port redirection";
+  #   script = ''/run/current-system/sw/bin/iptables -t nat -A OUTPUT -d 127.0.0.1 -p udp --dport 53 -j REDIRECT --to-ports 5353'';
+  # };
 }
