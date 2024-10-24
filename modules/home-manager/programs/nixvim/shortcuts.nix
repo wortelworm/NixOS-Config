@@ -36,6 +36,7 @@
           "<space>r" = "<cmd>lua vim.lsp.buf.rename()<CR>";
           "<space>o" = "<cmd>lua vim.diagnostic.open_float()<CR>";
           "<space>l" = "<cmd>lua require('lsp_lines').toggle()<CR>";
+          "<CS-i>" = "<cmd>lua vim.lsp.buf.format()<CR>";
 
           # Debugger
           "<F5>" = "<cmd>lua require('dap').continue()<CR>";

@@ -6,11 +6,11 @@
   home.packages = with pkgs; [
     chromium
     sqlite
-    
+
     # nix lsp and formatter
     nil
     alejandra
-  
+
     # other languages
     rustup
     nodejs_20

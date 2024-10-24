@@ -1,4 +1,11 @@
-{...}: {
+{
+  inputs,
+  wortel,
+  ...
+}: {
+  # suggested by nixd documentation
+  nix.nixPath = ["nixpkgs=${inputs.nixos}"];
+
   programs.nixvim = {
     # Some langauges have indentation of 2 spaces by default
     # autocmd FileType typescript setlocal shiftwidth=2
@@ -35,8 +42,16 @@
         servers = {
           tsserver.enable = true;
           clangd.enable = true;
-          nil-ls.enable = true;
           hls.enable = true;
+
+          nixd = {
+            enable = true;
+            settings = {
+              nixpkgs.expr = "import <nixpkgs> { }";
+              formatting.command = ["alejandra"];
+              options.nixos.expr = "(builtins.getFlake \"${wortel.flakePath}\").nixosConfigurations.${wortel.hostname}.options";
+            };
+          };
 
           rust-analyzer = {
             enable = true;

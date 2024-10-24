@@ -2,9 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {...}: {
-  networking.hostName = "wortelworm5";
-
   wortel = {
+    hostname = "wortelworm5";
+
     cosmic = true;
     fingerprint = true;
     nvidia = true;

@@ -1,4 +1,4 @@
-{...}: {
+{wortel, ...}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "wortelworm";
@@ -19,7 +19,7 @@
     BROWSER = "firefox";
     TERMINAL = "alacritty";
 
-    FLAKE = "path:/home/wortelworm/.dotfiles";
+    FLAKE = "path:${wortel.flakePath}";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 
