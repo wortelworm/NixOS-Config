@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "wortelworm";
@@ -13,7 +11,6 @@
 
   # manage plain files
   home.file = {
-
   };
 
   # environment variables
@@ -21,7 +18,7 @@
     EDITOR = "vim";
     BROWSER = "firefox";
     TERMINAL = "alacritty";
-    
+
     FLAKE = "path:/home/wortelworm/.dotfiles";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };

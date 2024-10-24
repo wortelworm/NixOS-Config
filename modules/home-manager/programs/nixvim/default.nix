@@ -1,6 +1,8 @@
-{ inputs, pkgs, ... }:
-
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     ./language.nix
@@ -18,18 +20,18 @@
   # todo: git, zooming in and out,
   # better indentation,
   # latex, competative programming, ...
-  
+
   # These are some misc thingies
   programs.nixvim = {
     enable = true;
 
     withRuby = false;
-    
+
     colorschemes.onedark = {
       enable = true;
       settings.style = "darker";
     };
-    
+
     clipboard = {
       providers.wl-copy.enable = true;
     };
@@ -46,7 +48,7 @@
 
     # TODO Should be removed when upgrading from 24.05,
     # see ./language.nix, plugins.lsp.inlayHints
-    package = (import inputs.nixos-unstable { inherit (pkgs) system; }).neovim-unwrapped;
+    package = (import inputs.nixos-unstable {inherit (pkgs) system;}).neovim-unwrapped;
 
     # TODO enable performance stuff once upgrading 24.05
 
@@ -87,7 +89,6 @@
           };
         };
       };
-
     };
   };
 }

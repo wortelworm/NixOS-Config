@@ -1,10 +1,7 @@
-{ inputs, ... }:
-
-{
+{inputs, ...}: {
   imports = [
     inputs.grub2-themes.nixosModules.default
   ];
-
 
   # Bootloader.
   boot.loader = {

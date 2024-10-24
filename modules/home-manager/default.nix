@@ -1,6 +1,9 @@
-{ config, inputs, pkgs-unstable, ... }:
-
 {
+  config,
+  inputs,
+  pkgs-unstable,
+  ...
+}: {
   imports = [
     inputs.home-manager.nixosModules.default
   ];
@@ -15,13 +18,15 @@
       "docker"
 
       # Used for kmonad
-      "input" "uinput"
+      "input"
+      "uinput"
 
       # Used by virt-manager
       "libvirtd"
 
       # idk what these do
-      "networkmanager" "wheel"
+      "networkmanager"
+      "wheel"
     ];
   };
 
@@ -29,7 +34,11 @@
     # also pass inputs to home-manager modules?
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit (config) wortel; inherit inputs; inherit pkgs-unstable; };
+    extraSpecialArgs = {
+      inherit (config) wortel;
+      inherit inputs;
+      inherit pkgs-unstable;
+    };
     users = {
       "wortelworm" = import ./home.nix;
     };

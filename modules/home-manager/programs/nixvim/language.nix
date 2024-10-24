@@ -1,17 +1,16 @@
-{ ... }:
-{
+{...}: {
   programs.nixvim = {
     # Some langauges have indentation of 2 spaces by default
-      # autocmd FileType typescript setlocal shiftwidth=2
-      # events file-patern command
+    # autocmd FileType typescript setlocal shiftwidth=2
+    # events file-patern command
     # to view current filetype: lua vim.fn.input(vim.bo.filetype)
-    autoCmd = builtins.map (name: {
-      event = "FileType";
-      pattern = name;
-      command = "setlocal shiftwidth=2";
-    })
-    [ "nix" "haskell" ];
-
+    autoCmd =
+      builtins.map (name: {
+        event = "FileType";
+        pattern = name;
+        command = "setlocal shiftwidth=2";
+      })
+      ["nix" "haskell"];
 
     plugins = {
       treesitter = {
@@ -53,7 +52,7 @@
               inlayHints.chainingHints.enable = false;
 
               # Idk why this shows up
-              diagnostics.disabled = [ "unresolved-proc-macro" ];
+              diagnostics.disabled = ["unresolved-proc-macro"];
             };
           };
         };
@@ -75,7 +74,6 @@
           "<C-d>" = "cmp.mapping.scroll_docs(4)";
         };
       };
-
     };
   };
 }

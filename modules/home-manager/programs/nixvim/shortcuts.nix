@@ -1,15 +1,12 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   programs.nixvim = {
     globals.mapleader = " ";
 
-    keymaps = 
-    let
+    keymaps = let
       normalVisual =
         lib.mapAttrsToList
         (key: action: {
-          mode = [ "n" "v" ];
+          mode = ["n" "v"];
           inherit action key;
         })
         {
@@ -22,7 +19,7 @@
           # Setup for custom keybinds
           ";" = "<NOP>";
           "<space>" = "<NOP>";
-        
+
           # Telescope
           "<space>f" = "<cmd>Telescope find_files<CR>";
           "<space>b" = "<cmd>Telescope buffers<CR>";
@@ -31,7 +28,7 @@
           "<space>e" = "<cmd>Telescope file_browser<CR>";
           "<space>c" = "<cmd>Telescope git_bcommits<CR>";
           "<space>g" = "<cmd>Telescope git_status<CR>";
-          
+
           # Lsp
           "<space>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
           "<space>D" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
@@ -58,11 +55,10 @@
           ";c" = "<cmd>CompetiTest convert auto<CR>";
 
           # resize windows with arrows
-          "<C-Up>"    = "<cmd>resize -2<CR>";
-          "<C-Down>"  = "<cmd>resize +2<CR>";
-          "<C-Left>"  = "<cmd>vertical resize +2<CR>";
+          "<C-Up>" = "<cmd>resize -2<CR>";
+          "<C-Down>" = "<cmd>resize +2<CR>";
+          "<C-Left>" = "<cmd>vertical resize +2<CR>";
           "<C-Right>" = "<cmd>vertical resize -2<CR>";
-
 
           # TODO: make shortcuts for diffview
           # or use telescope to view git stuff
@@ -70,7 +66,7 @@
       vni =
         lib.mapAttrsToList
         (key: action: {
-          mode = [ "n" "v" "i" ];
+          mode = ["n" "v" "i"];
           inherit action key;
         })
         {
@@ -83,7 +79,7 @@
           # saving
           "<C-s>" = "<cmd>w<CR>";
         };
-      in
-        normalVisual ++ vni;
+    in
+      normalVisual ++ vni;
   };
 }

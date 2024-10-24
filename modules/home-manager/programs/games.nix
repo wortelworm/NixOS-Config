@@ -1,6 +1,9 @@
-{ lib, pkgs, wortel, ... }:
-
 {
+  lib,
+  pkgs,
+  wortel,
+  ...
+}: {
   home.packages = lib.mkIf wortel.games (with pkgs; [
     prismlauncher
     airshipper # plasma 6 breaks the ui...

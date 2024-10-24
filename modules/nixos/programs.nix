@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # will be only non-home manager packages
   environment.systemPackages = with pkgs; [
     firefox
@@ -14,10 +17,13 @@
     zoxide # Database location: ~/.local/share/zoxide/
     tree
     nh
-    gparted ntfs3g
     dust
     btop
     bat
+
+    # disk partitions
+    gparted
+    ntfs3g
 
     # funs
     fastfetch
@@ -28,7 +34,7 @@
 
   # font, used automaticly by kitty
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hack" ]; })
+    (nerdfonts.override {fonts = ["Hack"];})
   ];
 
   # Could be cool to use in like 2028

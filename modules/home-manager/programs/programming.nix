@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   imports = [
     ./nixvim
   ];
@@ -8,26 +6,32 @@
   home.packages = with pkgs; [
     chromium
     sqlite
-
+    
+    # nix lsp and formatter
     nil
+    alejandra
+  
+    # other languages
     rustup
     nodejs_20
-
     mono
-    gcc gdb clang-tools
-
+    gcc
+    gdb
+    clang-tools
 
     # haskell
-    ghc cabal-install hlint
+    ghc
+    cabal-install
+    hlint
   ];
 
   home.shellAliases = {
-    e  = "exit";
+    e = "exit";
 
     nd = "nix develop";
     zd = "__f(){ z \"$@\"; nd; }; __f";
 
-    v  = "__f(){ z \"$@\"; vi; }; __f";
+    v = "__f(){ z \"$@\"; vi; }; __f";
     vd = "__f(){ z \"$@\"; nd --command nvim +\"Telescope find_files\"; }; __f";
     vi = "nvim +\"Telescope find_files\"";
 
@@ -36,7 +40,7 @@
     cr = "cargo run";
 
     h = "__f() { rm -f ./Main.hi; echo == hlint ========================================= && hlint Main.hs && echo && echo == ghc =========================================== && ghc -Wall --make Main.hs && echo && echo == ./Main ======================================== && ./Main '$@' && echo ; }; __f";
-    
+
     gs = "git status";
 
     amc = "alacritty msg config";
@@ -74,7 +78,7 @@
       enable = true;
       settings = {
         import = [
-            "${pkgs.alacritty-theme}/xterm.toml"
+          "${pkgs.alacritty-theme}/xterm.toml"
         ];
         cursor = {
           style = {
@@ -93,7 +97,10 @@
           blur = true;
           opacity = 0.6;
           startup_mode = "Maximized";
-          position = { x = 100; y = 100; };
+          position = {
+            x = 100;
+            y = 100;
+          };
         };
         keyboard.bindings = [
           {
@@ -110,7 +117,7 @@
         ];
       };
     };
-    
+
     # has been mostly replaced by nvim
     vscode = {
       enable = true;

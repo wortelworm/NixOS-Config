@@ -20,7 +20,7 @@
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixos";
     };
-    
+
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixos";
@@ -40,41 +40,44 @@
     # };
   };
 
-  outputs = { self, nixos, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      hosts = [
-        "wortelworm5"
-        "nixos-testing"
-      ];
+  outputs = {
+    self,
+    nixos,
+    ...
+  } @ inputs: let
+    system = "x86_64-linux";
+    hosts = [
+      "wortelworm5"
+      "nixos-testing"
+    ];
 
-      additionalCache = {
-        nix.settings = {
-          substituters = [ "https://cosmic.cachix.org/" ];
-          trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-        };
+    additionalCache = {
+      nix.settings = {
+        substituters = ["https://cosmic.cachix.org/"];
+        trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
       };
-
-      pkgs-unstable = import inputs.nixos-unstable { inherit system; };
-
-      hostToSystem = (hostname: {
-          name = hostname;
-          value = nixos.lib.nixosSystem {
-            inherit system;
-            specialArgs = {
-              inherit inputs pkgs-unstable;
-            };
-            modules = [
-              # note: the order might matter
-              additionalCache
-
-              ./hosts/${hostname}/configuration.nix
-            ];
-          };
-      });
-    in {
-      nixosConfigurations = builtins.listToAttrs (
-        builtins.map hostToSystem hosts
-      );
     };
+
+    pkgs-unstable = import inputs.nixos-unstable {inherit system;};
+
+    hostToSystem = hostname: {
+      name = hostname;
+      value = nixos.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs pkgs-unstable;
+        };
+        modules = [
+          # note: the order might matter
+          additionalCache
+
+          ./hosts/${hostname}/configuration.nix
+        ];
+      };
+    };
+  in {
+    nixosConfigurations = builtins.listToAttrs (
+      builtins.map hostToSystem hosts
+    );
+  };
 }

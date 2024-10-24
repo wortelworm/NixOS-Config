@@ -1,6 +1,9 @@
-{ config, inputs, lib, ... }:
-
 {
+  config,
+  inputs,
+  lib,
+  ...
+}: {
   imports = [
     inputs.nixos-cosmic.nixosModules.default
   ];
@@ -28,15 +31,15 @@
     #   Alt+tab is global opposed to per workspace
     #   Blurry/unsharp ui (background, discord)
     #   KDE apps use light mode
-    #   
-    #   
+    #
+    #
     #   Apps slow to start?
     #   Fullscreen transparancy black screen
     #   Spamming SUPER+ up arrow does weird -> fixed
     #   Rows and columns for workspaces (like KDE) -> Maybe instead use stacking?
     #   Using a set amount of workspaces instead of automaticly adding and removing -> Maybe this is fine? would be nice to insert in the start
     desktopManager.cosmic = lib.mkIf config.wortel.cosmic {
-        enable = true;
+      enable = true;
     };
   };
 }

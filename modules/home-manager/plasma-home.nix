@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   # see https://github.com/pjones/plasma-manager
   # it does not work great, something is wrong with the size of the bars
   # if this project has matured a bit more I might try again.
@@ -15,7 +13,7 @@
   #   blur strength
 
   programs.plasma = {
-    enable = (abort "Do not use plasma-home yet!");
+    enable = abort "Do not use plasma-home yet!";
 
     # anything not configured here will be set to its defaults
     overrideConfig = true;
@@ -25,7 +23,7 @@
       lookAndFeel = "org.kde.breezedark.desktop";
       wallpaper = ../../resources/wallpaper.png;
     };
-    
+
     kwin.virtualDesktops = {
       rows = 3;
       number = 9;
