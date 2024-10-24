@@ -74,11 +74,11 @@
           inherit action key;
         })
         {
-          # copy, cut, paste
-          # TODO: why does pasting work but not copying in visual mode???
-          "<CS-c>" = "\\\"+y";
-          "<CS-x>" = "\\\"+c";
-          "<CS-v>" = "\\\"+p";
+          # paste
+          # TODO make copying work...
+          "<CS-c>" = "\"+y";
+          "<CS-x>" = "\"+c";
+          "<CS-v>" = "\"+p";
 
           # saving
           "<C-s>" = "<cmd>w<CR>";

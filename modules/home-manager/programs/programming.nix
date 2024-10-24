@@ -102,11 +102,6 @@
             action = "ToggleFullscreen";
           }
           {
-            key = "v";
-            mods = "Control | Alt";
-            action = "ToggleViMode";
-          }
-          {
             key = "Backspace";
             mods = "Control";
             # this is ^W

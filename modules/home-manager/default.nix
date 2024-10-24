@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, inputs, pkgs-unstable, ... }:
 
 {
   imports = [
@@ -29,8 +29,7 @@
     # also pass inputs to home-manager modules?
     useGlobalPkgs = true;
     useUserPackages = true;
-    # sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
-    extraSpecialArgs = { inherit (config) wortel; inherit inputs; };
+    extraSpecialArgs = { inherit (config) wortel; inherit inputs; inherit pkgs-unstable; };
     users = {
       "wortelworm" = import ./home.nix;
     };
