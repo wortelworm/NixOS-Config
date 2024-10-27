@@ -6,14 +6,6 @@
   # see: https://nixos.wiki/wiki/Nvidia
   # THIS IS MADE SPECIFICLY FOR WORTELWORM5
   config = lib.mkIf config.wortel.nvidia {
-    # has been renamed to hardware.graphics?
-    # TODO
-    # hardware.opengl = {
-    #   enable = true;
-    #   driSupport = true;
-    #   driSupport32Bit = true;
-    # };
-
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
 
@@ -51,7 +43,7 @@
       # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
       # Only available from driver 515.43.04+
       # Currently alpha-quality/buggy, so false is currently the recommended setting.
-      open = false;
+      open = true;
 
       # Enable the Nvidia settings menu,
       # accessible via `nvidia-settings`.
