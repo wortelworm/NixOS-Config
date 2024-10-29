@@ -9,6 +9,7 @@
     fingerprint = true;
     nvidia = true;
     games = true;
+    latex = true;
   };
 
   imports = [

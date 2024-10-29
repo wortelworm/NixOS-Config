@@ -5,10 +5,6 @@
     thunderbird
     vlc
 
-    # Used for latex
-    # texliveMedium
-    texliveFull
-
     # to prevent the initial grey screen on login,
     # I dont know how, and now it is not even starting
     # should really look into an alternative discord client

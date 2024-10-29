@@ -5,10 +5,11 @@
   ];
 
   options.wortel = {
-    cosmic = lib.mkEnableOption "Installs the cosmic desktop environment";
-    fingerprint = lib.mkEnableOption "Enables fingerprint reader";
-    games = lib.mkEnableOption "Installs game launchers";
-    nvidia = lib.mkEnableOption "Enables nvidia GPU drivers etc FOR WORTELWORM5 ONLY";
+    cosmic = lib.mkEnableOption "Cosmic desktop environment";
+    fingerprint = lib.mkEnableOption "Fingerprint reader drivers";
+    games = lib.mkEnableOption "Game launchers";
+    nvidia = lib.mkEnableOption "Nvidia GPU drivers etc FOR WORTELWORM5 ONLY";
+    latex = lib.mkEnableOption "TeX Live and VimTeX";
 
     hostname = lib.mkOption {
       type = lib.types.str;

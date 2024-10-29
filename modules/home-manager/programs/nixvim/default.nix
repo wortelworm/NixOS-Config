@@ -1,15 +1,19 @@
 {
   inputs,
+  lib,
   pkgs,
   pkgs-unstable,
+  wortel,
   ...
 }: {
-  imports = [
-    inputs.nixvim.homeManagerModules.nixvim
-    ./language.nix
-    ./running.nix
-    ./shortcuts.nix
-  ];
+  imports =
+    [
+      inputs.nixvim.homeManagerModules.nixvim
+      ./language.nix
+      ./running.nix
+      ./shortcuts.nix
+    ]
+    ++ lib.optionals wortel.latex [./latex.nix];
 
   home.packages = [
     # used by telescope find_files and file_browser

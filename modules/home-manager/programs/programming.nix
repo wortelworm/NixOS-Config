@@ -26,8 +26,6 @@
   ];
 
   home.shellAliases = {
-    e = "exit";
-
     nd = "nix develop";
     zd = "__f(){ z \"$@\"; nd; }; __f";
 
