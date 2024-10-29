@@ -28,12 +28,12 @@
     # Issues/missing stuff found:
     #   home.sessionVariables is not working -> only on autostarted alacritty
     #   Cannot switch CAPSLOCK and ESC -> using kmonad now which does work
-    #   Alt+tab is global opposed to per workspace
-    #   Blurry/unsharp ui (background, discord)
+    #   Alt+tab is global opposed to per workspace -> use stacking windows instead?
+    #   Blurry/unsharp ui (background, discord) -> scaling of xorg stuff, fixed using settings
     #   KDE apps use light mode
     #
     #
-    #   Apps slow to start?
+    #   Apps slow to start? -> its fine now?
     #   Fullscreen transparancy black screen
     #   Spamming SUPER+ up arrow does weird -> fixed
     #   Rows and columns for workspaces (like KDE) -> Maybe instead use stacking?
