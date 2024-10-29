@@ -1,10 +1,6 @@
-{
-  inputs,
-  wortel,
-  ...
-}: {
-  # suggested by nixd documentation
-  nix.nixPath = ["nixpkgs=${inputs.nixos}"];
+{wortel, ...}: {
+  # suggested by nixd documentation, but not yet in home-manager 24.05
+  # nix.nixPath = ["nixpkgs=${inputs.nixos}"];
 
   programs.nixvim = {
     # Some langauges have indentation of 2 spaces by default

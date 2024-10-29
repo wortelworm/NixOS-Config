@@ -16,7 +16,7 @@ typedef pair<int, int> ii;
 typedef vector<ii> vii;
 
 #define all(x) (x).begin(), (x).end()
-#define loop(X, N) for(int X 0; X < (N); X++)
+#define loop(x, n) for(int x = 0; x < (n); x++)
 
 int main() {
     // freopen("./", "r", stdin);

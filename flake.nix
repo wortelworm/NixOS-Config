@@ -7,7 +7,7 @@
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixos";
     };
 
@@ -40,11 +40,7 @@
     # };
   };
 
-  outputs = {
-    self,
-    nixos,
-    ...
-  } @ inputs: let
+  outputs = {nixos, ...} @ inputs: let
     system = "x86_64-linux";
     hosts = [
       "wortelworm5"

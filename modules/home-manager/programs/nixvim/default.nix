@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  pkgs-unstable,
   ...
 }: {
   imports = [
@@ -48,7 +49,7 @@
 
     # TODO Should be removed when upgrading from 24.05,
     # see ./language.nix, plugins.lsp.inlayHints
-    package = (import inputs.nixos-unstable {inherit (pkgs) system;}).neovim-unwrapped;
+    package = pkgs-unstable.neovim-unwrapped;
 
     # TODO enable performance stuff once upgrading 24.05
 
