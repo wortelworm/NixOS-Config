@@ -4,6 +4,7 @@
     onedrivegui
     thunderbird
     vlc
+    flup
 
     # to prevent the initial grey screen on login,
     # I dont know how, and now it is not even starting
