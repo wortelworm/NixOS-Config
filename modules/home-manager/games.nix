@@ -10,8 +10,6 @@
 
     jdk21_headless # minecraft server uses this
 
-    # lutris
-    # wineWowPackages.waylandFull
-    # wineWowPackages.full
+    # Steam is added under nixos, because it needs extra stuff
   ]);
 }

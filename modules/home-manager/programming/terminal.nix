@@ -1,30 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    ./nixvim
-  ];
-
-  home.packages = with pkgs; [
-    chromium
-    sqlite
-
-    # nix lsp and formatter
-    nil
-    alejandra
-
-    # other languages
-    rustup
-    nodejs_20
-    mono
-    gcc
-    gdb
-    clang-tools
-
-    # haskell
-    ghc
-    cabal-install
-    hlint
-  ];
-
   home.shellAliases = {
     nd = "nix develop";
     zd = "__f(){ z \"$@\"; nd; }; __f";
@@ -36,8 +10,6 @@
     cc = "cargo clippy";
     ct = "cargo test";
     cr = "cargo run";
-
-    h = "__f() { rm -f ./Main.hi; echo == hlint ========================================= && hlint Main.hs && echo && echo == ghc =========================================== && ghc -Wall --make Main.hs && echo && echo == ./Main ======================================== && ./Main '$@' && echo ; }; __f";
 
     gs = "git status";
 
@@ -60,16 +32,6 @@
 
         eval "$(zoxide init bash)"
       '';
-    };
-
-    git = {
-      enable = true;
-      userName = "wortelworm";
-      userEmail = "wortelworm@gmail.com";
-      extraConfig = {
-        init.defaultBranch = "main";
-        pull.rebase = "false";
-      };
     };
 
     alacritty = {
@@ -113,37 +75,6 @@
             chars = "\\u0017";
           }
         ];
-      };
-    };
-
-    # has been mostly replaced by nvim
-    vscode = {
-      enable = true;
-      # package = pkgs.vscodium;
-      extensions = with pkgs.vscode-extensions; [
-        vscodevim.vim
-        jnoortheen.nix-ide
-        rust-lang.rust-analyzer
-        ms-vscode.cpptools
-        ms-dotnettools.csharp
-      ];
-      userSettings = {
-        "explorer.confirmDragAndDrop" = false;
-        "explorer.confirmDelete" = false;
-
-        "git.autofetch" = true;
-        "git.confirmSync" = false;
-        "git.enableSmartCommit" = true;
-        "git.allowForcePush" = true;
-
-        "vim.smartRelativeLine" = true;
-        "vim.useCtrlKeys" = false;
-        "vim.handleKeys" = {
-          "<C-[>" = true;
-        };
-
-        "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nil";
       };
     };
   };

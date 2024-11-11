@@ -5,7 +5,9 @@
   home.homeDirectory = "/home/wortelworm";
 
   imports = [
-    ./programs
+    ./programming
+    ./games.nix
+    ./misc.nix
     # ./plasma-home.nix
   ];
 

@@ -1,9 +1,9 @@
 {wortel, ...}: {
-  # suggested by nixd documentation, but not yet in home-manager 24.05
+  # TODO suggested by nixd documentation, but not yet in home-manager 24.05
   # nix.nixPath = ["nixpkgs=${inputs.nixos}"];
 
   programs.nixvim = {
-    # Some langauges have indentation of 2 spaces by default
+    # Some languages have indentation of 2 spaces by default
     # autocmd FileType typescript setlocal shiftwidth=2
     # events file-patern command
     # to view current filetype: lua vim.fn.input(vim.bo.filetype)
@@ -16,11 +16,17 @@
       ["nix" "haskell"];
 
     plugins = {
+      # Uses grammar files to show syntax highlighting
       treesitter = {
         enable = true;
         indent = true;
       };
 
+      # allows subsections to launch a different language server
+      # TODO add once upgrading from 24.05
+      # otter.enable = true;
+
+      # Display lsp hints on seperate line
       lsp-lines.enable = true;
 
       lsp = {
