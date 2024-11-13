@@ -1,4 +1,8 @@
-{wortel, ...}: {
+{
+  wortel,
+  pkgs,
+  ...
+}: {
   # TODO suggested by nixd documentation, but not yet in home-manager 24.05
   # nix.nixPath = ["nixpkgs=${inputs.nixos}"];
 
@@ -14,6 +18,27 @@
         command = "setlocal shiftwidth=2";
       })
       ["nix" "haskell"];
+
+    extraPlugins = [
+      {
+        # allow opening python jupyter notebooks
+        # Some alternatives are: Jupynium, jupyter_ascending, jupytext
+        plugin = pkgs.vimPlugins.vim-jukit;
+
+        # Keybindings kinda interfere with my lsp bindings,
+        # so only activate once a command is run or
+        # if an environment variable is set
+
+        # call vim.schedule(function() vim.cmd('Notebook') end)
+        optional = true;
+        config = ''
+          call nvim_create_user_command('Notebook', 'packadd vim-jukit', {})
+          if !empty($NVIM_EDITING_NOTEBOOK)
+            lua vim.schedule(function() vim.cmd('Notebook') end)
+          endif
+        '';
+      }
+    ];
 
     plugins = {
       # Uses grammar files to show syntax highlighting
@@ -44,6 +69,9 @@
         servers = {
           tsserver.enable = true;
           clangd.enable = true;
+          pylsp.enable = true;
+
+          # haskell
           hls.enable = true;
 
           nixd = {

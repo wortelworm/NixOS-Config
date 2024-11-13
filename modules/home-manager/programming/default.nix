@@ -38,6 +38,26 @@
       };
     };
 
+    # WIP
+    # lf = {
+    #   enable = true;
+    #
+    #   commands = {
+    #     # something with xdragon
+    #     editor-open = ''vi $f'';
+    #
+    #     # use ripdrag
+    #
+    #     mkdir = ''
+    #       ''${{
+    #         printf "Directory Name: "
+    #         read DIR
+    #         mkdir DIR
+    #       }}
+    #     '';
+    #   };
+    # };
+
     # Has been replaced by nvim
     vscode = {
       enable = true;
