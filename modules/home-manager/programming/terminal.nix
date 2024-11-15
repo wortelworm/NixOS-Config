@@ -21,20 +21,34 @@
   programs = {
     bash = {
       enable = true;
+
       # I could also add git branch to PS1 using PROMPT_COMMAND and set window title
       # Default: PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\]'
       # Add \[ and \] around the colour codes to enable bash to calculate the line length correctly.
       # PS1: \n
       #      \[ \e[0m \e[1;32m \] [\u:\w] \n
       #      \[ \e[0;32m \]  $  \[ \e[0m \]
-      initExtra = ''
-        PS1='\n\[\e[0m\e[1;32m\][\u:\w]\n\[\e[0;32m\]$ \[\e[0m\]'
+      initExtra =
+        # bash
+        ''
+          PS1='\n\[\e[0m\e[1;32m\][\u:\w]\n\[\e[0;32m\]$ \[\e[0m\]'
 
-        eval "$(zoxide init bash)"
-      '';
+          eval "$(zoxide init bash)"
+
+          # Run yazi and change working directory after quit
+          # TODO after upgrading home-manager this can be done using the bash-integration option
+          function y() {
+            local tmp="$(mktemp -t "yazi-cwd.XXXXXXX")" cwd
+            yazi "$@" --cwd-file="$tmp"
+            if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+                builtin cd -- "$cwd"
+            fi
+            rm -f -- "$tmp"
+          }
+        '';
     };
 
-    # I'm gonna try kitty again for the image support
+    # Using kitty as terminal for the image support
     kitty = {
       enable = true;
       settings = {
@@ -45,6 +59,7 @@
         # Appearance
         background_opacity = "0.6";
         background_blur = 5; # only works in kde I think
+        placement_strategy = "top-left";
       };
 
       # To test hwo things are named, run:
@@ -54,6 +69,8 @@
       };
     };
 
+    # Has been largely replaced by kitty, but
+    # here to stay as a backup if I mess up
     alacritty = {
       enable = true;
       settings = {

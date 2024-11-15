@@ -2,6 +2,7 @@
   imports = [
     ./nixvim
     ./terminal.nix
+    ./yazi.nix
   ];
 
   home.packages = with pkgs; [
@@ -38,26 +39,6 @@
       };
     };
 
-    # WIP
-    # lf = {
-    #   enable = true;
-    #
-    #   commands = {
-    #     # something with xdragon
-    #     editor-open = ''vi $f'';
-    #
-    #     # use ripdrag
-    #
-    #     mkdir = ''
-    #       ''${{
-    #         printf "Directory Name: "
-    #         read DIR
-    #         mkdir DIR
-    #       }}
-    #     '';
-    #   };
-    # };
-
     # Has been replaced by nvim
     vscode = {
       enable = true;
@@ -70,6 +51,7 @@
         ms-dotnettools.csharp
       ];
       userSettings = {
+        # TODO: check if the quotes are necessary
         "explorer.confirmDragAndDrop" = true;
         "explorer.confirmDelete" = false;
 
