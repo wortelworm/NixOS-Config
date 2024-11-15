@@ -30,6 +30,8 @@
     cmatrix
     cbonsai
     cava
+
+    # Note: nix-inspect is a tool that may prove useful
   ];
 
   # font, used automaticly by kitty

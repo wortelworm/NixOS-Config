@@ -23,7 +23,7 @@
       enable = true;
       # I could also add git branch to PS1 using PROMPT_COMMAND and set window title
       # Default: PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\]'
-      # Add \[ and \] around the colour codes to enable bash to calculate the line length correctly. TODO
+      # Add \[ and \] around the colour codes to enable bash to calculate the line length correctly.
       # PS1: \n
       #      \[ \e[0m \e[1;32m \] [\u:\w] \n
       #      \[ \e[0;32m \]  $  \[ \e[0m \]
@@ -32,6 +32,26 @@
 
         eval "$(zoxide init bash)"
       '';
+    };
+
+    # I'm gonna try kitty again for the image support
+    kitty = {
+      enable = true;
+      settings = {
+        # Disable unnessicary things
+        confirm_os_window_close = 0;
+        enable_audio_bell = false;
+
+        # Appearance
+        background_opacity = "0.6";
+        background_blur = 5; # only works in kde I think
+      };
+
+      # To test hwo things are named, run:
+      # kitten show-key -m kitty
+      keybindings = {
+        "ctrl+BACKSPACE" = "send_key ctrl+w";
+      };
     };
 
     alacritty = {
