@@ -20,6 +20,23 @@
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 
+  # Default programs
+  xdg.mimeApps = {
+    enable = true;
+
+    # Use 'xdg-mime query filetype [FILE]' to find out the name
+    defaultApplications = {
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+
+      "application/pdf" = "org.pwmt.zathura.desktop";
+      "image/png" = "org.kde.gwenview.desktop";
+      "image/jpeg" = "org.kde.gwenview.desktop";
+      "image/webp" = "org.kde.gwenview.desktop";
+    };
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 

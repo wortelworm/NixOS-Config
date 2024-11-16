@@ -4,6 +4,7 @@
     onedrivegui
     thunderbird
     vlc
+    zathura
     flup
 
     # to prevent the initial grey screen on login,

@@ -50,10 +50,20 @@
     # Theme is imported above
     theme.flavor.use = "onedark";
 
+    keymap.manager.prepend_keymap = [
+      {
+        on = "<C-n>";
+        run = ''shell '${pkgs.ripdrag}/bin/ripdrag "$@" -x 2>/dev/null &' --confirm'';
+      }
+    ];
+
     settings = {
       manager.sort_by = "natural";
 
-      preview.wrap = "yes";
+      preview = {
+        max_width = 1000;
+        max_height = 1000;
+      };
 
       # Make the git plugin work
       plugin.prepend_fetchers = [
