@@ -43,6 +43,9 @@
       # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
       # Only available from driver 515.43.04+
       # Currently alpha-quality/buggy, so false is currently the recommended setting.
+
+      # Sometimes had kernel panics, but now this is changed to true
+      # and it never happens again
       open = true;
 
       # Enable the Nvidia settings menu,

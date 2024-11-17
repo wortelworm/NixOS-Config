@@ -1,13 +1,15 @@
 {pkgs, ...}: {
   programs.nixvim = {
     # Automaticly open and close dap-ui
-    extraConfigLuaPost = ''
-      local dap, dapui = require("dap"), require("dapui")
-      dap.listeners.before.attach.dapui_config = dapui.open
-      dap.listeners.before.launch.dapui_config = dapui.open
-      dap.listeners.before.event_terminated.dapui_config = dapui.close
-      dap.listeners.before.event_exited.dapui_config = dapui.close
-    '';
+    extraConfigLuaPost =
+      # lua
+      ''
+        local dap, dapui = require("dap"), require("dapui")
+        dap.listeners.before.attach.dapui_config = dapui.open
+        dap.listeners.before.launch.dapui_config = dapui.open
+        dap.listeners.before.event_terminated.dapui_config = dapui.close
+        dap.listeners.before.event_exited.dapui_config = dapui.close
+      '';
 
     plugins = {
       competitest = {
@@ -107,19 +109,21 @@
               cwd = workspace;
               expressions = "native";
               program = {
-                __raw = ''
-                  function()
-                    local sourceFile = vim.fn.expand("%");
-                    local resFolder = vim.fn.expand("%:h") .. "/bin/"
-                    local exeFile = resFolder .. vim.fn.expand("%:t:r") .. ".dap";
+                __raw =
+                  # lua
+                  ''
+                    function()
+                      local sourceFile = vim.fn.expand("%");
+                      local resFolder = vim.fn.expand("%:h") .. "/bin/"
+                      local exeFile = resFolder .. vim.fn.expand("%:t:r") .. ".dap";
 
-                    -- The -g flag compiles with debug info
-                    vim.system({"mkdir", resFolder}):wait();
-                    vim.system({"g++", "-g", sourceFile, "-o", exeFile}):wait();
+                      -- The -g flag compiles with debug info
+                      vim.system({"mkdir", resFolder}):wait();
+                      vim.system({"g++", "-g", sourceFile, "-o", exeFile}):wait();
 
-                    return exeFile;
-                  end
-                '';
+                      return exeFile;
+                    end
+                  '';
               };
             }
           ];
@@ -132,12 +136,14 @@
               request = "launch";
               expressions = "native";
               program = {
-                __raw = ''
-                  function ()
-                    os.execute("cargo build &> /dev/null")
-                    return "target/debug/''${workspaceFolderBasename}"
-                  end
-                '';
+                __raw =
+                  # lua
+                  ''
+                    function ()
+                      os.execute("cargo build &> /dev/null")
+                      return "target/debug/''${workspaceFolderBasename}"
+                    end
+                  '';
               };
             }
           ];

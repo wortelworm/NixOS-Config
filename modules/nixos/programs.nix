@@ -4,7 +4,13 @@
   pkgs,
   ...
 }: {
-  # will be only non-home manager packages
+  # Notes on programs not added:
+  #     nvtop: monitor gpu's, but adds ~6 GB of dependencies
+  #     termscp: filezilla in the terminal
+  #     browsh: browser in terminal, may be a lifesaver in weird senario's
+
+
+  # will be only non-home manager programs in path
   environment.systemPackages = with pkgs; [
     firefox
     libreoffice-qt # qt version because I'm using kde
@@ -21,7 +27,6 @@
     btop
     bat
     lazygit
-    # Note: nvtop adds ~6 GB of dependencies
 
     # disk partitions
     gparted

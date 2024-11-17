@@ -6,9 +6,9 @@
 }: {
   home.packages = lib.mkIf wortel.games (with pkgs; [
     prismlauncher
-    airshipper # plasma 6 breaks the ui...
-
-    jdk21_headless # minecraft server uses this
+    # plasma 6 breaks the ui...
+    # Idk but cosmic does work
+    airshipper
 
     # Steam is added under nixos, because it needs extra stuff
   ]);
