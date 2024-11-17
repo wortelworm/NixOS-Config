@@ -20,12 +20,15 @@
     dust
     btop
     bat
+    lazygit
+    # Note: nvtop adds ~6 GB of dependencies
 
     # disk partitions
     gparted
     ntfs3g
 
     # funs
+    asciiquarium-transparent
     fastfetch
     cmatrix
     cbonsai

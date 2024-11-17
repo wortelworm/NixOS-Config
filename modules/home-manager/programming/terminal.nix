@@ -11,6 +11,7 @@
     ct = "cargo test";
     cr = "cargo run";
 
+    g = "lazygit";
     gs = "git status";
 
     amc = "alacritty msg config";
