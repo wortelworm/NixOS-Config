@@ -5,7 +5,9 @@
   wortel = {
     hostname = "wortelworm5";
 
-    cosmic = true;
+    # Currently cosmic is not present in the cachix
+    # TODO re-enable later
+    cosmic = false;
     fingerprint = true;
     nvidia = true;
     games = true;

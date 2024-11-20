@@ -2,7 +2,6 @@
   inputs,
   lib,
   pkgs,
-  pkgs-unstable,
   wortel,
   ...
 }: {
@@ -22,9 +21,7 @@
 
   # adds and configures neovim using
   # https://github.com/nix-community/nixvim
-  # todo: git, zooming in and out,
-  # better indentation,
-  # latex, competative programming, ...
+  # todo: better indentation,
 
   # These are some misc thingies
   programs.nixvim = {
@@ -51,22 +48,21 @@
       tabstop = 4;
     };
 
-    # TODO Should be removed when upgrading from 24.05,
-    # see ./language.nix, plugins.lsp.inlayHints
-    package = pkgs-unstable.neovim-unwrapped;
-
-    # TODO enable performance stuff once upgrading 24.05
+    performance = {
+      byteCompileLua.enable = true;
+      # Might want to try to figure this out one day
+      # Could make startup time faster
+      # combinePlugins.enable = true;
+    };
 
     plugins = {
+      web-devicons.enable = true;
       lualine.enable = true;
       comment.enable = true;
       nvim-autopairs.enable = true;
       diffview.enable = true;
       gitsigns.enable = true;
       hop.enable = true;
-
-      # Does not exist yet?
-      # guess-indent.enable = true;
 
       neoscroll = {
         enable = true;

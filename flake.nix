@@ -2,17 +2,19 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixos.url = "github:nixos/nixpkgs/nixos-24.11";
 
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixos";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.05";
+      # Change to the 24.11 once nixvim has a 24.11 branch
+      # url = "github:nix-community/nixvim/nixos-24.11";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixos";
     };
 
@@ -23,11 +25,12 @@
 
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixos";
+      # Do not use the nixpkgs the rest uses,
+      # to make sure that the programs are in cachix
+      # inputs.nixpkgs.follows = "nixos";
     };
 
     kmonad = {
-      # url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
       url = "github:kmonad/kmonad?submodules=1&dir=nix";
       inputs.nixpkgs.follows = "nixos";
     };

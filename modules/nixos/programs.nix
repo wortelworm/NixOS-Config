@@ -7,7 +7,9 @@
   # Notes on programs not added:
   #     nvtop: monitor gpu's, but adds ~6 GB of dependencies
   #     termscp: filezilla in the terminal
-  #     browsh: browser in terminal, may be a lifesaver in weird senario's
+  #     browsh: browser in terminal, may be a lifesaver in a weird senario
+  #     bottles: running windows programs
+  #         But does not work for microsoft visual studio and microsoft office
 
 
   # will be only non-home manager programs in path
@@ -15,18 +17,17 @@
     firefox
     libreoffice-qt # qt version because I'm using kde
     keepassxc
-    bottles
     alacritty
 
     # utils
     vim
-    zoxide # Database location: ~/.local/share/zoxide/
     tree
     nh
     dust
     btop
     bat
     lazygit
+    nix-inspect
 
     # disk partitions
     gparted
@@ -37,9 +38,8 @@
     fastfetch
     cmatrix
     cbonsai
-    cava
-
-    # Note: nix-inspect is a tool that may prove useful
+    # Renable once https://github.com/NixOS/nixpkgs/pull/355948 has been merged into 24.11
+    # cava
   ];
 
   # font, used automaticly by kitty

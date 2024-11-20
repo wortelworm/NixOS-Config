@@ -33,21 +33,12 @@
         # bash
         ''
           PS1='\n\[\e[0m\e[1;32m\][\u:\w]\n\[\e[0;32m\]$ \[\e[0m\]'
-
-          eval "$(zoxide init bash)"
-
-          # Run yazi and change working directory after quit
-          # TODO after upgrading home-manager this can be done using the bash-integration option
-          function y() {
-            local tmp="$(mktemp -t "yazi-cwd.XXXXXXX")" cwd
-            yazi "$@" --cwd-file="$tmp"
-            if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-                builtin cd -- "$cwd"
-            fi
-            rm -f -- "$tmp"
-          }
         '';
     };
+
+    # Database location: ~/.local/share/zoxide/
+    # Bash integration is enabled by default in home-manager
+    zoxide.enable = true;
 
     # Using kitty as terminal for the image support
     kitty = {

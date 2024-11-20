@@ -1,10 +1,11 @@
 {
   wortel,
   pkgs,
+  inputs,
   ...
 }: {
-  # TODO suggested by nixd documentation, but not yet in home-manager 24.05
-  # nix.nixPath = ["nixpkgs=${inputs.nixos}"];
+  # Suggested by nixd documentation
+  nix.nixPath = ["nixpkgs=${inputs.nixos}"];
 
   programs.nixvim = {
     # Some languages have indentation of 2 spaces by default
@@ -28,8 +29,6 @@
         # Keybindings kinda interfere with my lsp bindings,
         # so only activate once a command is run or
         # if an environment variable is set
-
-        # call vim.schedule(function() vim.cmd('Notebook') end)
         optional = true;
         config = ''
           call nvim_create_user_command('Notebook', 'packadd vim-jukit', {})
@@ -44,11 +43,11 @@
       # Uses grammar files to show syntax highlighting
       treesitter = {
         enable = true;
-        indent = true;
+        settings.indent.enable = true;
       };
 
       # allows subsections to launch a different language server
-      # TODO add once upgrading from 24.05
+      # handy to know if I ever need it
       # otter.enable = true;
 
       # Display lsp hints on seperate line
@@ -56,34 +55,29 @@
 
       lsp = {
         enable = true;
-        # TODO enable once upgrading from 24.05
-        # inlayHints = true;
-        onAttach = ''
-          -- LSP Inlay Hints {{{
-          if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-          end
-          -- }}}
-        '';
+        inlayHints = true;
 
         servers = {
-          tsserver.enable = true;
+          ts_ls.enable = true;
           clangd.enable = true;
           pylsp.enable = true;
 
           # haskell
-          hls.enable = true;
+          hls = {
+            enable = true;
+            installGhc = false;
+          };
 
           nixd = {
             enable = true;
             settings = {
-              nixpkgs.expr = "import <nixpkgs> { }";
+              nixpkgs.expr = "import <nixpkgs> {}";
               formatting.command = ["alejandra"];
               options.nixos.expr = "(builtins.getFlake \"${wortel.flakePath}\").nixosConfigurations.${wortel.hostname}.options";
             };
           };
 
-          rust-analyzer = {
+          rust_analyzer = {
             enable = true;
             # these are managed by rustup
             installCargo = false;

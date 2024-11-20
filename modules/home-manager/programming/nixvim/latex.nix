@@ -16,9 +16,9 @@ in {
       };
 
       # The ignore install does not appear to be working :(
+      # TODO
       # treesitter.ignoreInstall = ["latex"];
-
-      treesitter.disabledLanguages = ["latex"];
+      # treesitter.settings.highlight.disable = ["latex"];
     };
   };
 }
