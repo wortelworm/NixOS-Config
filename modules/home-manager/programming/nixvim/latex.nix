@@ -15,10 +15,7 @@ in {
         settings.view_method = "zathura";
       };
 
-      # The ignore install does not appear to be working :(
-      # TODO
-      # treesitter.ignoreInstall = ["latex"];
-      # treesitter.settings.highlight.disable = ["latex"];
+      # TODO: some kind of snippets plugin
     };
   };
 }

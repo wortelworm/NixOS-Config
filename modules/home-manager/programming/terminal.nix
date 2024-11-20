@@ -66,7 +66,7 @@
     alacritty = {
       enable = true;
       settings = {
-        import = [
+        general.import = [
           "${pkgs.alacritty-theme}/xterm.toml"
         ];
         cursor = {

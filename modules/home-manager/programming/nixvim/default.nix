@@ -21,7 +21,6 @@
 
   # adds and configures neovim using
   # https://github.com/nix-community/nixvim
-  # todo: better indentation,
 
   # These are some misc thingies
   programs.nixvim = {
@@ -50,9 +49,13 @@
 
     performance = {
       byteCompileLua.enable = true;
-      # Might want to try to figure this out one day
-      # Could make startup time faster
-      # combinePlugins.enable = true;
+      combinePlugins = {
+        enable = true;
+        standalonePlugins = [
+          # Collides with onedark
+          "lualine.nvim"
+        ];
+      };
     };
 
     plugins = {
