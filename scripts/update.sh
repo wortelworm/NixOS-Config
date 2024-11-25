@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-nix flake update path:$HOME/.dotfiles
+nix flake update --flake $FLAKE
 ./boot.sh "updates"
