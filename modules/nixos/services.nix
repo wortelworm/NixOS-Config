@@ -17,6 +17,8 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
+  # Note: the adress of printer at home is:
+  # http://192.168.178.25:80/WebServices/Device
   # Enable CUPS to print documents.
   services.printing.enable = true;
 

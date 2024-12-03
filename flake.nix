@@ -25,9 +25,7 @@
 
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
-      # Do not use the nixpkgs the rest uses,
-      # to make sure that the programs are in cachix
-      # inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixos";
     };
 
     kmonad = {

@@ -15,6 +15,7 @@
 
     # other languages
     rustup
+    elixir
     nodejs_20
     mono
     gcc

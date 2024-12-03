@@ -48,8 +48,8 @@
           ";s" = "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>";
 
           # Competitest
-          ";r" = "<cmd>CompetiTest receive problem<CR>";
-          ";t" = "<cmd>CompetiTest run<CR>";
+          ";p" = "<cmd>CompetiTest receive problem<CR>";
+          ";r" = "<cmd>CompetiTest run<CR>";
           ";a" = "<cmd>CompetiTest add_testcase<CR>";
           ";e" = "<cmd>CompetiTest edit_testcase<CR>";
           ";l" = "<cmd>CompetiTest delete_testcase<CR>";

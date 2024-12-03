@@ -12,7 +12,7 @@
     # should really look into an alternative discord client
     # something like abaddon maybe?
     discord
-    # todo: figure out how to make blender use nvidia drivers
+    # TODO: figure out how to make blender use nvidia drivers
     # blender
 
     # remote desktop
