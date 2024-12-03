@@ -43,7 +43,10 @@
       # Uses grammar files to show syntax highlighting
       treesitter = {
         enable = true;
-        settings.indent.enable = true;
+        settings = {
+          indent.enable = true;
+          highlight.enable = true;
+        };
       };
 
       # allows subsections to launch a different language server

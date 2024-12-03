@@ -97,16 +97,14 @@
           };
         };
 
-        configurations = let
-          # For all supported subsitutions see :h dap-configuration
-          workspace = "\${workspaceFolder}";
-        in {
+        # For all supported subsitutions see :h dap-configuration
+        configurations = {
           cpp = [
             {
               name = "Debug cpp file";
               type = "codelldb";
               request = "launch";
-              cwd = workspace;
+              cwd = "\${workspaceFolder}";
               expressions = "native";
               program = {
                 __raw =

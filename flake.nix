@@ -12,9 +12,7 @@
     };
 
     nixvim = {
-      # Change to the 24.11 once nixvim has a 24.11 branch
-      # url = "github:nix-community/nixvim/nixos-24.11";
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-24.11";
       inputs.nixpkgs.follows = "nixos";
     };
 

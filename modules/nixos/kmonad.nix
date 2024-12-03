@@ -12,8 +12,11 @@
         defcfg = {
           enable = true;
           fallthrough = true;
-          compose.key = null;
           allowCommands = false;
+
+          # Note that the actual composing is not handled by kmonad itself
+          # This just tells it that this is how this key is going to behave
+          compose.key = "ralt";
         };
         config = builtins.readFile ./kmonad.kbd;
       }) {
