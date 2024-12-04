@@ -30,12 +30,14 @@
         # so only activate once a command is run or
         # if an environment variable is set
         optional = true;
-        config = ''
-          call nvim_create_user_command('Notebook', 'packadd vim-jukit', {})
-          if !empty($NVIM_EDITING_NOTEBOOK)
-            lua vim.schedule(function() vim.cmd('Notebook') end)
-          endif
-        '';
+        config =
+          # lua
+          ''
+            call nvim_create_user_command('Notebook', 'packadd vim-jukit', {})
+            if !empty($NVIM_EDITING_NOTEBOOK)
+              lua vim.schedule(function() vim.cmd('Notebook') end)
+            endif
+          '';
       }
     ];
 
@@ -54,6 +56,7 @@
       # otter.enable = true;
 
       # Display lsp hints on seperate line
+      # TODO: toggle between normal and this ones?
       lsp-lines.enable = true;
 
       lsp = {

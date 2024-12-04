@@ -25,14 +25,14 @@
           "<space>b" = "<cmd>Telescope buffers<CR>";
           "<space>d" = "<cmd>Telescope lsp_definitions<CR>";
           "<space>R" = "<cmd>Telescope lsp_references<CR>";
-          "<space>e" = "<cmd>Telescope file_browser<CR>";
           "<space>c" = "<cmd>Telescope git_bcommits<CR>";
           "<space>g" = "<cmd>Telescope git_status<CR>";
+          "<space>e" = "<cmd>Yazi<CR>";
 
           # Lsp
+          # For hover, press 'K'
           "<space>a" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
           "<space>D" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
-          "<space>h" = "<cmd>lua vim.lsp.buf.hover()<CR>";
           "<space>r" = "<cmd>lua vim.lsp.buf.rename()<CR>";
           "<space>o" = "<cmd>lua vim.diagnostic.open_float()<CR>";
           "<space>l" = "<cmd>lua require('lsp_lines').toggle()<CR>";

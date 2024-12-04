@@ -38,8 +38,7 @@
     fastfetch
     cmatrix
     cbonsai
-    # Renable once https://github.com/NixOS/nixpkgs/pull/355948 has been merged into 24.11
-    # cava
+    cava
   ];
 
   # font, used automaticly by kitty

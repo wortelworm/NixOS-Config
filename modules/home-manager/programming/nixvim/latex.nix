@@ -15,6 +15,9 @@ in {
         settings.view_method = "zathura";
       };
 
+      # Vimtex asks to do this
+      treesitter.settings.highlight.disable = ["latex"];
+
       # TODO: some kind of snippets plugin
     };
   };

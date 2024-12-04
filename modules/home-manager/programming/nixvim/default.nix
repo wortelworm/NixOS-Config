@@ -26,7 +26,10 @@
   programs.nixvim = {
     enable = true;
 
+    # TODO: What are these being used for?
+    #       Why are they on by default?
     withRuby = false;
+    withPython3 = false;
 
     colorschemes.onedark = {
       enable = true;
@@ -45,6 +48,9 @@
       autoindent = true;
       shiftwidth = 4;
       tabstop = 4;
+
+      # Lualine replaces this
+      cmdheight = 0;
     };
 
     performance = {
@@ -80,6 +86,12 @@
         };
       };
 
+      # Used instead of netrw and telescope.file-browser
+      yazi = {
+        enable = true;
+        settings.open_for_directories = true;
+      };
+
       telescope = {
         enable = true;
 
@@ -87,10 +99,6 @@
           # better selection ui, used for code actions
           ui-select.enable = true;
           fzf-native.enable = true;
-          file-browser = {
-            enable = true;
-            settings.hijack_netrw = true;
-          };
         };
       };
     };

@@ -22,12 +22,18 @@
           testcases_use_single_file = true;
           testcases_single_file_format = "./tests/$(FNOEXT).testcases";
 
-          compile_command.cpp = {
-            exec = "g++";
-            args = ["-Wall" "$(FNAME)" "-o" "./bin/$(FNOEXT)"];
+          compile_command = {
+            cpp = {
+              exec = "g++";
+              args = ["-Wall" "$(FNAME)" "-o" "./bin/$(FNOEXT)"];
+            };
           };
-          run_command.cpp = {
-            exec = "./bin/$(FNOEXT)";
+          run_command = {
+            cpp.exec = "./bin/$(FNOEXT)";
+            elixir = {
+              exec = "elixir";
+              args = ["$(FNAME)"];
+            };
           };
         };
       };
