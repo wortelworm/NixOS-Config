@@ -67,7 +67,12 @@
           ts_ls.enable = true;
           clangd.enable = true;
           pylsp.enable = true;
-          elixirls.enable = true;
+          
+          elixirls = {
+            enable = true;
+            # TODO: does this work??
+            settings.dialyzerEnabled = true;
+          };
 
           # haskell
           hls = {

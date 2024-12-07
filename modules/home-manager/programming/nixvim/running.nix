@@ -110,6 +110,7 @@
               name = "Debug cpp file";
               type = "codelldb";
               request = "launch";
+
               cwd = "\${workspaceFolder}";
               expressions = "native";
               program = {
@@ -138,6 +139,7 @@
               name = "Debug cargo project";
               type = "codelldb";
               request = "launch";
+
               expressions = "native";
               program = {
                 __raw =

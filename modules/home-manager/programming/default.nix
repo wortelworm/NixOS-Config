@@ -3,8 +3,10 @@
     ./nixvim
     ./terminal.nix
     ./yazi.nix
+    ./zed-editor.nix
   ];
 
+  # All the terminal tooling for various languages
   home.packages = with pkgs; [
     chromium
     sqlite
@@ -40,7 +42,8 @@
       };
     };
 
-    # Has been replaced by nvim
+    # Has been replaced by nvim and zed
+    # Just as a backup
     vscode = {
       enable = true;
       # package = pkgs.vscodium;
