@@ -1,6 +1,6 @@
 {wortel, ...}: {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
+  # Home Manager needs a bit of information about you
+  # and the paths it should manage.
   home.username = "wortelworm";
   home.homeDirectory = "/home/wortelworm";
 

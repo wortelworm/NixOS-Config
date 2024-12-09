@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  wortel,
+  ...
+}: {
   programs.nixvim = {
     # Automaticly open and close dap-ui
     extraConfigLuaPost =
@@ -30,7 +35,7 @@
           };
           run_command = {
             cpp.exec = "./bin/$(FNOEXT)";
-            elixir = {
+            elixir = lib.mkIf wortel.beamLanguages {
               exec = "elixir";
               args = ["$(FNAME)"];
             };
@@ -113,23 +118,21 @@
 
               cwd = "\${workspaceFolder}";
               expressions = "native";
-              program = {
-                __raw =
-                  # lua
-                  ''
-                    function()
-                      local sourceFile = vim.fn.expand("%");
-                      local resFolder = vim.fn.expand("%:h") .. "/bin/"
-                      local exeFile = resFolder .. vim.fn.expand("%:t:r") .. ".dap";
+              program.__raw =
+                # lua
+                ''
+                  function()
+                    local sourceFile = vim.fn.expand("%");
+                    local resFolder = vim.fn.expand("%:h") .. "/bin/"
+                    local exeFile = resFolder .. vim.fn.expand("%:t:r") .. ".dap";
 
-                      -- The -g flag compiles with debug info
-                      vim.system({"mkdir", resFolder}):wait();
-                      vim.system({"g++", "-g", sourceFile, "-o", exeFile}):wait();
+                    -- The -g flag compiles with debug info
+                    vim.system({"mkdir", resFolder}):wait();
+                    vim.system({"g++", "-g", sourceFile, "-o", exeFile}):wait();
 
-                      return exeFile;
-                    end
-                  '';
-              };
+                    return exeFile;
+                  end
+                '';
             }
           ];
           rust = [
@@ -141,16 +144,14 @@
               request = "launch";
 
               expressions = "native";
-              program = {
-                __raw =
-                  # lua
-                  ''
-                    function ()
-                      os.execute("cargo build &> /dev/null")
-                      return "target/debug/''${workspaceFolderBasename}"
-                    end
-                  '';
-              };
+              program.__raw =
+                # lua
+                ''
+                  function ()
+                    os.execute("cargo build &> /dev/null")
+                    return "target/debug/''${workspaceFolderBasename}"
+                  end
+                '';
             }
           ];
         };

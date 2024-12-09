@@ -10,12 +10,14 @@
     fingerprint = lib.mkEnableOption "Fingerprint reader drivers";
     games = lib.mkEnableOption "Game launchers";
     nvidia = lib.mkEnableOption "Nvidia GPU drivers etc FOR WORTELWORM5 ONLY";
+
     latex = lib.mkEnableOption "TeX Live and VimTeX";
+    beamLanguages = lib.mkEnableOption "Elixir, gleam and erlang";
 
     hostname = lib.mkOption {
       type = lib.types.str;
       default = null;
-      description = lib.mkDoc "Hostname like 'wortelworm5'";
+      description = lib.mkDoc "Hostname";
     };
 
     flakePath = lib.mkOption {

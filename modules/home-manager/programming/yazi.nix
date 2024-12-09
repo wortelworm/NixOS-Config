@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # Note that right now version 0.4 is under development,
   # with changes to the plugin api
   programs.yazi = {
@@ -10,7 +14,7 @@
     keymap.manager.prepend_keymap = [
       {
         on = "<C-n>";
-        run = ''shell '${pkgs.ripdrag}/bin/ripdrag "$@" -x 2>/dev/null &' --confirm'';
+        run = ''shell '${lib.getExe pkgs.ripdrag} "$@" -x 2>/dev/null &' --confirm'';
       }
     ];
 

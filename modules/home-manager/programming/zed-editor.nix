@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  wortel,
+  ...
+}: {
   # TODO:
   #   compitest
   #   terminal patched font
@@ -35,25 +40,20 @@
 
       lsp = {
         nixd = {
-          binary.path = "${pkgs.nixd}/bin/nixd";
+          binary.path = lib.getExe pkgs.nixd;
           settings.formatting.command = ["alejandra"];
         };
         rust-analyzer = {
-          binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+          binary.path = lib.getExe pkgs.rust-analyzer;
           settings.check.command = "clippy";
         };
-        elixir-ls = {
-          binary.path = "${pkgs.elixir-ls}/bin/elixir-ls";
-
-          settings = {
-            # Idk if this works
-            dialyzerEnabled = true;
-          };
+        elixir-ls = lib.mkIf wortel.beamLanguages {
+          binary.path = lib.getExe pkgs.elixir-ls;
         };
 
         # TODO: not working yet
         hls = {
-          binary.path = "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server";
+          binary.path = lib.getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server";
         };
       };
     };

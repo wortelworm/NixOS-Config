@@ -29,7 +29,7 @@
     # TODO: What are these being used for?
     #       Why are they on by default?
     withRuby = false;
-    withPython3 = false;
+    withPython3 = true; # required by jukit
 
     colorschemes.onedark = {
       enable = true;

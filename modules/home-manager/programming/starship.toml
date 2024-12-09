@@ -54,6 +54,10 @@ format = "\\[[$symbol$branch]($style)\\]"
 [git_commit]
 tag_symbol = "  "
 
+[gleam]
+symbol = "󰦥 "
+format = "\\[[$symbol($version)]($style)\\]"
+
 [golang]
 symbol = " "
 format = "\\[[$symbol($version)]($style)\\]"

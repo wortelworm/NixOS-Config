@@ -5,6 +5,7 @@
 }: {
   # see: https://nixos.wiki/wiki/Nvidia
   # THIS IS MADE SPECIFICLY FOR WORTELWORM5
+  # TODO: why does creating an assertion create infinite loop?
   config = lib.mkIf config.wortel.nvidia {
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];

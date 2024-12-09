@@ -18,7 +18,7 @@
         pattern = name;
         command = "setlocal shiftwidth=2";
       })
-      ["nix" "haskell"];
+      ["nix" "haskell" "gleam"];
 
     extraPlugins = [
       {
@@ -67,12 +67,9 @@
           ts_ls.enable = true;
           clangd.enable = true;
           pylsp.enable = true;
-          
-          elixirls = {
-            enable = true;
-            # TODO: does this work??
-            settings.dialyzerEnabled = true;
-          };
+
+          elixirls.enable = wortel.beamLanguages;
+          gleam.enable = wortel.beamLanguages;
 
           # haskell
           hls = {

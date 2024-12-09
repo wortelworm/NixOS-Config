@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  wortel,
+  ...
+}: {
   imports = [
     ./nixvim
     ./terminal.nix
@@ -7,29 +12,34 @@
   ];
 
   # All the terminal tooling for various languages
-  home.packages = with pkgs; [
-    chromium
-    sqlite
+  home.packages = with pkgs;
+    [
+      chromium
+      sqlite
 
-    # nix lsp and formatter
-    nil
-    alejandra
+      # nix lsp and formatter
+      nil
+      alejandra
 
-    # other languages
-    rustup
-    elixir
-    nodejs_20
-    mono
-    gcc
-    gdb
-    clang-tools
-    python3
+      # other languages
+      rustup
+      nodejs_20
+      mono
+      gcc
+      gdb
+      clang-tools
+      python3
 
-    # haskell
-    ghc
-    cabal-install
-    hlint
-  ];
+      # haskell
+      ghc
+      cabal-install
+      hlint
+    ]
+    ++ lib.optional wortel.beamLanguages [
+      elixir
+      gleam
+      erlang
+    ];
 
   programs = {
     git = {
@@ -71,7 +81,7 @@
         };
 
         "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+        "nix.serverPath" = lib.getExe pkgs.nixd;
         "nix.serverSettings".nixd.formatting.command = ["alejandra"];
       };
     };
