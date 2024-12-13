@@ -5,6 +5,10 @@
 }: {
   # Note that right now version 0.4 is under development,
   # with changes to the plugin api
+
+  # TODO:
+  #     offline documentation for keymaps
+  #     Map <ESC> to quitting
   programs.yazi = {
     enable = true;
 
@@ -60,6 +64,7 @@
       '';
 
     plugins = let
+      # TODO: fetch subdirectory from github?
       yaziPlugins = pkgs.fetchFromGitHub {
         owner = "yazi-rs";
         repo = "plugins";

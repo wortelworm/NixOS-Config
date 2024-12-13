@@ -42,8 +42,19 @@
     ];
 
   programs = {
+    lazygit = {
+      enable = true;
+      # Using delta as a pager, with a bunch of settings copied from
+      #     https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
+      settings.git.paging.pager = "${lib.getExe pkgs.delta} --paging=never --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+    };
+
     git = {
       enable = true;
+
+      # Replace the default git diff
+      delta.enable = true;
+
       userName = "wortelworm";
       userEmail = "wortelworm@gmail.com";
       extraConfig = {

@@ -10,6 +10,8 @@
   #     browsh: browser in terminal, may be a lifesaver in a weird senario
   #     bottles: running windows programs
   #         But does not work for microsoft visual studio and microsoft office
+  #     ripgrep-all: like ripgrep but many more file formats
+  #         adds ~225MiB of dependencies for something I almost never gonna use
 
 
   # will be only non-home manager programs in path
@@ -28,6 +30,7 @@
     bat
     lazygit
     nix-inspect
+    ripgrep
 
     # disk partitions
     gparted

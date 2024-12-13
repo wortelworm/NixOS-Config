@@ -21,12 +21,17 @@
           "<space>" = "<NOP>";
 
           # Telescope
-          "<space>f" = "<cmd>Telescope find_files<CR>";
+          "<space>s" = "<cmd>Telescope find_files<CR>";
+          "<space>S" = "<cmd>Telescope live_grep<CR>";
           "<space>b" = "<cmd>Telescope buffers<CR>";
           "<space>d" = "<cmd>Telescope lsp_definitions<CR>";
           "<space>R" = "<cmd>Telescope lsp_references<CR>";
-          "<space>c" = "<cmd>Telescope git_bcommits<CR>";
-          "<space>g" = "<cmd>Telescope git_status<CR>";
+
+          # Created with help from
+          #     https://github.com/nvim-telescope/telescope.nvim/issues/605
+          "<space>g" = "<cmd>lua require('telescope.builtin').git_status({previewer=(require('telescope.previewers').new_termopen_previewer{get_command=function(entry) return {'sh','-c','git diff '.. entry.path .. ' | delta'} end})})<CR>";
+          "<space>c" = "<cmd>lua require('telescope.builtin').git_bcommits({previewer=(require('telescope.previewers').new_termopen_previewer{get_command=function(entry) return {'sh','-c','git diff '.. entry.path .. '^! -- ' .. entry.current_file .. ' | delta'} end})})<CR>";
+
           "<space>e" = "<cmd>Yazi<CR>";
 
           # Lsp
