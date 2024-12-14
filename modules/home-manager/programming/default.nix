@@ -46,7 +46,13 @@
       enable = true;
       # Using delta as a pager, with a bunch of settings copied from
       #     https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
-      settings.git.paging.pager = "${lib.getExe pkgs.delta} --paging=never --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+      settings = {
+        gui = {
+          timeFormat = "02 Jan 2006";
+          shortTimeFormat = "15:04 today";
+        };
+        git.paging.pager = "${lib.getExe pkgs.delta} --paging=never --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+      };
     };
 
     git = {
@@ -76,7 +82,6 @@
         ms-dotnettools.csharp
       ];
       userSettings = {
-        # TODO: check if the quotes are necessary
         "explorer.confirmDragAndDrop" = true;
         "explorer.confirmDelete" = false;
 
