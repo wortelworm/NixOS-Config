@@ -6,7 +6,6 @@
 }: {
   # TODO:
   #   compitest
-  #   terminal patched font
   #   Syntax highlighting within strings
   programs.zed-editor = {
     enable = true;
@@ -21,6 +20,7 @@
       vim_mode = true;
       assistant.enabled = false;
       hour_format = "hour24";
+      calls.mute_on_join = true;
 
       theme = {
         mode = "system";
@@ -51,9 +51,13 @@
           binary.path = lib.getExe pkgs.elixir-ls;
         };
 
-        # TODO: not working yet
         hls = {
-          binary.path = lib.getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server";
+          # It needs to be named 'haskell-language-server-wrapper', as the extension expects it to be installed using ghcup:
+          #     https://github.com/zed-industries/zed/blob/main/extensions/haskell/src/haskell.rs
+          # Unsure why specifing "$@" instaed of lsp does not work
+          binary.path = lib.getExe (pkgs.writeShellScriptBin "haskell-language-server-wrapper" ''
+            ${lib.getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server"} lsp
+          '');
         };
       };
     };
