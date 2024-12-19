@@ -22,12 +22,6 @@
       hour_format = "hour24";
       calls.mute_on_join = true;
 
-      theme = {
-        mode = "system";
-        dark = "One Dark";
-        light = "One Dark";
-      };
-
       # Is installed in ../../nixos/programs.nix
       # Patched font so that starship works
       terminal.font_family = "Hack Nerd Font";

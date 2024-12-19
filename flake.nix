@@ -2,7 +2,9 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/nixos-24.11";
+    # This is to make sure that the cosmic cache is working properly
+    # Can be replaced once cosmic is in the main nixpkgs branch.
+    nixos.follows = "nixos-cosmic/nixpkgs-stable";
 
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
