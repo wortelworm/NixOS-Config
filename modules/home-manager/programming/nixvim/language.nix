@@ -67,6 +67,7 @@
           ts_ls.enable = true;
           clangd.enable = true;
           pylsp.enable = true;
+          nushell.enable = true;
 
           elixirls.enable = wortel.beamLanguages;
           gleam.enable = wortel.beamLanguages;

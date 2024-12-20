@@ -1,34 +1,22 @@
 {pkgs, ...}: {
-  home.shellAliases = {
-    nd = "nix develop";
-    zd = "__f(){ z \"$@\"; nd; }; __f";
-
-    v = "__f(){ z \"$@\"; vi; }; __f";
-    vd = "__f(){ z \"$@\"; nd --command nvim +\"Telescope find_files\"; }; __f";
-    vi = "nvim +\"Telescope find_files\"";
-
-    cc = "cargo clippy";
-    ct = "cargo test";
-    cr = "cargo run";
-
-    g = "lazygit";
-    gs = "git status";
-
-    amc = "alacritty msg config";
-
-    f = "fastfetch";
-  };
-
   programs = {
-    # Enables home-manager to change bash settings
-    # Like with zoxide, starship and home.shellAliases
+    # Just in case its still here, but nushell is better
     bash.enable = true;
 
+    # Nushell is so much better than bash!!!!
+    nushell = {
+      enable = true;
+      configFile.source = ./config.nu;
+    };
+
+    # Automaticly adds completions for some commands
+    carapace.enable = true;
+
     # Database location: ~/.local/share/zoxide/
-    # Bash integration is enabled by default in home-manager
+    # Bash/nushell integration is enabled by default in home-manager
     zoxide.enable = true;
 
-    # Replacing bash prompt
+    # Replacing default bash/nushell prompt
     starship = {
       enable = true;
       settings = builtins.fromTOML (builtins.readFile ./starship.toml);

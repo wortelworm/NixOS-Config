@@ -1,4 +1,9 @@
-# Created using an online toml merger, to merge the presets:
+
+# Prevent double arrow when using nushell
+[character]
+format = " "
+
+# Created the rest using an online toml merger, to merge the presets:
 #   nerd-font, bracketed-segments
 
 [aws]

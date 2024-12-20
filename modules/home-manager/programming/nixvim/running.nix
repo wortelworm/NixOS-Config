@@ -28,6 +28,8 @@
           testcases_single_file_format = "./tests/$(FNOEXT).testcases";
 
           compile_command = {
+            # C++ is overwritten from default configuration
+            # to move the executables into a subdirectory
             cpp = {
               exec = "g++";
               args = ["-Wall" "$(FNAME)" "-o" "./bin/$(FNOEXT)"];
@@ -35,6 +37,10 @@
           };
           run_command = {
             cpp.exec = "./bin/$(FNOEXT)";
+            nu = {
+              exec = lib.getExe pkgs.nushell;
+              args = ["$(FNAME)"];
+            };
             elixir = lib.mkIf wortel.beamLanguages {
               exec = "elixir";
               args = ["$(FNAME)"];
