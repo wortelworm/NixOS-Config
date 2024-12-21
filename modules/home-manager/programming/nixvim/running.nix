@@ -39,7 +39,7 @@
             cpp.exec = "./bin/$(FNOEXT)";
             nu = {
               exec = lib.getExe pkgs.nushell;
-              args = ["$(FNAME)"];
+              args = ["--stdin" "--error-style" "plain" "$(FNAME)"];
             };
             elixir = lib.mkIf wortel.beamLanguages {
               exec = "elixir";
