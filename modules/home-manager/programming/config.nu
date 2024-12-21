@@ -3,8 +3,8 @@ $env.config = {
     show_banner: false,
     edit_mode: vi,
     cursor_shape: {
-        vi_insert: line,
-        vi_normal: block,
+        vi_insert: blink_line,
+        vi_normal: blink_block,
     }
 }
 
@@ -26,8 +26,9 @@ def l [] {
 }
 
 def v [...args] {
-    # TODO: the z command is only declared later, so this does not work :(
-    z ...$args
+    # The z command is only declared later,
+    # so instead just zoxide directly
+    zoxide query ...$args | cd $in
     vi
 }
 
