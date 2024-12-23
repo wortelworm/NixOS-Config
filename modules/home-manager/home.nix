@@ -17,7 +17,7 @@
     BROWSER = "firefox";
     TERMINAL = "alacritty";
 
-    FLAKE = "path:${wortel.flakePath}";
+    NIXOS_FLAKE_CONFIG = "${wortel.flakePath}";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 
