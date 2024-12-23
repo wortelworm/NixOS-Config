@@ -66,6 +66,7 @@ def "main switch" [
     let commit_msg = $'($description) - ($hostname) ($next_generation)'
 
     # Push git changes
+    cd $path_flake
     git add -A
     git commit -m $commit_msg
     git push
