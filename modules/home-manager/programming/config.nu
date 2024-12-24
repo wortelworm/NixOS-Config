@@ -29,7 +29,10 @@ def l [] {
 def ns [
     initial_command?: string # Optionally run an command in the nix shell
 ] {
-    nix-shell --command $'nu -e ($initial_command)'
+    match $initial_command {
+        null => (nix-shell --command 'nu')
+        _ => (nix-shell --command $'nu -e "($initial_command)"')
+    }
 }
 
 # Show help page, piped into bat
@@ -60,6 +63,12 @@ def --env v [...rest] {
 def --env vs [...rest] {
     manual-zoxide-change-dir ...$rest
     ns vi
+}
+
+# Go to directory using zoxide, then run a nix-shell
+def --env zs [...rest] {
+    manual-zoxide-change-dir ...$rest
+    ns
 }
 
 # Go to directory using zoxide, then run lazygit

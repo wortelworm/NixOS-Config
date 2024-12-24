@@ -5,16 +5,14 @@ let flake_ref = $'path:($path_flake)'
 
 
 # An helper program for wortelworm's nixos config,
-# uses a bunch of 'nh' commands under the hood
-def main [] {
-    print 'For more options, use flag --help' ''
+# uses a bunch of 'nh' commands under the hood.
+# By default, the subcommand 'show' is called.
+def main []: nothing -> nothing {
     main show
-    # How can I show the help??
-    # main --help
 }
 
 # Show the generations available
-def "main list" [] {
+def "main list" []: nothing -> string {
     # TODO: make the labels show
     # might want to manually read the directories instead,
     # that maybe could even avoid the sudo
@@ -22,19 +20,19 @@ def "main list" [] {
 }
 
 # Build and activate the new configuration, without adding it to bootloader
-def "main test" [] {
+def "main test" []: nothing -> nothing {
     nh os test $flake_ref
 }
 
 # Keep only last two root profiles and perform a store garbage collect
-def "main clean" [] {
+def "main clean" []: nothing -> nothing {
     nh clean all --keep 2 --ask
 
     # Could optimize store, but that is a lot of work for very little gain
 }
 
 # Builds an update, only activating on next bootup
-def "main update" [] {
+def "main update" []: nothing -> nothing {
     # Update flake inputs
     nix flake update --flake $flake_ref
 
@@ -42,7 +40,7 @@ def "main update" [] {
 }
 
 # Find out what the last generation number was
-def last-generation-number [] {
+def last-generation-number []: nothing -> int {
     ls --short-names /nix/var/nix/profiles/
         | each {|elt| $elt.name | parse 'system-{generation}-link' | $in.generation | into int}
         | flatten
@@ -53,9 +51,12 @@ def last-generation-number [] {
 def "main switch" [
     description: string, # Can only contain letters, numbers and spaces!!
     --boot # Only activate on next boot
-] {
+]: nothing -> nothing {
+
     let next_generation = 1 + (last-generation-number)
     let cleaned_desc = $description | str replace ' ' '_'
+
+    # TODO: make the label show up in boot menu and using 'list' subcommand
     $env.NIXOS_LABEL = $cleaned_desc
 
     # build the system and check for errors
@@ -81,7 +82,7 @@ def "main switch" [
 
 
 # Shows the lastest flake input datetime
-def "main show" [] {
+def "main show" []: nothing -> nothing {
     let lockfile = $'($path_flake)/flake.lock'
     let json = open $lockfile | from json
     let version = $json | get version
