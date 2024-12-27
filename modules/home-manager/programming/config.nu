@@ -1,4 +1,5 @@
 
+# Settings
 $env.config = {
     show_banner: false,
     edit_mode: vi,
@@ -6,6 +7,12 @@ $env.config = {
         vi_insert: blink_line,
         vi_normal: blink_block,
     }
+}
+
+# Initial prompt
+do {
+    use std
+    std ellie | print
 }
 
 # Shell aliases
@@ -20,6 +27,8 @@ alias gs = git status
 
 alias f = fastfetch
 
+alias n = wortel-config-helper
+
 # List files and directories, sorted by type and name
 def l [] {
     ls | sort-by type name -i
@@ -27,11 +36,15 @@ def l [] {
 
 # Enter a shell.nix
 def ns [
-    initial_command?: string # Optionally run an command in the nix shell
+    initial_command?: string # Command to run in the nix shell
+    --packages (-p): string # Package to be made available
 ] {
-    match $initial_command {
-        null => (nix-shell --command 'nu')
-        _ => (nix-shell --command $'nu -e "($initial_command)"')
+    # Is there a better way of doing this?
+    match [$initial_command, $packages] {
+        [null, null] => (nix-shell --command 'nu')
+        [null, _   ] => (nix-shell --command 'nu' --packages $packages)
+        [_   , null] => (nix-shell --command $'nu -e "($initial_command)"')
+        [_   , _   ] => (nix-shell --command $'nu -e "($initial_command)"' --packages $packages)
     }
 }
 

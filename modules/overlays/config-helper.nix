@@ -9,5 +9,5 @@ writeTextFile {
   name = "Wortel config helper";
   text = lib.readFile ./config-helper.nu;
   executable = true;
-  destination = "/bin/n";
+  destination = "/bin/wortel-config-helper";
 }

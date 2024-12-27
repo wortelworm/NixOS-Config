@@ -80,9 +80,8 @@ def "main switch" [
     }
 }
 
-
-# Shows the lastest flake input datetime
-def "main show" []: nothing -> nothing {
+# Will result in local datetime
+def flake-inputs-datetimes [] {
     let lockfile = $'($path_flake)/flake.lock'
     let json = open $lockfile | from json
     let version = $json | get version
@@ -91,22 +90,31 @@ def "main show" []: nothing -> nothing {
     }
 
     let root_name = $json | get root
-    let modifieds = $json
-                    | get nodes
-                    | transpose name value
-                    | each {|elt|
-                        if $elt.name == $root_name {
-                            return
-                        }
-                        $elt.value
-                            | get locked.lastModified
-                            # Convert seconds to nanoseconds
-                            | $in * 1_000_000_000
-                            # It is in utc timezone, but we want to convert it to local anyway
-                            | into datetime -z l
-                    }
+    $json
+        | get nodes
+        | transpose name value
+        | each {|elt|
+            if $elt.name == $root_name {
+                return
+            }
+            # Convert seconds to nanoseconds
+            # It is in utc timezone, but we want to convert it to local anyway
+            let datetime = $elt.value
+                | get locked.lastModified
+                | $in * 1_000_000_000
+                | into datetime -z l
 
-    let latest = $modifieds | math max
+            {datetime: $datetime, name: $elt.name}
+        }
+}
+
+
+# Shows the lastest flake input datetime
+def "main show" []: nothing -> nothing {
+    let latest = flake-inputs-datetimes
+        | each {|elt| $elt.datetime} 
+        | math max
+
     print $"Latest input is from ($latest | date humanize) \(($latest | format date '%Y-%m-%d %H:%M:%S'))"
 }
 
