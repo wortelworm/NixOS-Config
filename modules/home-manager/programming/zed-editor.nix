@@ -10,10 +10,11 @@
   programs.zed-editor = {
     enable = true;
     extensions = [
-      "html"
-      "toml"
-      "elixir"
       "nix"
+      "toml"
+      "nu"
+      "html"
+      "elixir"
       "haskell"
     ];
     userSettings = {

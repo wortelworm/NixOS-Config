@@ -61,31 +61,31 @@ def --wrapped hb [...rest] {
 # so instead just use zoxide directly
 #
 # Not intended for use outside of the config.nu, use 'z' instead
-def --env manual-zoxide-change-dir [...rest] {
+def --env manual-zoxide-change-dir [...rest: string] {
     # Could exclude current directory, but not needed here
     zoxide query ...$rest | cd $in
 }
 
 # Go to directory using zoxide, then run vi
-def --env v [...rest] {
+def --env v [...rest: string] {
     manual-zoxide-change-dir ...$rest
     vi
 }
 
 # Go to directory using zoxide, then run vi in a nix-shell
-def --env vs [...rest] {
+def --env vs [...rest: string] {
     manual-zoxide-change-dir ...$rest
     ns vi
 }
 
 # Go to directory using zoxide, then run a nix-shell
-def --env zs [...rest] {
+def --env zs [...rest: string] {
     manual-zoxide-change-dir ...$rest
     ns
 }
 
 # Go to directory using zoxide, then run lazygit
-def --env zg [...rest] {
+def --env zg [...rest: string] {
     manual-zoxide-change-dir ...$rest
     lazygit
 }

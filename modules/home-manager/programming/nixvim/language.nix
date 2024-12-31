@@ -42,6 +42,8 @@
     ];
 
     plugins = {
+      render-markdown.enable = true;
+
       # Uses grammar files to show syntax highlighting
       treesitter = {
         enable = true;
