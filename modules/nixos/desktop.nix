@@ -11,11 +11,8 @@
   services = {
     xserver.enable = true;
 
-    # sddm is default display manager for KDE plasma
-    displayManager.sddm = {
-      enable = true;
-      settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
-    };
+    # sddm is the default display manager for KDE plasma
+    displayManager.sddm.enable = true;
 
     desktopManager.plasma6.enable = true;
 
@@ -30,7 +27,7 @@
     #   Cannot switch CAPSLOCK and ESC -> using kmonad now which does work
     #   Alt+tab is global opposed to per workspace -> use stacking windows instead?
     #   Blurry/unsharp ui (background, discord) -> scaling of xorg stuff, fixed using settings
-    #   KDE apps use light mode -> dolphin works, its just
+    #   KDE apps use light mode -> dolphin works, its just other programs?
     #
     #   Blurry windows -> restack
     #   New stacking window not reading keyboard -> refocus
