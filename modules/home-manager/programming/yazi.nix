@@ -37,7 +37,7 @@ in {
     keymap.manager.prepend_keymap = [
       {
         on = "<C-n>";
-        run = ''shell '${lib.getExe pkgs.ripdrag} "$@" -x 2>/dev/null &' --confirm'';
+        run = ''shell '${lib.getExe pkgs.ripdrag} "$@" --all --and-exit --no-click 2>/dev/null &' --confirm'';
       }
     ];
 
