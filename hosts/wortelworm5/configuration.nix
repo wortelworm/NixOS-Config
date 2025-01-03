@@ -10,6 +10,8 @@
     nvidia = true;
     games = true;
     latex = true;
+
+    ensureInstalled.defaultAll = true;
   };
 
   imports = [

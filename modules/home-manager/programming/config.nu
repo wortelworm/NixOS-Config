@@ -9,8 +9,8 @@ $env.config = {
     }
 }
 
-# Initial prompt
-do {
+# Initial prompt, if not entering a nix-shell
+if ($env.NU_WITHIN_NIX_SHELL? == null) {
     use std
     std ellie | print
 }
@@ -41,10 +41,10 @@ def ns [
 ] {
     # Is there a better way of doing this?
     match [$initial_command, $packages] {
-        [null, null] => (nix-shell --command 'nu')
-        [null, _   ] => (nix-shell --command 'nu' --packages $packages)
-        [_   , null] => (nix-shell --command $'nu -e "($initial_command)"')
-        [_   , _   ] => (nix-shell --command $'nu -e "($initial_command)"' --packages $packages)
+        [null, null] => (nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu')
+        [null, _   ] => (nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu' --packages $packages)
+        [_   , null] => (nix-shell --command $'export NU_WITHIN_NIX_SHELL=1; nu -e "($initial_command)"')
+        [_   , _   ] => (nix-shell --command $'export NU_WITHIN_NIX_SHELL=1; nu -e "($initial_command)"' --packages $packages)
     }
 }
 

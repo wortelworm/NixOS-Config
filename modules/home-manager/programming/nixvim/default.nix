@@ -82,7 +82,9 @@
         enable = true;
         settings = {
           direction = "horizontal";
-          size = 15;
+          size.__raw =
+            # lua
+            "function(_) return vim.o.lines * 0.5 end";
         };
       };
 

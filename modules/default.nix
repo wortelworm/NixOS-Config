@@ -1,5 +1,6 @@
 {lib, ...}: {
   imports = [
+    ./ensure-installed.nix
     ./home-manager
     ./nixos
     ./overlays
@@ -24,6 +25,13 @@
       type = lib.types.str;
       default = "/home/wortelworm/.dotfiles";
       description = lib.mdDoc "Absolute path to this repository's directory";
+    };
+
+    ensureInstalled = {
+      defaultAll = lib.mkEnableOption "Set default to enabled for all options in this category";
+
+      librariesWGPU = lib.mkEnableOption "Dynamicly linked libraries for web gpu";
+      pythonMachineLearning = lib.mkEnableOption "Python libraries for machine learning stuff";
     };
   };
 
