@@ -30,6 +30,7 @@
     lazygit
     nix-inspect
     ripgrep
+    gnupg
 
     # disk partitions
     gparted
@@ -47,6 +48,9 @@
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["Hack"];})
   ];
+
+  # Keep decrypted keys in ram to have less prompts
+  programs.gnupg.agent.enable = true;
 
   # Could be cool to use in like 2028
   # programs.ladybird.enable = true;

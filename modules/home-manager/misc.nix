@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     obsidian
     onedrivegui
@@ -38,16 +34,5 @@
         "full-screen-api.ignore-widgets" = true;
       };
     };
-  };
-
-  programs.gpg = {
-    enable = true;
-    # The default is not using xdg directories :(
-    homedir = "${config.xdg.dataHome}/gnupg";
-  };
-
-  # Keep decrypted keys in ram to have less prompts
-  services.gpg-agent = {
-    enable = true;
   };
 }

@@ -60,7 +60,7 @@ def "main update" []: nothing -> nothing {
     # Update flake inputs
     nix flake update --flake $flake_ref
 
-    main switch "updates" --boot
+    main switch "Updates" --boot
 }
 
 # Find out what the last generation number was
