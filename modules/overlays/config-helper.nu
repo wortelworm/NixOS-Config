@@ -35,9 +35,11 @@ def "main list" []: nothing -> table {
         | filter {|row|
             $row.generation != null
         }
-        | each {|row|
-            $row | update generation ($row.generation | into int)
-        }
+        | each {|row| {
+            modified: $row.modified
+            generation: ($row.generation | into int)
+            label: ($row.label | str replace --all '_' ' ')
+        }}
         | sort-by generation
 }
 
@@ -103,31 +105,28 @@ def "main switch" [
         }
         | str join
 
-    $cleaned_desc | save $path_nixos_label
+    $cleaned_desc | save --force $path_nixos_label
 
-    # Try to do stuff, if fails still want to remove the commit description file
-    do --capture-errors {
-        # build the system and check for errors
-        # nushell will automaticly exit if this command fails
-        # and the stderr from this command is forwarded
-        nh os build $flake_ref
+    # build the system and check for errors
+    # nushell will automaticly exit if this command fails
+    # and the stderr from this command is forwarded
+    nh os build $flake_ref
 
-        let hostname = sys host | get hostname
-        let next_generation = 1 + (last-generation-number)
-        let commit_msg = $'($description) - ($hostname) ($next_generation)'
+    let hostname = sys host | get hostname
+    let next_generation = 1 + (last-generation-number)
+    let commit_msg = $'($description) - ($hostname) ($next_generation)'
 
-        # Push git changes
-        cd $path_flake
-        git add -A
-        git commit -m $commit_msg
-        git push
+    # Push git changes
+    cd $path_flake
+    git add -A
+    git commit -m $commit_msg
+    git push
 
-        # Do the actual activation
-        if $boot {
-            nh os boot $flake_ref
-        } else {
-            nh os switch $flake_ref
-        }
+    # Do the actual activation
+    if $boot {
+        nh os boot $flake_ref
+    } else {
+        nh os switch $flake_ref
     }
 
     rm $path_nixos_label

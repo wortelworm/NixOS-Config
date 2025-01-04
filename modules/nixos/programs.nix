@@ -13,7 +13,6 @@
   #     ripgrep-all: like ripgrep but many more file formats
   #         adds ~225MiB of dependencies for something I almost never gonna use
 
-
   # will be only non-home manager programs in path
   environment.systemPackages = with pkgs; [
     firefox
