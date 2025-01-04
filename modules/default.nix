@@ -35,7 +35,15 @@
     };
   };
 
-  config = {
+  config = let label_exists = builtins.pathExists ../nixos-label.txt; in {
     nix.settings.experimental-features = ["nix-command" "flakes"];
+
+    system.nixos.label = lib.mkIf label_exists (
+      lib.strings.trim (builtins.readFile ../nixos-label.txt)
+    );
+
+    warnings = lib.mkIf (!label_exists) [
+      "WARNING: Unable to read commit message"
+    ];
   };
 }

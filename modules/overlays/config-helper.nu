@@ -1,7 +1,13 @@
 #!/usr/bin/env nu
+use std
 
 let path_flake = $env.NIXOS_FLAKE_CONFIG | path expand -s
 let flake_ref = $'path:($path_flake)'
+
+# I tried to use '$env.NIXOS_LABEL', but it doesn't work
+# this could be because of nh or some purity setting
+# This location is used by the nixos config in 'modules/default.nix'
+let path_nixos_label = $'($path_flake)/nixos-label.txt'
 
 
 # An helper program for wortelworm's nixos config,
@@ -12,11 +18,27 @@ def main []: nothing -> nothing {
 }
 
 # Show the generations available
-def "main list" []: nothing -> string {
-    # TODO: make the labels show
-    # might want to manually read the directories instead,
-    # that maybe could even avoid the sudo
-    sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+def "main list" []: nothing -> table {
+    let base_path = '/nix/var/nix/profiles'
+    ls --short-names $base_path
+        | each {|row| {
+            generation: (
+                $row.name
+                    | parse "system-{generation}-link"
+                    | $in.generation.0?
+            )
+            modified: $row.modified
+            label: (do --ignore-errors {
+                open --raw $'($base_path)/($row.name)/nixos-version'
+            })
+        }}
+        | filter {|row|
+            $row.generation != null
+        }
+        | each {|row|
+            $row | update generation ($row.generation | into int)
+        }
+        | sort-by generation
 }
 
 # Build and activate the new configuration, without adding it to bootloader
@@ -41,43 +63,74 @@ def "main update" []: nothing -> nothing {
 
 # Find out what the last generation number was
 def last-generation-number []: nothing -> int {
-    ls --short-names /nix/var/nix/profiles/
-        | each {|elt| $elt.name | parse 'system-{generation}-link' | $in.generation | into int}
-        | flatten
+    main list
+        | each {|row| $row.generation}
         | math max
 }
 
 # Activate new configuration and push to github
 def "main switch" [
-    description: string, # Can only contain letters, numbers and spaces!!
+    description: string, # May only contain letters, numbers and spaces
     --boot # Only activate on next boot
 ]: nothing -> nothing {
 
-    let next_generation = 1 + (last-generation-number)
-    let cleaned_desc = $description | str replace ' ' '_'
+    # Documentation for 'system.nixos.label':
+    #   May only contain letters, numbers and symbols `:`, `_`, `.` and `-`
+    let meta_span = (metadata $description).span
+    let cleaned_desc = $description
+        | split chars
+        | each {|c|
+            std assert equal ($c | str length) 1
+            if 'a' <= $c and $c <= 'z' {
+                return $c
+            }
+            if 'A' <= $c and $c <= 'Z' {
+                return $c
+            }
+            if '0' <= $c and $c <= '9' {
+                return $c
+            }
+            if $c == ' ' {
+                return '_'
+            }
+            error make {
+                msg: 'Description invalid'
+                label: {
+                    text: 'this must not contain characters other than letters, numbers and spaces'
+                    span: $meta_span
+                }
+            }
+        }
+        | str join
 
-    # TODO: make the label show up in boot menu and using 'list' subcommand
-    $env.NIXOS_LABEL = $cleaned_desc
+    $cleaned_desc | save $path_nixos_label
 
-    # build the system and check for errors
-    # nushell will automaticly exit if this command fails
-    nh os build $flake_ref
+    # Try to do stuff, if fails still want to remove the commit description file
+    do --capture-errors {
+        # build the system and check for errors
+        # nushell will automaticly exit if this command fails
+        # and the stderr from this command is forwarded
+        nh os build $flake_ref
 
-    let hostname = sys host | get hostname
-    let commit_msg = $'($description) - ($hostname) ($next_generation)'
+        let hostname = sys host | get hostname
+        let next_generation = 1 + (last-generation-number)
+        let commit_msg = $'($description) - ($hostname) ($next_generation)'
 
-    # Push git changes
-    cd $path_flake
-    git add -A
-    git commit -m $commit_msg
-    git push
+        # Push git changes
+        cd $path_flake
+        git add -A
+        git commit -m $commit_msg
+        git push
 
-    # Do the actual activation
-    if $boot {
-        nh os boot $flake_ref
-    } else {
-        nh os switch $flake_ref
+        # Do the actual activation
+        if $boot {
+            nh os boot $flake_ref
+        } else {
+            nh os switch $flake_ref
+        }
     }
+
+    rm $path_nixos_label
 }
 
 # Will result in local datetime
