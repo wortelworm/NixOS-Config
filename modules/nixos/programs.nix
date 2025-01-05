@@ -30,7 +30,6 @@
     lazygit
     nix-inspect
     ripgrep
-    gnupg
 
     # disk partitions
     gparted
@@ -49,8 +48,9 @@
     (nerdfonts.override {fonts = ["Hack"];})
   ];
 
-  # Keep decrypted keys in ram to have less prompts
-  programs.gnupg.agent.enable = true;
+  # Starts OpenSSH agent on login, so don't have to type
+  # passphrase on every git push (ssh connection)
+  programs.ssh.startAgent = true;
 
   # Could be cool to use in like 2028
   # programs.ladybird.enable = true;
