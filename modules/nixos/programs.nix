@@ -55,13 +55,29 @@
   # Could be cool to use in like 2028
   # programs.ladybird.enable = true;
 
-  # it has to be installed system wide...
+  # It has to be installed system wide...
   programs.steam = lib.mkIf config.wortel.games {
     enable = true;
     # Open ports in the firewall for Steam Remote Play
     remotePlay.openFirewall = false;
     # Open ports in the firewall for Source Dedicated Server
     dedicatedServer.openFirewall = false;
+
+    # By default, steam does not follow the XDG conventions,
+    # so instead it gets its own fake home directory.
+    # Found in https://github.com/ValveSoftware/steam-for-linux/issues/1890#issuecomment-2367103614
+    # NOTE: IF NOT STARTing: propably because '$XDG_STATE_HOME/steam-home' folder doesn't exist
+    package = pkgs.steam.override {
+      extraBwrapArgs = [
+        "--bind $XDG_STATE_HOME/steam-home $HOME"
+
+        # Will do more harm than good here
+        "--unsetenv XDG_CACHE_HOME"
+        "--unsetenv XDG_CONFIG_HOME"
+        "--unsetenv XDG_DATA_HOME"
+        "--unsetenv XDG_STATE_HOME"
+      ];
+    };
   };
 
   # A lot of software is disabled by default,

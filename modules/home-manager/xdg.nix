@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   # Cross-Desktop Group, standard specifications from freedesktop.org
   xdg = let
     basedir = "${config.home.homeDirectory}/.xdg-home";
@@ -53,30 +49,23 @@
 
     PYTHON_HISTORY = "${config.xdg.stateHome}/python/history";
 
+    # Bash uses this, could be more programs listening
+    HISTFILE = "${config.xdg.stateHome}/bash/history";
+
     # TODO:
     #   Maybe's:
-    #     to prevent '~/.java/fonts' from coming back, I might have to
-    #         set one of '_JAVA_OPTIONS', 'JAVA_TOOL_OPTIONS' or 'JAVA_FONTS'
-    #     do I need to set 'KDEHOME' or the likes?
+    #       to prevent '~/.java/fonts' from coming back, I might have to
+    #           set one of '_JAVA_OPTIONS', 'JAVA_TOOL_OPTIONS' or 'JAVA_FONTS'
+    #       do I need to set 'KDEHOME' or the likes?
     #   Unsure how's:
-    #     vscode :(
-    #     mozilla firefox
-    #     thunderbird, want to use different mail client anyways
-    #     '~/.pulsecookie'
+    #       '~/.nix-defexpr', '~/.nix-profile', '~/.nix-channels'
+    #       vscode :(
+    #       mozilla firefox
+    #       thunderbird, want to use different mail client anyways
+    #       onedrive-gui, should setup sops-nix without gui anyways
+    #       '~/.pulsecookie'
   };
 
   # Some applications dont even have an environment variable to the location
-  nixpkgs.overlays = [(final: prev: {
-    # Found in https://github.com/ValveSoftware/steam-for-linux/issues/1890#issuecomment-2367103614
-    # TODO: test if this works & copy files over
-    steam = pkgs.steam.override {
-      extraBwarpArgs = [
-        "--bind $XDG_STATE_HOME/steam-fake-home $HOME"
-        "--unsetenv XDG_CACHE_HOME"
-        "--unsetenv XDG_CONFIG_HOME"
-        "--unsetenv XDG_DATA_HOME"
-        "--unsetenv XDG_STATE_HOME"
-      ];
-    };
-  })];
+  # Note: steam is configured in 'modules/nixos/programs.nix'
 }
