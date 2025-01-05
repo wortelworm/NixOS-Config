@@ -28,7 +28,7 @@
       gcc
       gdb
       clang-tools
-      python3
+      python313 # First version to respect $PYTHON_HISTORY
 
       # haskell
       ghc

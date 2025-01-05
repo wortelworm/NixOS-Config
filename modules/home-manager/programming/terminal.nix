@@ -1,18 +1,15 @@
 {pkgs, ...}: {
   programs = {
-    # Just in case its still here, but nushell is better
-    bash.enable = true;
-
     # Nushell is so much better than bash!!!!
     nushell = {
       enable = true;
       configFile.source = ./config.nu;
     };
 
-    # Automaticly adds completions for some commands
+    # Automaticly adds completions for some go programs
     carapace.enable = true;
 
-    # Database location: ~/.local/share/zoxide/
+    # Database location: $XDG_DATA_HOME/zoxide/db.zo
     # Bash/nushell integration is enabled by default in home-manager
     zoxide.enable = true;
 
