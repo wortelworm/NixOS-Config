@@ -7,6 +7,7 @@
   imports = [
     ./games.nix
     ./misc.nix
+    ./plasma-home.nix
     ./programming
     ./xdg.nix
   ];

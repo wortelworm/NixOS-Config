@@ -1,5 +1,4 @@
 #!/usr/bin/env nu
-use std
 
 let path_flake = $env.NIXOS_FLAKE_CONFIG | path expand -s
 let flake_ref = $'path:($path_flake)'
@@ -75,6 +74,7 @@ def "main switch" [
     description: string, # May only contain letters, numbers and spaces
     --boot # Only activate on next boot
 ]: nothing -> nothing {
+    use std;
 
     # Documentation for 'system.nixos.label':
     #   May only contain letters, numbers and symbols `:`, `_`, `.` and `-`

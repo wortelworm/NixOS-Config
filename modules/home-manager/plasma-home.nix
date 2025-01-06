@@ -1,4 +1,4 @@
-{...}: {
+{inputs, ...}: {
   # see https://github.com/pjones/plasma-manager
   # it does not work great, something is wrong with the size of the bars
   # if this project has matured a bit more I might try again.
@@ -8,12 +8,16 @@
   #   virtualDesktops
   #   effects: cube and wobbly windows
   #   application launcher
-  #   caps+esc swapped
   #   delay and rate for repeated keys
   #   blur strength
+  #   shortcuts and hotkeys
+
+  imports = [
+    inputs.plasma-manager.homeManagerModules.plasma-manager
+  ];
 
   programs.plasma = {
-    enable = abort "Do not use plasma-home yet!";
+    enable = true;
 
     # anything not configured here will be set to its defaults
     overrideConfig = true;
@@ -24,24 +28,30 @@
       wallpaper = ../../resources/wallpaper.png;
     };
 
-    kwin.virtualDesktops = {
-      rows = 3;
-      number = 9;
-    };
-
-    configFile."kwinrc".Plugins = {
-      cubeEnabled = true;
-      wobblywindowsEnabled = true;
+    kwin = {
+      virtualDesktops = {
+        rows = 3;
+        number = 9;
+      };
+      effects = {
+        cube.enable = true;
+        wobblyWindows.enable = true;
+        blur = {
+          enable = true;
+          strength = 5;
+          noiseStrength = 8;
+        };
+      };
     };
 
     panels = [
       # Windows-like panel at the bottom
       {
-        location = "down";
-        height = 44;
+        location = "bottom";
         hiding = "autohide";
-        # opacity does not seem to be supported yet...
+        height = 44;
         floating = false;
+        # opacity does not seem to be supported yet...
         widgets = [
           "org.kde.plasma.kickoff"
           "org.kde.plasma.icontasks"
@@ -49,16 +59,44 @@
           "org.kde.plasma.digitalclock"
         ];
       }
-      # Global menu at the top
-      # first time seeing that this is possible,
-      # I dont think I want to use this though
-      # {
-      #   location = "top";
-      #   height = 26;
-      #   widgets = [
-      #     "org.kde.plasma.appmenu"
-      #   ];
-      # }
     ];
+
+    shortcuts."kwin" = {
+      "Window Close" = "Meta+Q";
+      # might want to configure:
+      #     Walk Through Windows [Alternative]
+      #     Switch window <direction>
+      #     Increase Screen brightness
+    };
+
+    hotkeys.commands = {
+      open-terminal = {
+        key = "Meta+T";
+        command = "kitty";
+        logs.enabled = false;
+      };
+      open-browser = {
+        key = "Meta+B";
+        command = "firefox";
+        logs.enabled = false;
+      };
+    };
+
+    input = {
+      keyboard = {
+        repeatDelay = 200;
+        repeatRate = 40.0;
+      };
+      touchpads = [
+        {
+          enable = true;
+          naturalScroll = true;
+
+          vendorId = "04f3";
+          productId = "31bc";
+          name = "ASUE140D:00 04F3:31BC Touchpad";
+        }
+      ];
+    };
   };
 }

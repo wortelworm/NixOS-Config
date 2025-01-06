@@ -33,12 +33,11 @@
       inputs.nixpkgs.follows = "nixos";
     };
 
-    # see modules/home-manager/plasma-home.nix
-    # plasma-manager = {
-    #   url = "github:pjones/plasma-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.home-manager.follows = "home-manager";
-    # };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixos";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = {nixos, ...} @ inputs: let

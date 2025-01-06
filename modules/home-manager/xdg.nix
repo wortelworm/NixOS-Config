@@ -58,7 +58,8 @@
     #           set one of '_JAVA_OPTIONS', 'JAVA_TOOL_OPTIONS' or 'JAVA_FONTS'
     #       do I need to set 'KDEHOME' or the likes?
     #   Unsure how's:
-    #       '~/.nix-defexpr', '~/.nix-profile', '~/.nix-channels'
+    #       '~/.nix-defexpr', '~/.nix-profile', '~/.nix-channels',
+    #       '~/.local/state/nix/', '~/.local/state/home-manager'
     #       vscode :(
     #       mozilla firefox
     #       thunderbird, want to use different mail client anyways

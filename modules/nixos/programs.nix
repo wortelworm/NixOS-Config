@@ -21,7 +21,6 @@
     alacritty
 
     # utils
-    vim
     tree
     nh
     dust
