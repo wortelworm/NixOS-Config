@@ -22,6 +22,11 @@
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 
+  # Need to enable this to make session variables work!!
+  # Especially imported because of './xdg.nix'
+  # See also: https://github.com/nix-community/home-manager/issues/1011
+  programs.bash.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
