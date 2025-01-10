@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   # Cross-Desktop Group, standard specifications from freedesktop.org
   xdg = let
     basedir = "${config.home.homeDirectory}/.xdg-home";
@@ -35,6 +39,12 @@
         "image/webp" = "org.kde.gwenview.desktop";
       };
     };
+  };
+
+  # Autostart in xdg format
+  # TODO: Doesn't work yet on cosmic :(
+  home.file."${config.xdg.configHome}/autostart/OneDriveGUI.desktop" = {
+    source = "${pkgs.onedrivegui}/share/applications/OneDriveGUI.desktop";
   };
 
   # Some applications dont follow the xdg standard :(

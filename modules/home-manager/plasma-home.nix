@@ -84,7 +84,7 @@
 
     input = {
       keyboard = {
-        repeatDelay = 200;
+        repeatDelay = 250;
         repeatRate = 40.0;
       };
       touchpads = [
