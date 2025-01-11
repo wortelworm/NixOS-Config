@@ -107,6 +107,14 @@ def "main switch" [
 
     $cleaned_desc | save --force $path_nixos_label
 
+    # Make sure that the ssh key is cached in agent
+    # Note that because github does not actually support remote shell, exit code will be 1.
+    # If authentication failed, exit code will be 255
+    let res = ssh git@github.com | complete
+    if $res.exit_code != 1 {
+        error make {msg: "Failed to authenticate to github!"}
+    }
+
     # build the system and check for errors
     # nushell will automaticly exit if this command fails
     # and the stderr from this command is forwarded

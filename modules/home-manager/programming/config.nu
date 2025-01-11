@@ -90,4 +90,9 @@ def --env zg [...rest: string] {
     lazygit
 }
 
+# Go to directory using zoxide, then run helix
+def --env h [...rest: string] {
+    manual-zoxide-change-dir ...$rest
+    hx
+}
 

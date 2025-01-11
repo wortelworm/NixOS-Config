@@ -70,6 +70,7 @@
     #   Unsure how's:
     #       '~/.nix-defexpr', '~/.nix-profile', '~/.nix-channels',
     #       '~/.local/state/nix/', '~/.local/state/home-manager'
+    #       rustup analyzer refering to '~/.rustup' instead of '$RUSTUP_HOME'
     #       vscode :(
     #       mozilla firefox
     #       thunderbird, want to use different mail client anyways

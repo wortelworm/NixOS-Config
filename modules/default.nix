@@ -14,6 +14,7 @@
 
     latex = lib.mkEnableOption "TeX Live and VimTeX";
     beamLanguages = lib.mkEnableOption "Elixir, gleam and erlang";
+    vscode = lib.mkEnableOption "VScode editor, not been used for a while";
 
     hostname = lib.mkOption {
       type = lib.types.str;
