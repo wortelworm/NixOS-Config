@@ -1,11 +1,11 @@
 {
   lib,
   pkgs,
-  pkgs-unstable,
   wortel,
   ...
 }: {
   imports = [
+    ./helix.nix
     ./nixvim
     ./terminal.nix
     ./yazi.nix
@@ -72,55 +72,6 @@
         init.defaultBranch = "main";
         pull.rebase = "false";
       };
-    };
-
-    # Trying out this new editor
-    helix = {
-      enable = true;
-      package = pkgs-unstable.helix;
-      settings = {
-        theme = "tokyonight";
-        editor = {
-          cursor-shape = {
-            insert = "bar";
-            normal = "block";
-            select = "underline";
-          };
-          line-number = "relative";
-        };
-        keys.normal = {
-          "C-g" = [":new" ":insert-output lazygit" ":buffer-close!" ":redraw" ":reload-all"];
-          "C-S-i" = ":format";
-        };
-      };
-
-      # For all default settings, see:
-      #     https://github.com/helix-editor/helix/blob/master/languages.toml
-      languages = {
-        language-server = {
-          # Make sure that rust-analayzer component is present, using:
-          # `rustup component add rust-analyzer`
-          rust-analyzer.config.check.command = "clippy";
-        };
-
-        language = [
-          {
-            name = "nix";
-            formatter.command = "alejandra";
-            language-servers = ["nixd"];
-          }
-        ];
-      };
-
-      extraPackages = with pkgs; [
-        nixd
-
-        # Just like zed, helix expects the haskell lsp to have specific name
-        # FIXME: Unsure why specifing "$@" instaed of lsp does not work
-        (pkgs.writeShellScriptBin "haskell-language-server-wrapper" ''
-          ${lib.getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server"} "$@"
-        '')
-      ];
     };
 
     # Has been replaced by nvim
