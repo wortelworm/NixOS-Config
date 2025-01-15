@@ -8,6 +8,7 @@
 
   options.wortel = {
     cosmic = lib.mkEnableOption "Cosmic desktop environment";
+    plasma-home = lib.mkEnableOption "Managing plasma configuration using home-manager";
     fingerprint = lib.mkEnableOption "Fingerprint reader drivers";
     games = lib.mkEnableOption "Game launchers";
     nvidia = lib.mkEnableOption "Nvidia GPU drivers etc FOR WORTELWORM5 ONLY";

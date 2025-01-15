@@ -1,4 +1,9 @@
-{inputs, ...}: {
+{
+  inputs,
+  lib,
+  wortel,
+  ...
+}: {
   # see https://github.com/pjones/plasma-manager
   # it does not work great, something is wrong with the size of the bars
   # if this project has matured a bit more I might try again.
@@ -16,7 +21,7 @@
     inputs.plasma-manager.homeManagerModules.plasma-manager
   ];
 
-  programs.plasma = {
+  programs.plasma = lib.mkIf wortel.plasma-home {
     enable = true;
 
     # anything not configured here will be set to its defaults
