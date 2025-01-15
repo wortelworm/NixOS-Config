@@ -59,6 +59,8 @@
 
     PYTHON_HISTORY = "${config.xdg.stateHome}/python/history";
 
+    STEEL_HOME = "${config.xdg.stateHome}/steel";
+
     # Bash uses this, could be more programs listening
     HISTFILE = "${config.xdg.stateHome}/bash/history";
 

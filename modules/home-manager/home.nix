@@ -15,7 +15,7 @@
   # environment variables
   home.sessionVariables = {
     SHELL = "nu";
-    EDITOR = "nvim";
+    EDITOR = "hx";
     BROWSER = "firefox";
     TERMINAL = "alacritty";
 
