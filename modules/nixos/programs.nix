@@ -5,7 +5,6 @@
   ...
 }: {
   # Notes on programs not added:
-  #     nvtop: monitor gpu's, but adds ~6 GB of dependencies
   #     termscp: filezilla in the terminal
   #     browsh: browser in terminal, may be a lifesaver in a weird senario
   #     bottles: running windows programs

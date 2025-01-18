@@ -5,21 +5,21 @@
 }: {
   # Cross-Desktop Group, standard specifications from freedesktop.org
   xdg = let
-    basedir = "${config.home.homeDirectory}/.xdg-home";
+    home = config.home.homeDirectory;
   in {
     enable = true;
 
-    # configuration files
-    configHome = "${basedir}/config";
+    # Configuration files, affects behavior of programs
+    configHome = "${home}/.config";
 
-    # data files that are somewhat important, can be synced
-    dataHome = "${basedir}/data";
+    # Data inherently porable across computers
+    dataHome = "${home}/.local/share";
 
-    # state like logs and last window state
-    stateHome = "${basedir}/state";
+    # Unique for given machine, like logs and history
+    stateHome = "${home}/.local/state";
 
-    # non-essential (cached) data
-    cacheHome = "${basedir}/cache";
+    # Non-essential (cached) data
+    cacheHome = "${home}/.cache";
 
     # Note: runtime dir is automaticly set
 
@@ -54,8 +54,9 @@
 
     IPYTHONDIR = "${config.xdg.configHome}/jupyter";
 
-    CARGO_HOME = "${config.xdg.dataHome}/cargo";
-    RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+    # Rust analyzer expects a specific file under ~/.rustup
+    # RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+    CARGO_HOME = "${config.xdg.stateHome}/cargo";
 
     PYTHON_HISTORY = "${config.xdg.stateHome}/python/history";
 

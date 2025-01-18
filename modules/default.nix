@@ -25,7 +25,7 @@
 
     flakePath = lib.mkOption {
       type = lib.types.str;
-      default = "/home/wortelworm/.dotfiles";
+      default = "/home/wortelworm/Config-NixOS";
       description = lib.mdDoc "Absolute path to this repository's directory";
     };
 
