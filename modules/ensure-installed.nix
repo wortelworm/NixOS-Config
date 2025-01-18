@@ -3,12 +3,13 @@
   pkgs,
   config,
   ...
-}:
-
-let ensure = config.wortel.ensureInstalled; in {
+}: let
+  ensure = config.wortel.ensureInstalled;
+in {
   wortel.ensureInstalled = lib.mkIf ensure.defaultAll {
     librariesWGPU = lib.mkDefault true;
     pythonMachineLearning = lib.mkDefault true;
+    cuda = lib.mkDefault true;
   };
 
   # I'm unaware of any 'evaluate' function existing,
@@ -18,7 +19,6 @@ let ensure = config.wortel.ensureInstalled; in {
       # This file is just a hack needed because I cannot find an 'evaluate' function
 
     ''
-
     # Do I want to make seperate thing for additional bevy things?
     # I don't think bevy uses libGL btw
     + lib.optionalString ensure.librariesWGPU
@@ -29,7 +29,6 @@ let ensure = config.wortel.ensureInstalled; in {
       ${pkgs.libGL}
 
     ''
-
     # 'ipython' is not strictly for machine learning, but the nvim plugin uses it
     # Also 'tqdm' is used by one of those notebooks
     + lib.optionalString ensure.pythonMachineLearning
@@ -42,5 +41,12 @@ let ensure = config.wortel.ensureInstalled; in {
       ${pkgs.python312Packages.tqdm}
       ${pkgs.python312Packages.torchvision}
 
+    ''
+    # This is about 4.5GiB for some reason
+    + lib.optionalString ensure.cuda
+    ''
+      # Gpu compute using cuda
+      ${pkgs.cudatoolkit}
+      ${pkgs.linuxPackages.nvidia_x11}
     '';
 }

@@ -58,6 +58,7 @@
     extraPackages = with pkgs; [
       nixd
       haskell-ghcup-lsp
+      texlab
     ];
   };
 }

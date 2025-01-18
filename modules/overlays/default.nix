@@ -18,6 +18,9 @@
       steel = pkgs.callPackage ./steel.nix {};
       steel-lsp = pkgs.callPackage ./steel-lsp.nix {};
 
+      # Doesn't appear to be using any more storage
+      btop = prev.btop.override { cudaSupport = true; };
+
       # Some programs expect the haskell language server
       # to be named 'haskell-language-server-wrapper'
       # I think this is the name that ghcup gives it

@@ -78,8 +78,4 @@
       ];
     };
   };
-
-  # A lot of software is disabled by default,
-  # I currently do not care that much about things being unfree
-  nixpkgs.config.allowUnfree = true;
 }
