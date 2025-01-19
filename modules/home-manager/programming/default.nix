@@ -6,13 +6,11 @@
 }: {
   imports =
     [
+      ./helix.nix
       ./nixvim
       ./terminal.nix
       ./yazi.nix
       ./zed-editor.nix
-    ]
-    ++ lib.optionals wortel.helix [
-      ./helix.nix
     ];
 
   # All the terminal tooling for various languages
