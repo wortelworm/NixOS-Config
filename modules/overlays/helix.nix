@@ -32,6 +32,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = with pkgs; [
     git
     installShellFiles
+    # TODO:
+    # llvm-dap
   ];
 
   env = {

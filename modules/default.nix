@@ -16,6 +16,7 @@
     latex = lib.mkEnableOption "TeX Live and VimTeX";
     beamLanguages = lib.mkEnableOption "Elixir, gleam and erlang";
     vscode = lib.mkEnableOption "VScode editor, not been used for a while";
+    helix = lib.mkEnableOption "Compile helix through nix, uses a lot of resources...";
 
     hostname = lib.mkOption {
       type = lib.types.str;

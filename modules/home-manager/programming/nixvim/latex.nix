@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  latex = pkgs.texliveFull;
+  latex = pkgs.texliveMedium;
 in {
   home.packages = [latex];
 
