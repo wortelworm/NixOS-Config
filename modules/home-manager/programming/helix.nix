@@ -10,6 +10,10 @@
     nixd
     haskell-ghcup-lsp
     texlab
+
+    # C-sharp lsp and dap
+    omnisharp-roslyn
+    netcoredbg
   ];
 in
   if !wortel.helix
