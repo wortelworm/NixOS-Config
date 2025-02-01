@@ -13,9 +13,8 @@
     isNormalUser = true;
     description = "Wortel Worm";
     extraGroups = [
-      # Allows me to use docker without sudo
-      # Docker is being run in rootless mode, so it should be fine
-      "docker"
+      # Podman replaced docker
+      "podman"
 
       # Used for kmonad
       "input"
