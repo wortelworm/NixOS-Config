@@ -175,6 +175,9 @@ def "main show" []: nothing -> nothing {
         | each {|elt| $elt.datetime} 
         | math max
 
-    print $"Latest input is from ($latest | date humanize) \(($latest | format date '%Y-%m-%d %H:%M:%S'))"
+    let days = ((date now) - $latest) / 1day | math round --precision 1
+    let formatted = $latest | format date '%Y-%m-%d %H:%M:%S'
+
+    print $"Latest input is from ($days) days ago \(($formatted))"
 }
 
