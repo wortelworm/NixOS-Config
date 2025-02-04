@@ -4,14 +4,13 @@
   wortel,
   ...
 }: {
-  imports =
-    [
-      ./helix.nix
-      ./nixvim
-      ./terminal.nix
-      ./yazi.nix
-      ./zed-editor.nix
-    ];
+  imports = [
+    ./helix.nix
+    ./nixvim
+    ./terminal.nix
+    ./yazi.nix
+    ./zed-editor.nix
+  ];
 
   # All the terminal tooling for various languages
   home.packages = with pkgs;
@@ -30,11 +29,13 @@
       gdb
       clang-tools
       python313 # First version to respect $PYTHON_HISTORY
+      arduino
 
       # haskell
       ghc
       cabal-install
       hlint
+
     ]
     ++ lib.optional wortel.beamLanguages [
       elixir
