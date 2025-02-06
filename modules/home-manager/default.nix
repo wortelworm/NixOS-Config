@@ -23,6 +23,9 @@
       # Used by virt-manager
       "libvirtd"
 
+      # Used by arduino, for the usb port
+      "dialout"
+
       # idk what these do
       "networkmanager"
       "wheel"
