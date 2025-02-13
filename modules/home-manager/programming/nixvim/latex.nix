@@ -1,5 +1,14 @@
 {pkgs, ...}: let
-  latex = pkgs.texliveMedium;
+  latex = pkgs.texlive.combine {
+    inherit
+      (pkgs.texlive)
+      scheme-basic
+      latexmk
+      amstex
+      geometry
+      enumitem
+      ;
+  };
 in {
   home.packages = [latex];
 

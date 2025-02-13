@@ -33,7 +33,7 @@
         placement_strategy = "top-left";
       };
 
-      # To test hwo things are named, run:
+      # To test how things are named, run:
       # kitten show-key -m kitty
       keybindings = {
         "ctrl+BACKSPACE" = "send_key ctrl+w";

@@ -53,6 +53,9 @@
       cmdheight = 0;
     };
 
+    # Note on preformance stuff:
+    # Its not needed for me so only adds complexity
+
     performance = {
       byteCompileLua.enable = true;
       combinePlugins = {
