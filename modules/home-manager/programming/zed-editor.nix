@@ -7,7 +7,7 @@
   # TODO:
   #   compitest
   #   Syntax highlighting within strings
-  programs.zed-editor = {
+  programs.zed-editor = lib.mkIf wortel.zed-editor {
     enable = true;
     extensions = [
       "nix"
