@@ -6,7 +6,6 @@
     hostname = "wortelworm5";
 
     cosmic = true;
-    fingerprint = true;
     nvidia = true;
     games = true;
     latex = true;
