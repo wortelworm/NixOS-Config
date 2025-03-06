@@ -13,6 +13,8 @@
     # Bash/nushell integration is enabled by default in home-manager
     zoxide.enable = true;
 
+    zellij.enable = true;
+
     # Replacing default bash/nushell prompt
     starship = {
       enable = true;

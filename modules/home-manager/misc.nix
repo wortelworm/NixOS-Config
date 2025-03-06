@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     obsidian
     onedrivegui
@@ -15,6 +19,9 @@
 
     # remote desktop
     remmina
+
+    # Trying out different browser
+    inputs.zen-browser.packages."x86_64-linux".default
   ];
 
   programs.firefox = {
