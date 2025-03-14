@@ -35,6 +35,8 @@
         placement_strategy = "top-left";
       };
 
+      font.name = "JetBrainsMono Nerd Font";
+
       # To test how things are named, run:
       # kitten show-key -m kitty
       keybindings = {
@@ -44,6 +46,8 @@
 
     # Has been largely replaced by kitty, but
     # here to stay as a backup if I mess up
+    #    Note: if alacritty cannot find the font,
+    #      it will glitch and do something weird
     alacritty = {
       enable = true;
       settings = {
@@ -62,7 +66,7 @@
           blink_interval = 500;
           thickness = 0.175;
         };
-        font.normal.family = "Hack";
+        font.normal.family = "JetBrainsMono Nerd Font";
         window = {
           blur = true;
           opacity = 0.6;

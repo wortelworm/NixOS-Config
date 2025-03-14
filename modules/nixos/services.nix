@@ -13,9 +13,12 @@
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;
 
-  # enable bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth = {
+    # This is handy, but I don't use it reguarly.
+    enable = true;
+    # Don't let my computers randomly connect on startup.
+    powerOnBoot = false;
+  };
 
   # Note: the adress of printer at home is:
   # http://192.168.178.25:80/WebServices/Device

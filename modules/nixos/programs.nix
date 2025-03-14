@@ -5,12 +5,17 @@
   ...
 }: {
   # Notes on programs not added:
-  #     termscp: filezilla in the terminal
-  #     browsh: browser in terminal, may be a lifesaver in a weird senario
   #     bottles: running windows programs
   #         But does not work for microsoft visual studio and microsoft office
   #     ripgrep-all: like ripgrep but many more file formats
   #         adds ~225MiB of dependencies for something I almost never gonna use
+  #   Browser things in the terminal:
+  #     termscp: filezilla in the terminal
+  #     browsh: browser in terminal, may be a lifesaver in a weird senario
+  #     wiki-tui:
+  #         really cool but does not work for math images
+  #     ncspot:
+  #         ncurses spotify client
 
   # will be only non-home manager programs in path
   environment.systemPackages = with pkgs; [
@@ -42,8 +47,17 @@
   ];
 
   # font, used automaticly by kitty
+  # I want to have support for nerdfonts and ligatures
+  #     Hack: does not have ligatures
+  #     FiraCode: weird g
+  #     JetBrainsMono:
+  #         Text is more vertical space,
+  #         bad for things like btop
+  #         in kitty it is fine, int alacritty its worse
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["Hack"];})
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
+
+    # FIXME: in 25.05 we can use 'nerd-fonts.fira-code' and such
   ];
 
   # Starts OpenSSH agent on login, so don't have to type

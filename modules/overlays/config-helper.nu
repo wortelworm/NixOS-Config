@@ -161,7 +161,7 @@ def flake-inputs-datetimes [] {
             # It is in utc timezone, but we want to convert it to local anyway
             let datetime = $elt.value
                 | get locked.lastModified
-                | $in * 1_000_000_000
+                | $in * 1sec // 1ns
                 | into datetime -z l
 
             {datetime: $datetime, name: $elt.name}
