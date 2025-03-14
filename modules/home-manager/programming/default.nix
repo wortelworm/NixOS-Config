@@ -7,6 +7,7 @@
   imports = [
     ./helix.nix
     ./nixvim
+    ./rust.nix
     ./terminal.nix
     ./yazi.nix
     ./zed-editor.nix
@@ -22,7 +23,6 @@
       alejandra
 
       # other languages
-      rustup
       nodejs_20
       mono
       gcc
