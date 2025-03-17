@@ -1,13 +1,14 @@
 {
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }: let
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "235437cf3632a3cafe37ec1b22059e4b014a7aff";
-    hash = "sha256-LxWc0hFSj1cp9/aWmN2mmojcQnvFl3meZ96CIbTt2f0=";
+    rev = "79193b3917d0f1b82ee41b4e64ae4df58f2284f6";
+    hash = "sha256-ZLL/dFjNsryjm51kFNOmw5DhSGl2K5IfatHpe1PkuFE=";
   };
 
   yazi-onedark = pkgs.fetchFromGitHub {
@@ -20,8 +21,8 @@
   yazi-plugin-starship = pkgs.fetchFromGitHub {
     owner = "Rolv-Apneseth";
     repo = "starship.yazi";
-    rev = "247f49da1c408235202848c0897289ed51b69343";
-    hash = "sha256-0J6hxcdDX9b63adVlNVWysRR5htwAtP5WhIJ2AK2+Gs=";
+    rev = "6c639b474aabb17f5fecce18a4c97bf90b016512";
+    hash = "sha256-bhLUziCDnF4QDCyysRn7Az35RAy8ibZIVUzoPgyEO1A=";
   };
 in {
   # Note that right now version 0.4 is under development,
@@ -30,6 +31,8 @@ in {
   # Also note that help is available by pressing <F1> or '~'
   programs.yazi = {
     enable = true;
+
+    package = pkgs-unstable.yazi;
 
     shellWrapperName = "y";
     enableBashIntegration = true;
@@ -65,7 +68,7 @@ in {
     };
 
     # Theming
-    theme.flavor.use = "onedark";
+    theme.flavor.dark = "onedark";
     flavors.onedark = yazi-onedark;
 
     # Plugins
@@ -77,9 +80,21 @@ in {
         require("starship"):setup()
       '';
 
-    plugins = {
-      git = "${yazi-plugins}/git.yazi/";
-      full-border = "${yazi-plugins}/full-border.yazi/";
+    # The fake function should be removed once home-manager 25.05 comes around
+    # This is because the new version of yazi plugins uses `main.lua` instead of `init.lua`
+    plugins = let
+      fake = plugin:
+        pkgs.symlinkJoin {
+          name = "fake-yazi-plugin";
+          paths = [plugin];
+          postBuild = ''
+            touch $out/git.yazi/init.lua
+            touch $out/full-border.yazi/init.lua
+          '';
+        };
+    in {
+      git = "${fake yazi-plugins}/git.yazi/";
+      full-border = "${fake yazi-plugins}/full-border.yazi/";
       starship = "${yazi-plugin-starship}";
     };
   };
