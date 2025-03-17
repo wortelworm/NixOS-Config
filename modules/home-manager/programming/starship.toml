@@ -213,6 +213,9 @@ format = "\\[[$symbol($version)]($style)\\]"
 symbol = " "
 format = "\\[[$symbol($version)]($style)\\]"
 
+[typst]
+format = "\\[[$symbol($version)]($style)\\]"
+
 [zig]
 symbol = " "
 format = "\\[[$symbol($version)]($style)\\]"

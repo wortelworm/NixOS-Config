@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  pkgs-unstable,
   wortel,
   ...
 }: {
@@ -30,6 +31,7 @@
       clang-tools
       python313 # First version to respect $PYTHON_HISTORY
       arduino
+      pkgs-unstable.typst
 
       # haskell
       ghc

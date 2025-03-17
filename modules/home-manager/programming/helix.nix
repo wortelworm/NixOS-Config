@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   wortel,
   ...
 }: let
@@ -10,6 +11,7 @@
     nixd
     haskell-ghcup-lsp
     texlab
+    pkgs-unstable.tinymist
 
     # C-sharp lsp and dap
     omnisharp-roslyn
