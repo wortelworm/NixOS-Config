@@ -35,7 +35,8 @@
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixos";
+      # Nixos stable from cosmic does not have 'libgbm'
+      # inputs.nixpkgs.follows = "nixos";
     };
 
     plasma-manager = {
@@ -54,6 +55,7 @@
 
     additionalCache = {
       nix.settings = {
+        # Note: the nix-community cache does not contain nvidia-x11 package...
         substituters = ["https://cosmic.cachix.org/"];
         trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
       };
