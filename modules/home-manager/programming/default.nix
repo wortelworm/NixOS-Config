@@ -30,7 +30,7 @@
       gdb
       clang-tools
       python313 # First version to respect $PYTHON_HISTORY
-      arduino
+      arduino-ide
       pkgs-unstable.typst
 
       # haskell
