@@ -181,3 +181,13 @@ def "main show" []: nothing -> nothing {
     print $"Latest input is from ($days) days ago \(($formatted))"
 }
 
+# Provides information about the laptop's battery
+def "main bat" []: nothing -> record {
+    cd /sys/class/power_supply/BAT0
+    
+    {
+        status: (open status),
+        charge: (open capacity),
+        health: ((open energy_full | into int) / (open energy_full_design | into int) * 100)
+    }
+}
