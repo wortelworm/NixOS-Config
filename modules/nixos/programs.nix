@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }: {
   # Notes on programs not added:
@@ -54,10 +55,10 @@
   #         Text is more vertical space,
   #         bad for things like btop
   #         in kitty it is fine, int alacritty its worse
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["JetBrainsMono"];})
-
-    # FIXME: in 25.05 we can use 'nerd-fonts.fira-code' and such
+  fonts.packages = [
+    # FIXME: in 25.05, doesn't need to use unstable
+    # this has been changed because yazi also uses unstable version
+    pkgs-unstable.nerd-fonts.jetbrains-mono
   ];
 
   # Starts OpenSSH agent on login, so don't have to type
