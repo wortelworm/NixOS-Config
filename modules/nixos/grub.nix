@@ -1,16 +1,14 @@
-{inputs, ...}: {
-  imports = [
-    inputs.grub2-themes.nixosModules.default
-  ];
-
-  # Bootloader.
+{pkgs, ...}: {
   boot.loader = {
     timeout = 5;
 
+    # From default configuration
     efi = {
       efiSysMountPoint = "/boot";
       canTouchEfiVariables = true;
     };
+
+    # Grub is much nicer than systemd boot
     grub = {
       enable = true;
       device = "nodev";
@@ -18,25 +16,19 @@
       efiSupport = true;
       # boot into last os used
       default = "saved";
-    };
 
-    grub2-theme = {
-      enable = true;
-      theme = "vimix";
-      icon = "color";
-      screen = "4k";
+      # I want a specific subdirectory from the github
+      # Using mkDerivation to prevent the entire repo to be used
+      theme = pkgs.stdenv.mkDerivation rec {
+        name = "HyperFluent-GRUB-Theme";
+        src = pkgs.fetchFromGitHub {
+          owner = "Coopydood";
+          repo = name;
+          rev = "3268a7cf8f7351539e7a5d30904a6fa14767bae8";
+          hash = "sha256-0SzFM4r8Mo+vaGPeTQgZcAWrqgseKKmEC6xjRDTvDoQ=";
+        };
+        installPhase = "cp -r nixos $out";
+      };
     };
   };
-
-  # minegrub, here to stay as an example
-  # boot.loader.grub.theme = pkgs.stdenv.mkDerivation rec {
-  #   name = "minegrub-world-sel-theme";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "Lxtharia";
-  #     repo = "${name}";
-  #     rev = "9db8c052dc";
-  #     hash = "sha256-uhTUsI9bRr/TWQL9BqWT4OB74isQjVJdHvpgW/w4ayE=";
-  #   };
-  #   installPhase = "cp -r minegrub-world-selection $out";
-  # };
 }

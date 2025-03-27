@@ -18,11 +18,6 @@
       inputs.nixpkgs.follows = "nixos";
     };
 
-    grub2-themes = {
-      url = "github:vinceliuice/grub2-themes";
-      inputs.nixpkgs.follows = "nixos";
-    };
-
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixos";
