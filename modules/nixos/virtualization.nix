@@ -36,6 +36,7 @@
 
   # Redirect local dns port to point at pi-hole
   # TODO: might want to recreate pihole myself?
+  # Use 'netstat -nlp' to see open connections
   # systemd.services.wortel-dns-redirect = {
   #   enable = true;
   #   after = ["network.target"];

@@ -10,7 +10,7 @@
     games = true;
     latex = true;
 
-    ensureInstalled.defaultAll = true;
+    ensureInstalled.librariesWGPU = true;
   };
 
   imports = [

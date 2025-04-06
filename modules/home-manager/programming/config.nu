@@ -29,23 +29,11 @@ alias f = fastfetch
 
 alias n = wortel-config-helper
 
+alias ns = nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu'
+
 # List files and directories, sorted by type and name
 def l [] {
     ls | sort-by type name -i
-}
-
-# Enter a shell.nix
-def ns [
-    initial_command?: string # Command to run in the nix shell
-    --packages (-p): string # Package to be made available
-] {
-    # Is there a better way of doing this?
-    match [$initial_command, $packages] {
-        [null, null] => (nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu')
-        [null, _   ] => (nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu' --packages $packages)
-        [_   , null] => (nix-shell --command $'export NU_WITHIN_NIX_SHELL=1; nu -e "($initial_command)"')
-        [_   , _   ] => (nix-shell --command $'export NU_WITHIN_NIX_SHELL=1; nu -e "($initial_command)"' --packages $packages)
-    }
 }
 
 # Show help page, piped into bat
@@ -70,12 +58,6 @@ def --env manual-zoxide-change-dir [...rest: string] {
 def --env v [...rest: string] {
     manual-zoxide-change-dir ...$rest
     vi
-}
-
-# Go to directory using zoxide, then run vi in a nix-shell
-def --env vs [...rest: string] {
-    manual-zoxide-change-dir ...$rest
-    ns vi
 }
 
 # Go to directory using zoxide, then run a nix-shell
