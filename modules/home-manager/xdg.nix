@@ -28,10 +28,12 @@
       enable = true;
 
       # Use 'xdg-mime query filetype [FILE]' to find out the name
+      # Look in the directories of $env.XDG_DATA_DIRS/applications
+      # For example, '/etc/profiles/per-user/wortelworm/share/applications'
       defaultApplications = {
-        "text/html" = "zen.desktop";
-        "x-scheme-handler/http" = "zen.desktop";
-        "x-scheme-handler/https" = "zen.desktop";
+        "text/html" = "zen-beta.desktop";
+        "x-scheme-handler/http" = "zen-beta.desktop";
+        "x-scheme-handler/https" = "zen-beta.desktop";
 
         "application/pdf" = "org.pwmt.zathura.desktop";
         "image/png" = "org.kde.gwenview.desktop";
