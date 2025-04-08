@@ -12,7 +12,10 @@
     xserver.enable = true;
 
     # sddm is the default display manager for KDE plasma
-    displayManager.sddm.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      settings.General.DefaultSession = lib.mkIf config.wortel.cosmic "cosmic.desktop";
+    };
 
     desktopManager.plasma6.enable = true;
 
