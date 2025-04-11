@@ -17,8 +17,14 @@
       steel = pkgs.callPackage ./steel.nix {};
       steel-lsp = pkgs.callPackage ./steel-lsp.nix {};
 
-      # Doesn't appear to be using any more storage
-      btop = prev.btop.override { cudaSupport = true; };
+      # Doesn't appear to be using any more storage,
+      # just require recompilation
+      btop = prev.btop.override {
+        # Dedicated nvidia card
+        cudaSupport = true;
+        # Integrated amd graphics
+        rocmSupport = true;
+      };
 
       # Some programs expect the haskell language server
       # to be named 'haskell-language-server-wrapper'

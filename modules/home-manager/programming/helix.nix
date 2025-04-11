@@ -7,11 +7,13 @@
   ...
 }: let
   # Language servers and stuff
+  # Note that rust-analyzer is installed with rustup
   runtimeInputs = with pkgs; [
+    taplo # TODO: validation of Cargo.toml schema?
     nixd
     haskell-ghcup-lsp
     texlab
-    pkgs-unstable.tinymist
+    pkgs-unstable.tinymist # typst
 
     # C-sharp lsp and dap
     omnisharp-roslyn
