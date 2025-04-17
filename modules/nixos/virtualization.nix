@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # For future me, if you messed up everything like just now:
   #     Boot from an usb stick (press escape during pre-boot)
   #     Use `sudo mount /dev/nvme0n1p6 /mnt` and then `sudo nixos-enter`
@@ -17,6 +21,8 @@
   #
   # Notes for windows vm:
   #   Install winfsp and virtio-win-guest-tools on guest for folder sharing
+  #   Also install the second one for changing the resolution (automatically)
+  #   Display spice with OpenGL doesn't work on windows guest
   #   Visual studio installer: Select 'windows application environment', not '.NET desktop environment'
   #
   programs.virt-manager.enable = true;
@@ -26,8 +32,49 @@
     qemu = {
       runAsRoot = false;
       vhostUserPackages = [pkgs.virtiofsd];
+      # Note some examples also include:
+      # ovmf.enable = true;
     };
   };
+
+  # Gpu passthrough:
+  #   See: https://github.com/bryansteiner/gpu-passthrough-tutorial/
+  #   Alos: https://olai.dev/blog/nvidia-vm-passthrough/
+  #   Requires hardware support, I'll just assume I have that
+  #   Also this method requires two gpus? And an additional display is handy
+  #   Checking groups in nushell:
+  #     requires nix-shell -p pciutils
+  #     ls /sys/kernel/iommu_groups/*/devices/* | each {|f| let p = $f.name | parse '/sys/kernel/iommu_groups/{i}/devices/{s}' | get 0; { group: ($p.i | into int), name: (lspci -nns $p.s) }} | sort
+
+  # Eventual TODO: using hooks so that this is not just a specialization but can be changed while booted
+  # First bind the devices to VFIO
+  boot.kernelParams = [
+    "amd_iommu=on"
+    "iommu=pt"
+    "vfio-pci.ids=${lib.concatStringsSep "," [
+      # Nvidia 3050 Mobile on wortelworm5
+      "14c3:7961"
+    ]}"
+  ];
+  boot.initrd.kernelModules = [
+    "vfio_pci"
+    "vfio"
+    "vfio_iommu_type1"
+  ];
+
+  # Blacklist the nvidia drivers to make sure they don't get loaded
+  boot.extraModprobeConfig = ''
+    softdep nvidia pre: vfio-pci
+    softdep drm pre: vfio-pci
+    softdep nouveau pre: vfio-pci
+  '';
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidia"
+    "nvidia_drm"
+    "nvidia_modeset"
+    "i2c_nvidia_gpu"
+  ];
 
   # Used for building redox
   virtualisation.podman = {
