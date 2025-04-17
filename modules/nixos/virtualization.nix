@@ -21,8 +21,12 @@
   #
   # Notes for windows vm:
   #   Install winfsp and virtio-win-guest-tools on guest for folder sharing
-  #   Also install the second one for changing the resolution (automatically)
+  #   Also install the second one for changing the resolution,
+  #     or maybe spice guest tools? ( https://www.spice-space.org/download.html )
+  #     also do I need looking glass?
+  #     currently have all of these installed
   #   Display spice with OpenGL doesn't work on windows guest
+  #   Virtio networking requires the guest tools to work
   #   Visual studio installer: Select 'windows application environment', not '.NET desktop environment'
   #
   programs.virt-manager.enable = true;
@@ -32,8 +36,6 @@
     qemu = {
       runAsRoot = false;
       vhostUserPackages = [pkgs.virtiofsd];
-      # Note some examples also include:
-      # ovmf.enable = true;
     };
   };
 
@@ -45,6 +47,7 @@
   #   Checking groups in nushell:
   #     requires nix-shell -p pciutils
   #     ls /sys/kernel/iommu_groups/*/devices/* | each {|f| let p = $f.name | parse '/sys/kernel/iommu_groups/{i}/devices/{s}' | get 0; { group: ($p.i | into int), name: (lspci -nns $p.s) }} | sort
+  #   Unable to start booting? A program (like btop!) is using the graphics card, even though nvidia-smi says otherwise
 
   # Eventual TODO: using hooks so that this is not just a specialization but can be changed while booted
   # First bind the devices to VFIO
@@ -74,6 +77,12 @@
     "nvidia_drm"
     "nvidia_modeset"
     "i2c_nvidia_gpu"
+  ];
+
+  # Host's looking glass
+  environment.systemPackages = [pkgs.looking-glass-client];
+  systemd.tmpfiles.rules = [
+    "f /dev/shm/looking-glass 0660 wortelworm libvirtd -"
   ];
 
   # Used for building redox
