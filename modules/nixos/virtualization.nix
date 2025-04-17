@@ -82,7 +82,7 @@
   # Host's looking glass
   environment.systemPackages = [pkgs.looking-glass-client];
   systemd.tmpfiles.rules = [
-    "f /dev/shm/looking-glass 0660 wortelworm libvirtd -"
+    "f /dev/shm/looking-glass 0660 wortelworm qemu-libvirtd -"
   ];
 
   # Used for building redox
