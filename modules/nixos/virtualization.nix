@@ -41,66 +41,68 @@
 
   # Gpu passthrough:
   #   See: https://github.com/bryansteiner/gpu-passthrough-tutorial/
-  #   Alos: https://olai.dev/blog/nvidia-vm-passthrough/
+  #   Also: https://olai.dev/blog/nvidia-vm-passthrough/
   #   Requires hardware support, I'll just assume I have that
-  #   Also this method requires two gpus? And an additional display is handy
   #   Checking groups in nushell:
   #     requires nix-shell -p pciutils
   #     ls /sys/kernel/iommu_groups/*/devices/* | each {|f| let p = $f.name | parse '/sys/kernel/iommu_groups/{i}/devices/{s}' | get 0; { group: ($p.i | into int), name: (lspci -nns $p.s) }} | sort
-  #   Unable to start booting? A program (like btop!) is using the graphics card, even though nvidia-smi says otherwise
-
-  # Eventual TODO: using hooks so that this is not just a specialization but can be changed while booted
-  # First bind the devices to VFIO
+  #   Unable to start booting? A program (like btop or cosmic!) is using the graphics card, even though nvidia-smi says otherwise
+  #   Note that something like looking glass is not possible, because there is no display output from the dGPU directly...
   boot.kernelParams = [
     "amd_iommu=on"
-    # "iommu=pt"
-    # "vfio-pci.ids=${lib.concatStringsSep "," [
-    #   # Nvidia 3050 Mobile on wortelworm5
-    #   "14c3:7961"
-    # ]}"
+    "iommu=pt"
   ];
-  # boot.initrd.kernelModules = [
-  #   "vfio_pci"
-  #   "vfio"
-  #   "vfio_iommu_type1"
-  # ];
 
-  # Eventually use these scripts, for now testing by doing it by hand
-  # virtualisation.libvirtd.hooks.qemu = let
-  #   pci_video = "pci_0000_02_00_0";
-  # in {
-  #   "PhysicalWin11/prepare/begin" = pkgs.writeShellApplication {
-  #     name = "prepare_begin_hook.sh";
-  #     text =
-  #       # bash
-  #       ''
-  #         ## Load vfio??
-          
-  #         ## Unbind gpu from nvidia and bind to vfio
-  #         virsh nodedev-detach ${pci_video}
-  #       '';
-  #   };
-  # };
+  virtualisation.libvirtd.hooks.qemu = let
+    pci_video = "pci_0000_01_00_0";
+  in {
+    "PhysicalWin11/prepare/begin/isol.sh" = pkgs.writeShellApplication {
+      name = "isol.sh";
+      text = ''
+        ## Disable nvidia modules
+        modprobe -r nvidia_drm
+        modprobe -r nvidia_modeset
+        modprobe -r nvidia_uvm
+        modprobe -r nvidia
 
-  # Blacklist the nvidia drivers to make sure they don't get loaded
-  # boot.extraModprobeConfig = ''
-  #   softdep nvidia pre: vfio-pci
-  #   softdep drm pre: vfio-pci
-  #   softdep nouveau pre: vfio-pci
-  # '';
-  # boot.blacklistedKernelModules = [
-  #   "nouveau"
-  #   "nvidia"
-  #   "nvidia_drm"
-  #   "nvidia_modeset"
-  #   "i2c_nvidia_gpu"
-  # ];
+        ## Load vfio
+        modprobe vfio
+        modprobe vfio_iommu_type1
+        modprobe vfio_pci
 
-  # Host's looking glass
-  environment.systemPackages = [pkgs.looking-glass-client];
-  systemd.tmpfiles.rules = [
-    "f /dev/shm/looking-glass 0660 wortelworm qemu-libvirtd -"
-  ];
+        ## Unbind gpu from nvidia and bind to vfio
+        virsh nodedev-detach ${pci_video}
+
+        ## Limit cores for host
+        systemctl set-property --runtime -- user.slice AllowedCPUs=2,3
+        systemctl set-property --runtime -- system.slice AllowedCPUs=2,3
+        systemctl set-property --runtime -- init.scope AllowedCPUs=2,3
+      '';
+    };
+    "PhysicalWin11/release/end/free.sh" = pkgs.writeShellApplication {
+      name = "free.sh";
+      text = ''
+        ## Give host all cores back
+        systemctl set-property --runtime -- user.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
+        systemctl set-property --runtime -- system.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
+        systemctl set-property --runtime -- init.scope AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
+
+        ## Unbind gpu from vfio
+        virsh nodedev-reattach ${pci_video}
+
+        ## Unload vfio
+        modprobe -r vfio
+        modprobe -r vfio_iommu_type1
+        modprobe -r vfio_pci
+
+        ## Re-enable nvidia modules
+        modprobe nvidia_drm
+        modprobe nvidia_modeset
+        modprobe nvidia_uvm
+        modprobe nvidia
+      '';
+    };
+  };
 
   # Used for building redox
   virtualisation.podman = {
