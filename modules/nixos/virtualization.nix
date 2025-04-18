@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # For future me, if you messed up everything like just now:
   #     Boot from an usb stick (press escape during pre-boot)
   #     Use `sudo mount /dev/nvme0n1p6 /mnt` and then `sudo nixos-enter`
@@ -56,52 +52,61 @@
   virtualisation.libvirtd.hooks.qemu = let
     pci_video = "pci_0000_01_00_0";
   in {
-    "PhysicalWin11/prepare/begin/isol.sh" = pkgs.writeShellApplication {
-      name = "isol.sh";
-      text = ''
-        ## Disable nvidia modules
-        modprobe -r nvidia_drm
-        modprobe -r nvidia_modeset
-        modprobe -r nvidia_uvm
-        modprobe -r nvidia
+    "hardware_isolation" =
+      pkgs.writeScript "hardware_isolation.nu"
+      ''
+        #! ${pkgs.nushell}
+        def main [_guest_name: string, hook_name: string, state_name: string, ..._misc] {
+          if ($hook_name == 'prepare' and $state_name == 'begin') {
+            enable
+          }
+          if ($hook_name == 'release' and $state_name == 'end') {
+            disable
+          }
+        }
 
-        ## Load vfio
-        modprobe vfio
-        modprobe vfio_iommu_type1
-        modprobe vfio_pci
+        def enable [] {
+          ## Disable nvidia modules
+          modprobe -r nvidia_drm
+          modprobe -r nvidia_modeset
+          modprobe -r nvidia_uvm
+          modprobe -r nvidia
 
-        ## Unbind gpu from nvidia and bind to vfio
-        virsh nodedev-detach ${pci_video}
+          ## Load vfio
+          modprobe vfio
+          modprobe vfio_iommu_type1
+          modprobe vfio_pci
 
-        ## Limit cores for host
-        systemctl set-property --runtime -- user.slice AllowedCPUs=2,3
-        systemctl set-property --runtime -- system.slice AllowedCPUs=2,3
-        systemctl set-property --runtime -- init.scope AllowedCPUs=2,3
+          ## Unbind gpu from nvidia and bind to vfio
+          virsh nodedev-detach ${pci_video}
+
+          ## Limit cores for host
+          systemctl set-property --runtime -- user.slice AllowedCPUs=2,3
+          systemctl set-property --runtime -- system.slice AllowedCPUs=2,3
+          systemctl set-property --runtime -- init.scope AllowedCPUs=2,3
+        }
+
+        def disable [] {
+          ## Give host all cores back
+          systemctl set-property --runtime -- user.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
+          systemctl set-property --runtime -- system.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
+          systemctl set-property --runtime -- init.scope AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
+
+          ## Unbind gpu from vfio
+          virsh nodedev-reattach ${pci_video}
+
+          ## Unload vfio
+          modprobe -r vfio
+          modprobe -r vfio_iommu_type1
+          modprobe -r vfio_pci
+
+          ## Re-enable nvidia modules
+          modprobe nvidia_drm
+          modprobe nvidia_modeset
+          modprobe nvidia_uvm
+          modprobe nvidia
+        }
       '';
-    };
-    "PhysicalWin11/release/end/free.sh" = pkgs.writeShellApplication {
-      name = "free.sh";
-      text = ''
-        ## Give host all cores back
-        systemctl set-property --runtime -- user.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
-        systemctl set-property --runtime -- system.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
-        systemctl set-property --runtime -- init.scope AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
-
-        ## Unbind gpu from vfio
-        virsh nodedev-reattach ${pci_video}
-
-        ## Unload vfio
-        modprobe -r vfio
-        modprobe -r vfio_iommu_type1
-        modprobe -r vfio_pci
-
-        ## Re-enable nvidia modules
-        modprobe nvidia_drm
-        modprobe nvidia_modeset
-        modprobe nvidia_uvm
-        modprobe nvidia
-      '';
-    };
   };
 
   # Used for building redox
