@@ -53,31 +53,48 @@
   # First bind the devices to VFIO
   boot.kernelParams = [
     "amd_iommu=on"
-    "iommu=pt"
-    "vfio-pci.ids=${lib.concatStringsSep "," [
-      # Nvidia 3050 Mobile on wortelworm5
-      "14c3:7961"
-    ]}"
+    # "iommu=pt"
+    # "vfio-pci.ids=${lib.concatStringsSep "," [
+    #   # Nvidia 3050 Mobile on wortelworm5
+    #   "14c3:7961"
+    # ]}"
   ];
-  boot.initrd.kernelModules = [
-    "vfio_pci"
-    "vfio"
-    "vfio_iommu_type1"
-  ];
+  # boot.initrd.kernelModules = [
+  #   "vfio_pci"
+  #   "vfio"
+  #   "vfio_iommu_type1"
+  # ];
+
+  # Eventually use these scripts, for now testing by doing it by hand
+  # virtualisation.libvirtd.hooks.qemu = let
+  #   pci_video = "pci_0000_02_00_0";
+  # in {
+  #   "PhysicalWin11/prepare/begin" = pkgs.writeShellApplication {
+  #     name = "prepare_begin_hook.sh";
+  #     text =
+  #       # bash
+  #       ''
+  #         ## Load vfio??
+          
+  #         ## Unbind gpu from nvidia and bind to vfio
+  #         virsh nodedev-detach ${pci_video}
+  #       '';
+  #   };
+  # };
 
   # Blacklist the nvidia drivers to make sure they don't get loaded
-  boot.extraModprobeConfig = ''
-    softdep nvidia pre: vfio-pci
-    softdep drm pre: vfio-pci
-    softdep nouveau pre: vfio-pci
-  '';
-  boot.blacklistedKernelModules = [
-    "nouveau"
-    "nvidia"
-    "nvidia_drm"
-    "nvidia_modeset"
-    "i2c_nvidia_gpu"
-  ];
+  # boot.extraModprobeConfig = ''
+  #   softdep nvidia pre: vfio-pci
+  #   softdep drm pre: vfio-pci
+  #   softdep nouveau pre: vfio-pci
+  # '';
+  # boot.blacklistedKernelModules = [
+  #   "nouveau"
+  #   "nvidia"
+  #   "nvidia_drm"
+  #   "nvidia_modeset"
+  #   "i2c_nvidia_gpu"
+  # ];
 
   # Host's looking glass
   environment.systemPackages = [pkgs.looking-glass-client];
