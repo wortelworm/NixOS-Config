@@ -56,17 +56,6 @@
     # Note on preformance stuff:
     # Its not needed for me so only adds complexity
 
-    performance = {
-      byteCompileLua.enable = true;
-      combinePlugins = {
-        enable = true;
-        standalonePlugins = [
-          # Collides with onedark
-          "lualine.nvim"
-        ];
-      };
-    };
-
     plugins = {
       web-devicons.enable = true;
       lualine.enable = true;
