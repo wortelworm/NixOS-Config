@@ -7,8 +7,8 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "79193b3917d0f1b82ee41b4e64ae4df58f2284f6";
-    hash = "sha256-ZLL/dFjNsryjm51kFNOmw5DhSGl2K5IfatHpe1PkuFE=";
+    rev = "4b027c79371af963d4ae3a8b69e42177aa3fa6ee";
+    hash = "sha256-auGNSn6tX72go7kYaH16hxRng+iZWw99dKTTUN91Cow=";
   };
 
   yazi-onedark = pkgs.fetchFromGitHub {
@@ -91,7 +91,7 @@ in {
             touch $out/git.yazi/init.lua
             touch $out/full-border.yazi/init.lua
           '';
-        };
+       };
     in {
       git = "${fake yazi-plugins}/git.yazi/";
       full-border = "${fake yazi-plugins}/full-border.yazi/";
