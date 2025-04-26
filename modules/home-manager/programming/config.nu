@@ -78,3 +78,9 @@ def --env h [...rest: string] {
     hx
 }
 
+# Go to directory using zoxide, then run helix in a nix shell
+def --env hs [...rest: string] {
+    manual-zoxide-change-dir ...$rest
+    nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu -e "hx"'
+}
+
