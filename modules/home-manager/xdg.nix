@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   # Cross-Desktop Group, standard specifications from freedesktop.org
   xdg = let
     home = config.home.homeDirectory;
@@ -43,12 +39,6 @@
     };
   };
 
-  # Autostart in xdg format
-  # TODO: Doesn't work yet on cosmic :(
-  home.file."${config.xdg.configHome}/autostart/OneDriveGUI.desktop" = {
-    source = "${pkgs.onedrivegui}/share/applications/OneDriveGUI.desktop";
-  };
-
   # Some applications dont follow the xdg standard :(
   home.sessionVariables = {
     STARSHIP_CONFIG = "${config.xdg.configHome}/starship.toml";
@@ -80,7 +70,6 @@
     #       vscode :(
     #       mozilla firefox
     #       thunderbird, want to use different mail client anyways
-    #       onedrive-gui, should setup sops-nix without gui anyways
     #       '~/.pulsecookie'
   };
 
