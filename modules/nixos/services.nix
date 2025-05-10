@@ -1,6 +1,7 @@
 {
-  lib,
   config,
+  lib,
+  pkgs,
   ...
 }: {
   services.fprintd = lib.mkIf config.wortel.fingerprint {
@@ -23,7 +24,13 @@
   # Note: the adress of printer at home is:
   # http://192.168.178.25:80/WebServices/Device
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      mfc6890cdwlpr
+      mfc5890cnlpr
+    ];
+  };
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
