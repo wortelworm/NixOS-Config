@@ -34,6 +34,7 @@
     lazygit
     nix-inspect
     ripgrep
+    netscanner
 
     # disk partitions
     gparted
