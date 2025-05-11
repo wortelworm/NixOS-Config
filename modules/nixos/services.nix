@@ -26,10 +26,18 @@
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
+    # Note that loglevel can be configured in the ui in http://localhost:631
+    # The log is written to the system log thing
     drivers = with pkgs; [
-      mfc6890cdwlpr
-      mfc5890cnlpr
+      mfc6890cdwcupswrapper
     ];
+  };
+  networking.hosts = {
+    # Fix the driver being unable to communicate
+    # TODO: figure out a way of setting hostname to hostname
+    # instead of hostname to ip
+    # "BRN001BA953AEED.fritz.box" = ["BRN001BA953AEED.local"];
+    "192.168.178.25" = ["BRN001BA953AEED.local"];
   };
 
   # Enable sound with pipewire.

@@ -88,9 +88,8 @@
           "steam"
           "steam-unwrapped"
 
-          # Drivers for the MFC-6890CDW brother printer
-          "mfc6890cdwdrv"
-          "mfc5890cnlpr"
+          # Driver for the MFC-6890CDW brother printer
+          "mfc6890cdw-lpr"
         ];
     };
   };

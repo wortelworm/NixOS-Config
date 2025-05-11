@@ -41,6 +41,7 @@
       # See manual at https://data2.manualslib.com/pdf4/88/8785/878406-brother/mfc6890cdw.pdf?98cb5a127d27427e12826a819236d0bb
       # mfcl8690cdwlpr mfcl3770cdwlpr
       mfc6890cdwlpr = (pkgs.callPackage ./mfc6890cdwlpr.nix {}).driver;
+      mfc6890cdwcupswrapper = (pkgs.callPackage ./mfc6890cdwlpr.nix {}).cupswrapper;
     })
   ];
 }
