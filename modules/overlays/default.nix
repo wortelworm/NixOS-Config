@@ -1,10 +1,18 @@
 {
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }: {
   nixpkgs.overlays = [
     (final: prev: {
+      # FIXME: this can be stable again once 25.05 is released
+
+      # This version of nushell adds experimental job spawning,
+      # and zoxide integration also needs latest version then
+      nushell = pkgs-unstable.nushell;
+      zoxide = pkgs-unstable.zoxide;
+
       wortel-config-helper = pkgs.callPackage ./config-helper.nix {};
       vimPlugins =
         prev.vimPlugins
