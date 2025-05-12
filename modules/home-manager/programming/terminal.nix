@@ -1,8 +1,15 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   programs = {
     # Nushell is so much better than bash!!!!
     nushell = {
       enable = true;
+      # FIXME: this can be stable again once 25.05 is released
+      # This version adds experimental job spawning which is really usefull
+      package = pkgs-unstable.nushell;
       configFile.source = ./config.nu;
     };
 

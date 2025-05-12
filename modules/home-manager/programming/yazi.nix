@@ -80,7 +80,7 @@ in {
         require("starship"):setup()
       '';
 
-    # The fake function should be removed once home-manager 25.05 comes around
+    # FIXME: The fake function should be removed once home-manager 25.05 comes around
     # This is because the new version of yazi plugins uses `main.lua` instead of `init.lua`
     plugins = let
       fake = plugin:
