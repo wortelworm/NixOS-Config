@@ -74,7 +74,20 @@
       userEmail = "wortelworm@gmail.com";
       extraConfig = {
         init.defaultBranch = "main";
-        pull.rebase = "false";
+        pull.rebase = false;
+
+        core = {
+          # Default compression level, from 1 to 9, with 9 being the slowest
+          compression = 9;
+          whitespace = "error";
+        };
+
+        status = {
+          branch = true;
+          showStash = true;
+        };
+
+        diff.interHunkContext = 10;
       };
     };
 
