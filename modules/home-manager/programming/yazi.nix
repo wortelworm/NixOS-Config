@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  pkgs-unstable,
   ...
 }: let
   yazi-plugins = pkgs.fetchFromGitHub {
@@ -31,8 +30,6 @@ in {
   # Also note that help is available by pressing <F1> or '~'
   programs.yazi = {
     enable = true;
-
-    package = pkgs-unstable.yazi;
 
     shellWrapperName = "y";
     enableBashIntegration = true;
