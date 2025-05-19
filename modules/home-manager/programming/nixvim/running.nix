@@ -52,49 +52,6 @@
       dap = {
         enable = true;
 
-        extensions.dap-ui = {
-          enable = true;
-
-          layouts = [
-            {
-              elements = [
-                {
-                  id = "breakpoints";
-                  size = 0.25;
-                }
-                {
-                  id = "stacks";
-                  size = 0.25;
-                }
-                {
-                  id = "watches";
-                  size = 0.25;
-                }
-                {
-                  id = "scopes";
-                  size = 0.25;
-                }
-              ];
-              position = "left";
-              size = 40;
-            }
-            {
-              elements = [
-                {
-                  id = "repl";
-                  size = 0.7;
-                }
-                {
-                  id = "console";
-                  size = 0.3;
-                }
-              ];
-              position = "bottom";
-              size = 10;
-            }
-          ];
-        };
-
         signs = {
           dapBreakpoint.text = " ";
           dapBreakpointCondition.text = " ";
@@ -161,6 +118,49 @@
             }
           ];
         };
+      };
+
+      dap-ui = {
+        enable = true;
+
+        settings.layouts = [
+          {
+            elements = [
+              {
+                id = "breakpoints";
+                size = 0.25;
+              }
+              {
+                id = "stacks";
+                size = 0.25;
+              }
+              {
+                id = "watches";
+                size = 0.25;
+              }
+              {
+                id = "scopes";
+                size = 0.25;
+              }
+            ];
+            position = "left";
+            size = 40;
+          }
+          {
+            elements = [
+              {
+                id = "repl";
+                size = 0.7;
+              }
+              {
+                id = "console";
+                size = 0.3;
+              }
+            ];
+            position = "bottom";
+            size = 10;
+          }
+        ];
       };
     };
   };

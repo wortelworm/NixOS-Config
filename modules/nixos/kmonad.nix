@@ -1,8 +1,4 @@
-{inputs, ...}: {
-  imports = [
-    inputs.kmonad.nixosModules.default
-  ];
-
+{...}: {
   services.kmonad = {
     enable = true;
     keyboards =

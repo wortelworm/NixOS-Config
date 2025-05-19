@@ -56,10 +56,8 @@
   #         Text is more vertical space,
   #         bad for things like btop
   #         in kitty it is fine, int alacritty its worse
-  fonts.packages = [
-    # FIXME: in 25.05, doesn't need to use unstable
-    # this has been changed because yazi also uses unstable version
-    pkgs-unstable.nerd-fonts.jetbrains-mono
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
   ];
 
   # Starts OpenSSH agent on login, so don't have to type

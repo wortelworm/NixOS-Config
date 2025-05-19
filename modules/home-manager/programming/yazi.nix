@@ -80,21 +80,9 @@ in {
         require("starship"):setup()
       '';
 
-    # FIXME: The fake function should be removed once home-manager 25.05 comes around
-    # This is because the new version of yazi plugins uses `main.lua` instead of `init.lua`
-    plugins = let
-      fake = plugin:
-        pkgs.symlinkJoin {
-          name = "fake-yazi-plugin";
-          paths = [plugin];
-          postBuild = ''
-            touch $out/git.yazi/init.lua
-            touch $out/full-border.yazi/init.lua
-          '';
-       };
-    in {
-      git = "${fake yazi-plugins}/git.yazi/";
-      full-border = "${fake yazi-plugins}/full-border.yazi/";
+    plugins = {
+      git = "${yazi-plugins}/git.yazi/";
+      full-border = "${yazi-plugins}/full-border.yazi/";
       starship = "${yazi-plugin-starship}";
     };
   };

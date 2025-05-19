@@ -4,35 +4,33 @@
   inputs = {
     # This is to make sure that the cosmic cache is working properly
     # Can be replaced once cosmic is in the main nixpkgs branch.
-    nixos.follows = "nixos-cosmic/nixpkgs-stable";
+    nixos.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixos";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.11";
+      # TODO: update this once 25.05 branches off in nixvim
+      # url = "github:nix-community/nixvim/nixos-25.05";
+      url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixos";
     };
 
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixos";
-    };
+    # TEST'ing: this is not needed right?
+    # kmonad = {
+    #   url = "github:kmonad/kmonad?submodules=1&dir=nix";
+    #   inputs.nixpkgs.follows = "nixos";
+    # };
 
-    kmonad = {
-      url = "github:kmonad/kmonad?submodules=1&dir=nix";
-      inputs.nixpkgs.follows = "nixos";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      # Nixos stable from cosmic does not have 'libgbm'
-      # inputs.nixpkgs.follows = "nixos";
-    };
+    # Could try again in the future, not right now
+    # zen-browser = {
+    #   url = "github:0xc000022070/zen-browser-flake";
+    #   inputs.nixpkgs.follows = "nixos";
+    # };
 
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
@@ -51,8 +49,8 @@
     additionalCache = {
       nix.settings = {
         # Note: the nix-community cache does not contain nvidia-x11 package...
-        substituters = ["https://cosmic.cachix.org/"];
-        trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
+        # substituters = ["https://cosmic.cachix.org/"];
+        # trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
       };
     };
 

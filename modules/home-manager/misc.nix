@@ -18,9 +18,6 @@
 
     # remote desktop
     remmina
-
-    # Trying out different browser
-    inputs.zen-browser.packages."x86_64-linux".default
   ];
 
   programs.firefox = {

@@ -1,13 +1,8 @@
 {
   config,
-  inputs,
   lib,
   ...
 }: {
-  imports = [
-    inputs.nixos-cosmic.nixosModules.default
-  ];
-
   services = {
     xserver.enable = true;
 
