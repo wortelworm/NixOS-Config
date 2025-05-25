@@ -34,6 +34,7 @@
     nix-inspect
     ripgrep
     netscanner
+    tokei
 
     # disk partitions
     gparted
