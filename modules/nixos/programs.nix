@@ -64,6 +64,8 @@
   # passphrase on every git push (ssh connection)
   programs.ssh.startAgent = true;
 
+  programs.kdeconnect.enable = true;
+
   # Could be cool to use in like 2028
   # programs.ladybird.enable = true;
 
