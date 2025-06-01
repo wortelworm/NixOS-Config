@@ -21,25 +21,6 @@
     powerOnBoot = false;
   };
 
-  # Note: the adress of printer at home is:
-  # http://192.168.178.25:80/WebServices/Device
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    # Note that loglevel can be configured in the ui in http://localhost:631
-    # The log is written to the system log thing
-    drivers = with pkgs; [
-      mfc6890cdwcupswrapper
-    ];
-  };
-  networking.hosts = {
-    # Fix the driver being unable to communicate
-    # TODO: figure out a way of setting hostname to hostname
-    # instead of hostname to ip
-    # "BRN001BA953AEED.fritz.box" = ["BRN001BA953AEED.local"];
-    "192.168.178.25" = ["BRN001BA953AEED.local"];
-  };
-
   # Enable sound with pipewire.
   security.rtkit.enable = true;
   services.pulseaudio.enable = false;
@@ -55,6 +36,59 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
+  };
+
+  # Note: the adress of printer at home is:
+  # http://192.168.178.25:80/WebServices/Device
+  # Enable CUPS to print documents.
+  services.printing = {
+    enable = true;
+    # Note that loglevel can be configured in the ui in http://localhost:631
+    # The log is written to the system log thing
+    drivers = with pkgs; [
+      mfc6890cdwcupswrapper
+    ];
+  };
+  networking = {
+    hosts = {
+      # Fix the driver being unable to communicate
+      # TODO: figure out a way of setting hostname to hostname
+      # instead of hostname to ip
+      # "BRN001BA953AEED.fritz.box" = ["BRN001BA953AEED.local"];
+      "192.168.178.25" = ["BRN001BA953AEED.local"];
+    };
+
+    # Use local dns server
+    nameservers = ["127.0.0.1:53"];
+  };
+
+  # Block malware, ads, trackers and such
+  services.adguardhome = {
+    enable = true;
+    mutableSettings = false;
+    settings = {
+      http.address = "127.0.0.1:3000";
+
+      dns = {
+        bind_hosts = ["127.0.0.1"];
+        port = 53;
+
+        bootstrap_dns = ["1.1.1.1"];
+        upstream_dns = ["https://1.1.1.1/dns-query" "https://1.0.0.1/dns-query"];
+      };
+
+      filtering.blocking_mode = "nxdomain";
+
+      # For example, https://googlesyndication.com/ should be blocked
+      filters =
+        map (url: {
+          enabled = true;
+          url = url;
+        }) [
+          "https://big.oisd.nl"
+          "https://nsfw.oisd.nl"
+        ];
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).

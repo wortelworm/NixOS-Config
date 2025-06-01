@@ -50,7 +50,7 @@
     );
 
     warnings = lib.mkIf (!label_exists) [
-      "WARNING: Unable to read commit message"
+      "Unable to read commit message"
     ];
 
     nixpkgs.config = {

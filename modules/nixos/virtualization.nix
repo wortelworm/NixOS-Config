@@ -88,9 +88,9 @@
 
           function disable () {
             ## Give host all cores back
-            systemctl set-property --runtime -- init.scope AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
-            systemctl set-property --runtime -- system.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
-            systemctl set-property --runtime -- user.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,11,12,13,14,15
+            systemctl set-property --runtime -- init.scope AllowedCPUs=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+            systemctl set-property --runtime -- system.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+            systemctl set-property --runtime -- user.slice AllowedCPUs=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 
             # ## Unbind gpu from vfio
             # virsh nodedev-reattach ${pci_video}
@@ -126,15 +126,4 @@
   virtualisation.podman = {
     enable = true;
   };
-
-  # Redirect local dns port to point at pi-hole
-  # TODO: might want to recreate pihole myself?
-  # Use 'netstat -nlp' to see open connections
-  # systemd.services.wortel-dns-redirect = {
-  #   enable = true;
-  #   after = ["network.target"];
-  #   wantedBy = ["default.target"];
-  #   description = "Wortel dns port redirection";
-  #   script = ''/run/current-system/sw/bin/iptables -t nat -A OUTPUT -d 127.0.0.1 -p udp --dport 53 -j REDIRECT --to-ports 5353'';
-  # };
 }
