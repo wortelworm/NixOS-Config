@@ -38,6 +38,40 @@
     #media-session.enable = true;
   };
 
+  services.homepage-dashboard = {
+    enable = true;
+    listenPort = 5000;
+
+    settings = {
+      title = "Wortel's home services";
+
+      background = {
+        # TODO: fix this
+        image = "file://${../../resources/wallpaper.png}";
+        blur = "sm";
+      };
+    };
+
+    services = [
+      {
+        "Main group or something" = [
+          {
+            "AdGuard Home" = {
+              href = "http://localhost:5001/";
+              description = "Ad, malware and trackers blocker using DNS";
+            };
+          }
+          {
+            "Cups" = {
+              href = "http://localhost:631/";
+              description = "Printer controller";
+            };
+          }
+        ];
+      }
+    ];
+  };
+
   # Note: the adress of printer at home is:
   # http://192.168.178.25:80/WebServices/Device
   # Enable CUPS to print documents.
@@ -66,9 +100,9 @@
   services.adguardhome = {
     enable = true;
     mutableSettings = false;
+    host = "127.0.0.1";
+    port = 5001;
     settings = {
-      http.address = "127.0.0.1:3000";
-
       dns = {
         bind_hosts = ["127.0.0.1"];
         port = 53;
@@ -76,8 +110,6 @@
         bootstrap_dns = ["1.1.1.1"];
         upstream_dns = ["https://1.1.1.1/dns-query" "https://1.0.0.1/dns-query"];
       };
-
-      filtering.blocking_mode = "nxdomain";
 
       # For example, https://googlesyndication.com/ should be blocked
       filters =
