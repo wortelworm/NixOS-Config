@@ -46,25 +46,45 @@
       title = "Wortel's home services";
 
       background = {
-        # TODO: fix this
-        image = "file://${../../resources/wallpaper.png}";
-        blur = "sm";
+        image = "https://raw.githubusercontent.com/wortelworm/NixOS-Config/refs/heads/main/resources/wallpaper.png";
+        blur = "xl";
       };
     };
 
     services = [
       {
-        "Main group or something" = [
+        "Localhost" = [
           {
             "AdGuard Home" = {
               href = "http://localhost:5001/";
               description = "Ad, malware and trackers blocker using DNS";
+              icon = "https://st.agrd.eu/favicons/adguard/favicon.svg";
+              widget = {
+                type = "adguard";
+                url = "http://localhost:5001/";
+              };
             };
           }
           {
             "Cups" = {
               href = "http://localhost:631/";
               description = "Printer controller";
+            };
+          }
+        ];
+      }
+      {
+        "External hosts" = [
+          {
+            "P1mon" = {
+              href = "http://p1mon/";
+              description = "Smart electricity reader";
+            };
+          }
+          {
+            "Heatpump" = {
+              href = "http://192.168.178.21/";
+              description = "Siemens heatpump controller";
             };
           }
         ];
@@ -110,6 +130,8 @@
         bootstrap_dns = ["1.1.1.1"];
         upstream_dns = ["https://1.1.1.1/dns-query" "https://1.0.0.1/dns-query"];
       };
+
+      # TODO: block *.fritz.box for improved speeds?
 
       # For example, https://googlesyndication.com/ should be blocked
       filters =
