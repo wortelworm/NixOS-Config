@@ -13,6 +13,7 @@
     haskell-ghcup-lsp
     texlab
     tinymist # typst
+    wgsl-analyzer
 
     # C-sharp lsp and dap
     omnisharp-roslyn
