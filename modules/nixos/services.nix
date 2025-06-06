@@ -42,14 +42,32 @@
     enable = true;
     listenPort = 5000;
 
+    # Provide a background image to the package, TODO: this is not yet working...
+    # package = pkgs.symlinkJoin {
+    #   name = "homepage-dashboard-patched";
+    #   paths = [
+    #     pkgs.homepage-dashboard
+    #   ];
+    #   postBuild = ''
+    #     # mkdir -p $out/share/homepage/public/
+    #     ln -s ${../../resources/wallpaper.png} $out/share/homepage/public/background.png
+    #   '';
+    #   meta.mainProgram = pkgs.homepage-dashboard.meta.mainProgram;
+    # };
+
     settings = {
       title = "Wortel's home services";
 
       background = {
+        # TODO: use local content, its not yet working
         image = "https://raw.githubusercontent.com/wortelworm/NixOS-Config/refs/heads/main/resources/wallpaper.png";
+        # image = "/background.png";
         blur = "xl";
       };
     };
+
+    # TODO:
+    # calendar
 
     services = [
       {
@@ -83,13 +101,62 @@
           }
           {
             "Heatpump" = {
-              href = "http://192.168.178.21/";
+              href = "http://pol648/";
               description = "Siemens heatpump controller";
+            };
+          }
+          {
+            "Router" = {
+              href = "http://fritz.box/";
+              description = "Local fritz box";
             };
           }
         ];
       }
     ];
+
+    widgets = [
+      {
+        "datetime" = {
+          locale = "nl";
+          format = {
+            dateStyle = "short";
+            timeStyle = "short";
+          };
+        };
+      }
+      {
+        "openmeteo" = {
+          latitude = 52.0907006;
+          longitude = 5.1215634;
+          cache = 5;
+          units = "metric";
+        };
+      }
+      {
+        "resources" = {
+          cpu = true;
+          memory = true;
+          disk = "/";
+          cputemp = true;
+          uptime = true;
+          network = true;
+
+          expand = true;
+        };
+      }
+      {
+        "search".provider = "duckduckgo";
+      }
+    ];
+
+    customCSS =
+      # css
+      ''
+        .information-widget-search {
+          display: none;
+        }
+      '';
   };
 
   # Note: the adress of printer at home is:
@@ -128,10 +195,10 @@
         port = 53;
 
         bootstrap_dns = ["1.1.1.1"];
-        upstream_dns = ["https://1.1.1.1/dns-query" "https://1.0.0.1/dns-query"];
-      };
+        upstream_dns = ["https://1.1.1.1/dns-query" "https://1.0.0.1/dns-query" "[//fritz.box/]192.168.178.1"];
 
-      # TODO: block *.fritz.box for improved speeds?
+        local_ptr_upstreams = ["192.168.178.1"];
+      };
 
       # For example, https://googlesyndication.com/ should be blocked
       filters =
