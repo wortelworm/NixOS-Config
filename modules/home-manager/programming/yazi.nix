@@ -6,10 +6,11 @@
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "4b027c79371af963d4ae3a8b69e42177aa3fa6ee";
-    hash = "sha256-auGNSn6tX72go7kYaH16hxRng+iZWw99dKTTUN91Cow=";
+    rev = "63f9650e522336e0010261dcd0ffb0bf114cf912";
+    hash = "sha256-ZCLJ6BjMAj64/zM606qxnmzl2la4dvO/F5QFicBEYfU=";
   };
 
+  # TODO: after the last update this seems to have stopped working?
   yazi-onedark = pkgs.fetchFromGitHub {
     owner = "BennyOe";
     repo = "onedark.yazi";
@@ -34,7 +35,7 @@ in {
     shellWrapperName = "y";
     enableBashIntegration = true;
 
-    keymap.manager.prepend_keymap = [
+    keymap.mgr.prepend_keymap = [
       {
         on = "<C-n>";
         run = ''shell '${lib.getExe pkgs.ripdrag} "$@" --all --and-exit --no-click 2>/dev/null &' --confirm'';
@@ -42,7 +43,7 @@ in {
     ];
 
     settings = {
-      manager.sort_by = "natural";
+      mgr.sort_by = "natural";
 
       preview = {
         max_width = 1000;
