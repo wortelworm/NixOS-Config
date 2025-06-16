@@ -2,7 +2,7 @@
   imports = [
     ./desktop.nix
     ./grub.nix
-    ./kmonad.nix
+    ./kanata.nix
     ./localization.nix
     ./nvidia.nix
     ./programs.nix
