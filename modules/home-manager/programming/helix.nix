@@ -21,27 +21,29 @@
   ];
 in
   if !wortel.helix
-  then {
+  then let
+    rust = "${config.home.homeDirectory}/Documents/Programming/rust";
+    helix = "${rust}/helix-steel-event-system";
+    steel = "${rust}/steel";
+  in {
     # Create symlinks so that if I want to use it I can
     # Installation steps:
     # clone steel and helix from mattwparas
     # run cargo run --release in both
     # also run it in steel/crates/steel-language-server
     # Then run cargo run --release --package xtask -- code-gen
-    home.packages = let
-      # this is just my current setup
-      rust = "${config.home.homeDirectory}/Documents/Programming/rust/";
-      helix = "${rust}/helix-steel-event-system";
-      steel = "${rust}/steel";
-    in [
-      (pkgs.writeShellApplication {
-        name = "hx";
-        inherit runtimeInputs;
-        runtimeEnv.HELIX_RUNTIME = "${helix}/runtime";
-        text = ''
-          ${helix}/target/release/hx "$@"
-        '';
-      })
+
+    programs.helix = {
+      enable = true;
+      extraPackages = runtimeInputs;
+
+      package = pkgs.writeShellScriptBin "hx" ''
+        export HELIX_RUNTIME="${helix}/runtime"
+        ${helix}/target/release/hx "$@"
+      '';
+    };
+
+    home.packages = [
       (pkgs.writeShellScriptBin "steel" ''
         ${steel}/target/release/steel "$@"
       '')

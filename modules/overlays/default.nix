@@ -13,7 +13,7 @@
         };
 
       # Helix fork with steel integration
-      helix = pkgs.callPackage ((import ./helix.nix) prev) {};
+      helix-with-steel = pkgs.callPackage ((import ./helix.nix) prev) {};
       steel = pkgs.callPackage ./steel.nix {};
       steel-lsp = pkgs.callPackage ./steel-lsp.nix {};
 
