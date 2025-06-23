@@ -62,7 +62,8 @@
 
   # Starts OpenSSH agent on login, so don't have to type
   # passphrase on every git push (ssh connection)
-  programs.ssh.startAgent = true;
+  # TODO: seems like gnome's agent is used by default on cosmic
+  # programs.ssh.startAgent = true;
 
   programs.kdeconnect.enable = true;
 

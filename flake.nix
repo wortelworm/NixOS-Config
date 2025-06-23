@@ -2,29 +2,21 @@
   description = "Nixos config flake";
 
   inputs = {
-    # This is to make sure that the cosmic cache is working properly
-    # Can be replaced once cosmic is in the main nixpkgs branch.
-    nixos.url = "github:nixos/nixpkgs/nixos-25.05";
+    # Cosmic is still in alpha and only gets updates on the unstable branch...
+    # So for now I'm gonna use my whole system on unstable.
+    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixos";
     };
 
     nixvim = {
-      # TODO: update this once 25.05 branches off in nixvim
-      # url = "github:nix-community/nixvim/nixos-25.05";
       url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixos";
     };
-
-    # TEST'ing: this is not needed right?
-    # kmonad = {
-    #   url = "github:kmonad/kmonad?submodules=1&dir=nix";
-    #   inputs.nixpkgs.follows = "nixos";
-    # };
 
     # Could try again in the future, not right now
     # zen-browser = {
