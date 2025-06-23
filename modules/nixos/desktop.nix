@@ -38,5 +38,13 @@
     desktopManager.cosmic = lib.mkIf config.wortel.cosmic {
       enable = true;
     };
+
+    # Trying to fix some cosmic issues with shutting down, TODO
+    geoclue2.enable = true;
+    # This is being used, but don't create duplicate systemd service's
+    geoclue2.enableDemoAgent = false;
+
+    # This is only needed in unstable right now, not 25.05
+    # geoclue2.whitelistedAgents = [ "geoclue-demo-agent" ];
   };
 }

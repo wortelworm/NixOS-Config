@@ -2,14 +2,12 @@
   description = "Nixos config flake";
 
   inputs = {
-    # Cosmic is still in alpha and only gets updates on the unstable branch...
-    # So for now I'm gonna use my whole system on unstable.
-    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixos";
     };
 
