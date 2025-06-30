@@ -42,6 +42,15 @@
       # mfcl8690cdwlpr mfcl3770cdwlpr
       mfc6890cdwlpr = (pkgs.callPackage ./mfc6890cdwlpr.nix {}).driver;
       mfc6890cdwcupswrapper = (pkgs.callPackage ./mfc6890cdwlpr.nix {}).cupswrapper;
+
+      # The very outdated version of cosmic applets on the nixpkgs has a misbehaving bluetooth applet
+      cosmic-applets = pkgs.symlinkJoin {
+        name = "cosmic-applets-no-bluetooth";
+        paths = [prev.cosmic-applets];
+        postBuild = ''
+          rm $out/bin/cosmic-applet-bluetooth
+        '';
+      };
     })
   ];
 }

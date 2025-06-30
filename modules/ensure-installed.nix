@@ -27,6 +27,7 @@ in {
       ${pkgs.libxkbcommon}
       ${pkgs.wayland}
       ${pkgs.libGL}
+      ${pkgs.vulkan-loader}
 
     ''
     # 'ipython' is not strictly for machine learning, but the nvim plugin uses it

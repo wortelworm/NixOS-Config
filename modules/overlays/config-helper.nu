@@ -191,8 +191,3 @@ def "main bat" []: nothing -> record {
         health: ((open energy_full | into int) / (open energy_full_design | into int) * 100)
     }
 }
-
-# Workaround for COSMIC DE issue
-def "main k" []: nothing -> nothing {
-    ps --long | where command == "cosmic-applet-bluetooth" | get pid | each {|pid| kill $pid}
-}
