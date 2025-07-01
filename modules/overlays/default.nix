@@ -12,8 +12,7 @@
           vim-jukit = pkgs.callPackage ./vim-jukit.nix {};
         };
 
-      # Helix fork with steel integration
-      helix-with-steel = pkgs.callPackage ((import ./helix.nix) prev) {};
+      # Steel for helix plugin system testing
       steel = pkgs.callPackage ./steel.nix {};
       steel-lsp = pkgs.callPackage ./steel-lsp.nix {};
 

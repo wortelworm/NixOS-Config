@@ -17,7 +17,7 @@
     beamLanguages = lib.mkEnableOption "Elixir, gleam and erlang";
     vscode = lib.mkEnableOption "VScode editor, not been used for a while";
     zed-editor = lib.mkEnableOption "Zed editor, currently needs to compile node from source...";
-    helix = lib.mkEnableOption "Compile helix through nix, uses a lot of resources...";
+    helix-local-build = lib.mkEnableOption "Use local build of helix instead of the one from nixpkgs";
 
     hostname = lib.mkOption {
       type = lib.types.str;
