@@ -59,6 +59,10 @@
           # Still want to take a look at this
           "obsidian"
 
+          "vscode"
+          "vscode-extension-ms-vscode-cpptools"
+          "vscode-extension-ms-dotnettools-csharp"
+
           # Nvidia driver and gpu compute stuff
           "nvidia-x11"
           "cuda-merged"

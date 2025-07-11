@@ -115,6 +115,10 @@ def "main switch" [
         error make {msg: "Failed to authenticate to github!"}
     }
 
+    # TODO: something weird is going on and now all of a sudden there is a 'result' symlink after the build command
+    # as a simple workaround/hack, go to temporary directory
+    cd (mktemp -d config-helper-switch-XXXXXXXXXX)
+
     # build the system and check for errors
     # nushell will automaticly exit if this command fails
     # and the stderr from this command is forwarded

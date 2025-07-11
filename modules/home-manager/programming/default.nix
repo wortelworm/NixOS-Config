@@ -94,31 +94,32 @@
     vscode = lib.mkIf wortel.vscode {
       enable = true;
       # package = pkgs.vscodium;
-      extensions = with pkgs.vscode-extensions; [
-        vscodevim.vim
-        jnoortheen.nix-ide
-        rust-lang.rust-analyzer
-        ms-vscode.cpptools
-        ms-dotnettools.csharp
-      ];
-      userSettings = {
-        "explorer.confirmDragAndDrop" = true;
-        "explorer.confirmDelete" = false;
+      profiles.default = {
+        extensions = with pkgs.vscode-extensions; [
+          # vscodevim.vim
+          rust-lang.rust-analyzer
+          ms-vscode.cpptools
+          ms-dotnettools.csharp
+        ];
+        userSettings = {
+          "explorer.confirmDragAndDrop" = true;
+          "explorer.confirmDelete" = false;
 
-        "git.autofetch" = true;
-        "git.confirmSync" = false;
-        "git.enableSmartCommit" = true;
-        "git.allowForcePush" = true;
+          "git.autofetch" = true;
+          "git.confirmSync" = false;
+          "git.enableSmartCommit" = true;
+          "git.allowForcePush" = true;
 
-        "vim.smartRelativeLine" = true;
-        "vim.useCtrlKeys" = false;
-        "vim.handleKeys" = {
-          "<C-[>" = true;
+          "vim.smartRelativeLine" = true;
+          "vim.useCtrlKeys" = false;
+          "vim.handleKeys" = {
+            "<C-[>" = true;
+          };
+
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = lib.getExe pkgs.nixd;
+          "nix.serverSettings".nixd.formatting.command = ["alejandra"];
         };
-
-        "nix.enableLanguageServer" = true;
-        "nix.serverPath" = lib.getExe pkgs.nixd;
-        "nix.serverSettings".nixd.formatting.command = ["alejandra"];
       };
     };
   };
