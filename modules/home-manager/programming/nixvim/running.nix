@@ -41,7 +41,7 @@
               exec = lib.getExe pkgs.nushell;
               args = ["--stdin" "--error-style" "plain" "$(FNAME)"];
             };
-            elixir = lib.mkIf wortel.beamLanguages {
+            elixir = lib.mkIf wortel.programmingLanguages.beam {
               exec = "elixir";
               args = ["$(FNAME)"];
             };

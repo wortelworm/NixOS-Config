@@ -7,8 +7,21 @@
 
     cosmic = true;
     nvidia = true;
+    kanata.enable = true;
+
     games = true;
-    latex = true;
+    terminalFun = true;
+
+    textEditors = {
+      helix.enable = true;
+    };
+
+    programmingLanguages = {
+      rust = true;
+      typst = true;
+      latex = true;
+      cpp = true;
+    };
 
     ensureInstalled.librariesWGPU = true;
   };

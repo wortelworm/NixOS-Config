@@ -1,5 +1,5 @@
-{...}: {
-  services.kanata = {
+{config, lib, ...}: {
+  services.kanata = lib.mkIf config.wortel.kanata.enable {
     enable = true;
     keyboards."regulars" = {
       devices = [

@@ -1,23 +1,80 @@
 {lib, ...}: {
   imports = [
-    ./ensure-installed.nix
     ./home-manager
     ./nixos
     ./overlays
+
+    ./ensure-installed.nix
+    ./label.nix
+    ./unfree.nix
   ];
 
   options.wortel = {
     cosmic = lib.mkEnableOption "Cosmic desktop environment";
     plasma-home = lib.mkEnableOption "Managing plasma configuration using home-manager";
+
     fingerprint = lib.mkEnableOption "Fingerprint reader drivers";
+
     games = lib.mkEnableOption "Game launchers";
+
+    terminalFun = lib.mkEnableOption "Various fun tui's";
+
     nvidia = lib.mkEnableOption "Nvidia GPU drivers etc FOR WORTELWORM5 ONLY";
 
-    latex = lib.mkEnableOption "TeX Live and VimTeX";
-    beamLanguages = lib.mkEnableOption "Elixir, gleam and erlang";
-    vscode = lib.mkEnableOption "VScode editor, not been used for a while";
-    zed-editor = lib.mkEnableOption "Zed editor, currently needs to compile node from source...";
-    helix-local-build = lib.mkEnableOption "Use local build of helix instead of the one from nixpkgs";
+    onedrive = lib.mkEnableOption "Manual sync for personal and uni onedrive";
+
+    kanata = {
+      enable = lib.mkEnableOption "Kanata, keyboard layout custimization, replacing kmonad";
+      # TODO: configure devices
+      # Maybe even enable on all devices?
+      # Altough it is good to have a backup if I mess up
+      # But that is already covered by nixos rollbacks
+    };
+
+    # TODO:
+    # gui-less install
+    # - Maybe also levels for amount of gui programs
+    # homelab services options
+    # - This needs especially some attention
+    # virtualisation settings
+
+    # TODO:
+    # Should always enable at least one?
+    # What should be my fallback editor?? (Like if no languages are needed)
+    textEditors = {
+      helix = {
+        enable = lib.mkEnableOption "Helix, accidentally my main code editor now";
+        local-build = lib.mkEnableOption "Use local build instead of the nixpkgs version";
+      };
+
+      nixvim = lib.mkEnableOption "Vim managed through nixvim, with programming support";
+
+      # TODO: currently needs to compile node from source!?
+      zed-editor = lib.mkEnableOption "Zed code editor";
+
+      vscode = lib.mkEnableOption "VScode editor, I want to replace its role with zed";
+    };
+
+   programmingLanguages = {
+      rust = lib.mkEnableOption "Rustup, bacon, toml support";
+      beam = lib.mkEnableOption "Elixir, gleam and erlang";
+      haskell = lib.mkEnableOption "Ghc, cabal, hlint and lsp";
+
+      typst = lib.mkEnableOption "Typst and tinymist";
+      latex = lib.mkEnableOption "TeX Live, mostly supported in nixvim";
+
+      # Note that clang also exists, which is probably better.
+      # But I only use this for competative programming which seems to use gcc everywhere
+      cpp = lib.mkEnableOption "Support for c++ using the gnu compiler collection";
+
+      # TODO
+      # nix = ;
+      # mono = ;
+      # - maybe omnisharp-roslyn, netcoredbg
+      # nodejs = ;
+      # python = ;
+      # arduino-ide = ;
+    };
 
     hostname = lib.mkOption {
       type = lib.types.str;
@@ -40,61 +97,8 @@
     };
   };
 
-  config = let
-    label_exists = builtins.pathExists ../nixos-label.txt;
-  in {
-    nix.settings.experimental-features = ["nix-command" "flakes"];
-
-    system.nixos.label = lib.mkIf label_exists (
-      lib.strings.trim (builtins.readFile ../nixos-label.txt)
-    );
-
-    warnings = lib.mkIf (!label_exists) [
-      "Unable to read commit message"
-    ];
-
-    nixpkgs.config = {
-      allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-          # Still want to take a look at this
-          "obsidian"
-
-          "vscode"
-          "vscode-extension-ms-vscode-cpptools"
-          "vscode-extension-ms-dotnettools-csharp"
-
-          # Nvidia driver and gpu compute stuff
-          "nvidia-x11"
-          "cuda-merged"
-          "cuda_cccl"
-          "cuda_cudart"
-          "cuda_cuobjdump"
-          "cuda_cupti"
-          "cuda_cuxxfilt"
-          "cuda_gdb"
-          "cuda_nvcc"
-          "cuda_nvdisasm"
-          "cuda_nvml_dev"
-          "cuda_nvprune"
-          "cuda_nvrtc"
-          "cuda_nvtx"
-          "cuda_profiler_api"
-          "cuda_sanitizer_api"
-          "libcublas"
-          "libcufft"
-          "libcurand"
-          "libcusolver"
-          "libcusparse"
-          "libnpp"
-          "libnvjitlink"
-
-          # Steam I can understand, its fine
-          "steam"
-          "steam-unwrapped"
-
-          # Driver for the MFC-6890CDW brother printer
-          "mfc6890cdw-lpr"
-        ];
-    };
+  config.nix.settings = {
+    # Why are flakes still experimental??
+    experimental-features = ["nix-command" "flakes"];
   };
 }

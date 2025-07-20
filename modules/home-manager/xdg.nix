@@ -1,5 +1,6 @@
 {config, ...}: {
   # Cross-Desktop Group, standard specifications from freedesktop.org
+  # These settings try to enforce the standards to keep the home directory clean.
   xdg = let
     home = config.home.homeDirectory;
   in {

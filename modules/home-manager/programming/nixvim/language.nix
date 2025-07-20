@@ -71,8 +71,8 @@
           pylsp.enable = true;
           nushell.enable = true;
 
-          elixirls.enable = wortel.beamLanguages;
-          gleam.enable = wortel.beamLanguages;
+          elixirls.enable = wortel.programmingLanguages.beam;
+          gleam.enable = wortel.programmingLanguages.beam;
 
           # haskell
           hls = {

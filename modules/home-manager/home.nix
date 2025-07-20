@@ -5,16 +5,18 @@
   home.homeDirectory = "/home/wortelworm";
 
   imports = [
-    ./games.nix
+    ./gui
+    ./programming
+    ./shell
     ./misc.nix
     ./onedrive.nix
-    ./plasma-home.nix
-    ./programming
     ./xdg.nix
   ];
 
   # environment variables
   home.sessionVariables = {
+    # TODO: which of these are being used?
+    # should they change based on config.wortel?
     SHELL = "nu";
     EDITOR = "hx";
     BROWSER = "zen";

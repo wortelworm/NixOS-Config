@@ -1,14 +1,5 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    obsidian
-    thunderbird
-    vlc
-    zathura
-
     # Nixos config helpers
     nh
     wortel-config-helper
@@ -20,25 +11,6 @@
     remmina
   ];
 
-  programs.firefox = {
-    enable = true;
-    policies = {
-      DisableTelemetry = true;
-      DisableFirefoxStudies = true;
-      DontCheckDefaultBrowser = true;
-      DisablePocket = true;
-      Preferences = {
-        "browser.search.defaultenginename" = "DuckDuckGo";
-        "browser.search.order.1" = "DuckDuckGo";
-
-        # Make fullscreen of fullscreen not actually fullscreen
-        # This option cannot be actually set using a policy,
-        # so need to set it using about:config anyway
-        "full-screen-api.ignore-widgets" = true;
-      };
-    };
-  };
-
   programs.ssh = {
     enable = true;
     addKeysToAgent = "confirm";
@@ -49,24 +21,5 @@
       github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
       git.science.uu.nl ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPEbg2mBaox7ZwGa/0o+JM+EUWPnPtknfCltzm1Xap9x
     ''}";
-  };
-
-  programs.cava = {
-    enable = true;
-    settings = {
-      general.sensitivity = 80;
-      color = {
-        gradient = 1;
-        gradient_count = 8;
-        gradient_color_1 = "'#59cc33'";
-        gradient_color_2 = "'#80cc33'";
-        gradient_color_3 = "'#a6cc33'";
-        gradient_color_4 = "'#cccc33'";
-        gradient_color_5 = "'#cca633'";
-        gradient_color_6 = "'#cc8033'";
-        gradient_color_7 = "'#cc5933'";
-        gradient_color_8 = "'#cc3333'";
-      };
-    };
   };
 }

@@ -39,13 +39,6 @@
     # disk partitions
     gparted
     ntfs3g
-
-    # funs
-    asciiquarium-transparent
-    fastfetch
-    cmatrix
-    cbonsai
-    cava
   ];
 
   # font, used automaticly by kitty

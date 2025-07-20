@@ -1,10 +1,9 @@
 {...}: {
-  # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  # Select internationalisation properties.
+  # Internationalisation properties
+  # I want most of the stuff in english, except to use metric and such
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "nl_NL.UTF-8";
     LC_IDENTIFICATION = "nl_NL.UTF-8";
@@ -18,6 +17,7 @@
   };
 
   # Configure keymap in X11
+  # TODO: is this even necessary??
   services.xserver = {
     # layout = "us";
     # xkbVariant = "";

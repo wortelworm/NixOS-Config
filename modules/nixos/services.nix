@@ -39,7 +39,7 @@
   };
 
   services.homepage-dashboard = {
-    enable = true;
+    enable = false;
     listenPort = 5000;
 
     # Provide a background image to the package, TODO: this is not yet working...
@@ -180,12 +180,12 @@
     };
 
     # Use local dns server
-    nameservers = ["127.0.0.1:53"];
+    # nameservers = ["127.0.0.1:53"];
   };
 
   # Block malware, ads, trackers and such
   services.adguardhome = {
-    enable = true;
+    enable = false;
     mutableSettings = false;
     host = "127.0.0.1";
     port = 5001;

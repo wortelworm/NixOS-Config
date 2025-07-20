@@ -16,25 +16,34 @@ in {
   # also run it in steel/crates/steel-language-server
   # Then run cargo run --release --package xtask -- code-gen
 
-  programs.helix = {
+  programs.helix = lib.mkIf wortel.textEditors.helix.enable {
     enable = true;
 
     # Language servers and stuff
     # Note that rust-analyzer is installed with rustup
-    extraPackages = with pkgs; [
-      taplo # TODO: validation of Cargo.toml schema?
-      nixd
-      haskell-ghcup-lsp
-      texlab
-      tinymist # typst
-      wgsl-analyzer
+    # TODO: is there a better one lsp than wgsl-analyzer??
+    extraPackages = let
+      lang = wortel.programmingLanguages;
+    in
+      with pkgs;
+        [
+          nixd
+        ]
+        ++ lib.optionals lang.rust [
+          # TODO validation of Cargo.toml schema seems to work?
+          taplo
+        ]
+        ++ lib.optionals lang.haskell [
+          haskell-ghcup-lsp
+        ]
+        ++ lib.optionals lang.latex [
+          texlab
+        ]
+        ++ lib.optionals lang.typst [
+          tinymist
+        ];
 
-      # C-sharp lsp and dap
-      omnisharp-roslyn
-      netcoredbg
-    ];
-
-    package = lib.mkIf wortel.helix-local-build (pkgs.writeShellScriptBin "hx" ''
+    package = lib.mkIf wortel.textEditors.helix.local-build (pkgs.writeShellScriptBin "hx" ''
       export HELIX_RUNTIME="${helix-path}/runtime"
       ${helix-path}/target/release/hx "$@"
     '');

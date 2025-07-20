@@ -13,6 +13,8 @@
     isNormalUser = true;
     description = "Wortel Worm";
     extraGroups = [
+      # TODO: check which groups are actually necessary!!
+
       # Podman replaced docker
       "podman"
 
@@ -33,7 +35,6 @@
   };
 
   home-manager = {
-    # also pass inputs to home-manager modules?
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
