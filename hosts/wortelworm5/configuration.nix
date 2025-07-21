@@ -9,6 +9,7 @@
     nvidia = true;
     kanata.enable = true;
 
+    onedrive = true;
     games = true;
     terminalFun = true;
 
