@@ -6,6 +6,7 @@
     ./localization.nix
     ./nvidia.nix
     ./programs.nix
+    ./self-hosting
     ./services.nix
     ./virtualization.nix
   ];

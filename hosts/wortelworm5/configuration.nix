@@ -13,6 +13,8 @@
     games = true;
     terminalFun = true;
 
+    self-hosting.immich = true;
+
     textEditors = {
       helix.enable = true;
       zed-editor = true;

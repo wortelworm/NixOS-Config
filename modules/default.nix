@@ -32,6 +32,14 @@
     # - This needs especially some attention
     # virtualisation settings
 
+    self-hosting = {
+      # TODO: a bunch of stuffies :)
+      #   homepage/glances/widgets
+      #
+      # Maybe also an global 'enable' option??
+      immich = lib.mkEnableOption "Photo and video backup solution";
+    };
+
     # TODO:
     # Should always enable at least one?
     # What should be my fallback editor?? (Like if no languages are needed)
