@@ -3,12 +3,14 @@
   lib,
   ...
 }: {
-  services.kanata = lib.mkIf config.wortel.kanata.enable {
+  services.kanata = lib.mkIf config.wortel.kanata {
     enable = true;
 
     # Intercept all devices with this config
     keyboards."regulars" = {
       # TODO: I'm not entirely happy with this just yet...
+      # navigation layer add Home/End, Tab, ..
+      # home row reduce time?
 
       # For an overview of features, see:
       # https://jtroo.github.io/config.html

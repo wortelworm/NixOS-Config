@@ -43,8 +43,12 @@ def "main list" []: nothing -> table {
 }
 
 # Build and activate the new configuration, without adding it to bootloader
-def "main test" []: nothing -> nothing {
-    nh os test $flake_ref
+def "main test" [--offline]: nothing -> nothing {
+    if $offline {
+        nh os test $flake_ref -- --offline
+    } else {
+        nh os test $flake_ref
+    }
 }
 
 # Keep only last two root profiles and perform a store garbage collect
@@ -188,10 +192,31 @@ def "main show" []: nothing -> nothing {
 # Provides information about the laptop's battery
 def "main bat" []: nothing -> record {
     cd /sys/class/power_supply/BAT0
+
+    # TODO: function for milli watt hour conversion
+    # also maybe look at the documentation from linux
+
+    let current = open energy_now | into int | $in / 1_000_000;
+    let full = open energy_full | into int | $in / 1_000_000;
+    let full_design = open energy_full_design | into int | $in / 1_000_000;
+
+    let cycles = open cycle_count | into int;
+    let charge = open capacity | into int;
     
     {
         status: (open status),
-        charge: (open capacity),
-        health: ((open energy_full | into int) / (open energy_full_design | into int) * 100)
+        charge: $charge,
+        health: ($full / $full_design * 100),
+
+        cycles: $cycles,
+
+        current: $current,
+        full: $full,
+        full_design: $full_design,
     }
+}
+
+# Terminates cosmic session, as a workaround for the systemd timeout
+def "main k" []: nothing -> nothing {
+    ps | where name == 'cosmic-session' | get 0.pid | kill $in
 }

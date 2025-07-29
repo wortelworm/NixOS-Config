@@ -11,6 +11,9 @@
       cmatrix
       fastfetch
       sl
+
+      # While I'm testing this, it is in the fun category
+      pijul
     ];
 
     programs.cava = {

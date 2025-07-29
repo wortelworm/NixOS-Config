@@ -7,7 +7,7 @@
 
     cosmic = true;
     nvidia = true;
-    kanata.enable = true;
+    kanata = true;
 
     onedrive = true;
     games = true;
@@ -15,6 +15,7 @@
 
     textEditors = {
       helix.enable = true;
+      zed-editor = true;
     };
 
     programmingLanguages = {

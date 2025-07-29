@@ -23,13 +23,7 @@
 
     onedrive = lib.mkEnableOption "Manual sync for personal and uni onedrive";
 
-    kanata = {
-      enable = lib.mkEnableOption "Kanata, keyboard layout custimization, replacing kmonad";
-      # TODO: configure devices
-      # Maybe even enable on all devices?
-      # Altough it is good to have a backup if I mess up
-      # But that is already covered by nixos rollbacks
-    };
+    kanata = lib.mkEnableOption "Kanata, keyboard layout custimization, replacing kmonad";
 
     # TODO:
     # gui-less install
@@ -55,7 +49,7 @@
       vscode = lib.mkEnableOption "VScode editor, I want to replace its role with zed";
     };
 
-   programmingLanguages = {
+    programmingLanguages = {
       rust = lib.mkEnableOption "Rustup, bacon, toml support";
       beam = lib.mkEnableOption "Elixir, gleam and erlang";
       haskell = lib.mkEnableOption "Ghc, cabal, hlint and lsp";
@@ -69,6 +63,7 @@
 
       # TODO
       # nix = ;
+      # nu = ;
       # mono = ;
       # - maybe omnisharp-roslyn, netcoredbg
       # nodejs = ;

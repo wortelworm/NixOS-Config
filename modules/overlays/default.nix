@@ -31,7 +31,7 @@
       #
       # Also note that with zed for some reason using "$@" doesn't work,
       # in helix it behaves fine. See also:
-      #     https://github.com/zed-industries/zed/blob/main/extensions/haskell/src/haskell.rs
+      #     https://github.com/zed-extensions/haskell/blob/main/src/haskell.rs
       haskell-ghcup-lsp = pkgs.writeShellScriptBin "haskell-language-server-wrapper" ''
         ${lib.getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server"} lsp
       '';
