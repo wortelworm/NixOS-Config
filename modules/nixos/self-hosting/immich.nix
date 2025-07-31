@@ -1,9 +1,21 @@
 {
   config,
   lib,
+  pkgs,
   ...
-}: {
-  services.immich = lib.mkIf config.wortel.self-hosting.immich {
+}: let
+  immich-enabled = config.wortel.self-hosting.immich;
+  services = [
+    "immich-server"
+    "redis-immich"
+    # NOTE: if using postgress for anything else, then might want to remove this
+    "postgresql"
+  ];
+in {
+  # TODO: disable autostart,
+  # only start manually via command line
+
+  services.immich = lib.mkIf immich-enabled {
     enable = true;
     port = 2283;
 
@@ -12,6 +24,7 @@
     openFirewall = true;
 
     # Disabling any additional features for now, to try it out
+    # if re-enabling this, must also add it to the services variable up above
     machine-learning.enable = false;
 
     settings = {
@@ -31,4 +44,42 @@
 
     # Note that users are set up using the UI.
   };
+
+  # Disabling autostart, add command line utilty for starting/stopping
+  systemd.services = builtins.listToAttrs (
+    builtins.map (name: {
+      name = name;
+      value.wantedBy = lib.mkForce [];
+    })
+    services
+  );
+
+  environment.systemPackages = lib.optionals immich-enabled [
+    (
+      pkgs.writeScriptBin "immich-manager"
+      ''
+        #!${lib.getExe pkgs.nushell}
+
+        let services = ["${lib.strings.concatStringsSep "\", \"" services}"];
+
+        def main [] {
+          help main
+        }
+
+        # Enable all systemd immich services
+        def "main enable" [] {
+          $services | each {|service|
+            sudo systemctl start $service
+          };
+        }
+
+        # Disable all systemd immich services
+        def "main disable" [] {
+          $services | each {|service|
+            sudo systemctl stop $service
+          };
+        }
+      ''
+    )
+  ];
 }
