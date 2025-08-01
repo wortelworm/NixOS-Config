@@ -8,18 +8,21 @@
   lang = wortel.programmingLanguages;
 in {
   # TODO:
-  #   autoformat?
-  #   typst
-  #   Syntax highlighting for nix files
+  #   Disabling lsp by default, manually starting
+  #   Better syntax highlighting for nix files?
   #   Fix icons in terminal not using font or something
-  #   Highlight TODO's
   #   tabbing through open files (maybe change something in kanata as well)
   #   compitest
-  #   Add CodeLLDB for rust debugging
+  #   Highlight TODO's (see https://github.com/zed-industries/extensions/issues/523)
   programs.zed-editor = lib.mkIf wortel.textEditors.zed-editor {
     enable = true;
 
     package = pkgs-unstable.zed-editor;
+
+    # Added here instead of in the lsp, so that tasks can also make use of tinymist
+    extraPackages = lib.optionals lang.typst [
+      pkgs.tinymist
+    ];
 
     extensions =
       [
@@ -29,6 +32,10 @@ in {
       ]
       ++ lib.optionals lang.rust [
         "toml"
+      ]
+      ++ lib.optionals lang.typst [
+        # tinymist is installed system-wide, this plugin will pick up on that
+        "typst"
       ]
       ++ lib.optionals lang.haskell [
         "haskell"
@@ -90,5 +97,35 @@ in {
         };
       };
     };
+  };
+
+  # Zed really wants to download the debug adapter itself,
+  # but that version is not patched for use on nixos.
+  # So instead we manually insert the debugger in here.
+  # TODO: look at the code in zed to find if this can be done better
+  xdg.dataFile."zed/debug_adapters/CodeLLDB/CodeLLDB_v1.11.5/extension" =
+    lib.mkIf
+    # TODO: c/cpp should also activate this
+    (wortel.textEditors.zed-editor && lang.rust)
+    {
+      source = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/";
+    };
+
+  # FIXME: configure via zed-editor.userTasks when updating from homemanager 25.05
+  xdg.configFile."zed/tasks.json" = lib.mkIf (wortel.textEditors.zed-editor && lang.typst) {
+    text = builtins.toJSON [
+      {
+        label = "Tinymist: preview file";
+
+        # This works, but only updates on save instead of every edit like in helix.
+        # Propably need to wait for input monitoring in upstream.
+        # Maybe this would help: https://github.com/zed-industries/zed/issues/13756
+        # TODO: maybe just configure autosave timeout?
+        command = "tinymist";
+        args = ["preview" "$ZED_FILE"];
+        reveal = "never";
+        hide = "always";
+      }
+    ];
   };
 }
