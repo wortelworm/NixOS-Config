@@ -9,7 +9,8 @@
     # Intercept all devices with this config
     keyboards."regulars" = {
       # TODO: I'm not entirely happy with this just yet...
-      # navigation layer add Home/End, Tab, ..
+      # Is the navigation layer tab on a good spot?
+      # Enter, backspace, delete, ..., using nav layer or chords?
       # home row reduce time?
 
       # For an overview of features, see:
@@ -49,15 +50,15 @@
         )
 
         (defalias
-            aa (tap-hold 200 200 a lmet)
-            rr (tap-hold 200 200 r lalt)
-            ss (tap-hold 200 200 s lsft)
-            tt (tap-hold 200 200 t lctl)
+            aa (tap-hold 170 170 a lmet)
+            rr (tap-hold 170 170 r lalt)
+            ss (tap-hold 170 170 s lsft)
+            tt (tap-hold 170 170 t lctl)
 
-            nn (tap-hold 200 200 n rctl)
-            ee (tap-hold 200 200 e rsft)
-            ii (tap-hold 200 200 i ralt)
-            oo (tap-hold 200 200 o rmet)
+            nn (tap-hold 170 170 n rctl)
+            ee (tap-hold 170 170 e rsft)
+            ii (tap-hold 170 170 i ralt)
+            oo (tap-hold 170 170 o rmet)
         )
 
         (deflayer colemak
@@ -72,8 +73,8 @@
         (deflayer navigation
           _
           _    _    _    _    _    _    _    _    _    _    _    _    _    _
-          _    _    _    _    _    _    _    _    _    _    _    _    _    _
-          _    lmet lalt lsft lctl _    left down up  right _    _    _
+          _    _    _    _    _    _    home pgdn pgup end  _    _    _    _
+          _    lmet lalt lsft lctl _    left down up  right tab  _    _
           _    _    _    _    _    _    _    _    _    _    _    _
           _    _    _              _              _    _    _    _
         )
