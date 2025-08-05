@@ -35,6 +35,8 @@
     ripgrep
     netscanner
     tokei
+    just
+    fetch-battery
 
     # disk partitions
     gparted

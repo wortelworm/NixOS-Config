@@ -5,7 +5,7 @@
 }: {
   nixpkgs.overlays = [
     (final: prev: {
-      wortel-config-helper = pkgs.callPackage ./config-helper.nix {};
+      fetch-battery = pkgs.callPackage ./fetch-battery.nix {};
       vimPlugins =
         prev.vimPlugins
         // {

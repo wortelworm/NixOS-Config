@@ -5,7 +5,6 @@
     ./overlays
 
     ./ensure-installed.nix
-    ./label.nix
     ./unfree.nix
   ];
 

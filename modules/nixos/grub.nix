@@ -29,6 +29,11 @@
         };
         installPhase = "cp -r nixos $out";
       };
+
+      # Notes on using grub:
+      # You can enable the pager using `set pager=1`
+      # Then you can use `ls` and `cat`
+      # The boot partition is probably: `ls (hd0,1)/`
     };
   };
 }

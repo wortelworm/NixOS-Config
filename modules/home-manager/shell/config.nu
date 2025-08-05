@@ -16,6 +16,7 @@ if ($env.NU_WITHIN_NIX_SHELL? == null) {
 }
 
 # Shell aliases
+alias j = just
 alias vi = nvim
 
 alias cr = cargo run
@@ -26,8 +27,6 @@ alias g = lazygit
 alias gs = git status
 
 alias f = fastfetch
-
-alias n = wortel-config-helper
 
 alias ns = nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu'
 
@@ -83,4 +82,3 @@ def --env hs [...rest: string] {
     manual-zoxide-change-dir ...$rest
     nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu -e "hx"'
 }
-

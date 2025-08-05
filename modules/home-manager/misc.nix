@@ -1,9 +1,5 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    # Nixos config helpers
-    nh
-    wortel-config-helper
-
     # TODO: figure out how to make blender use nvidia drivers
     # blender
 
