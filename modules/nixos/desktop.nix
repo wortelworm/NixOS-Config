@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  services = {
+  services = lib.mkIf config.wortel.gui {
     xserver.enable = true;
 
     # sddm is the default display manager for KDE plasma

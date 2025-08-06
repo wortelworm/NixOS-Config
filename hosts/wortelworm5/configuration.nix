@@ -5,6 +5,8 @@
   wortel = {
     hostname = "wortelworm5";
 
+    gui = true;
+
     cosmic = true;
     nvidia = true;
     kanata = true;

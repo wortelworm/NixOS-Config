@@ -9,6 +9,8 @@
   ];
 
   options.wortel = {
+    gui = lib.mkEnableOption "Enable graphical environment, otherwise only linux terminal";
+
     cosmic = lib.mkEnableOption "Cosmic desktop environment";
     plasma-home = lib.mkEnableOption "Managing plasma configuration using home-manager";
 
@@ -25,8 +27,6 @@
     kanata = lib.mkEnableOption "Kanata, keyboard layout custimization, replacing kmonad";
 
     # TODO:
-    # gui-less install
-    # - Maybe also levels for amount of gui programs
     # homelab services options
     # - This needs especially some attention
     # virtualisation settings

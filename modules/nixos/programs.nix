@@ -17,31 +17,35 @@
   #     ncspot:
   #         ncurses spotify client
 
-  # will be only non-home manager programs in path
-  environment.systemPackages = with pkgs; [
-    firefox
-    libreoffice-qt # qt version because I'm using kde
-    keepassxc
-    alacritty
+  # These are the only non-homemanager programs in path
+  environment.systemPackages = with pkgs;
+    [
+      # Nix utils
+      nh
+      nix-inspect
 
-    # utils
-    tree
-    nh
-    dust
-    btop
-    bat
-    lazygit
-    nix-inspect
-    ripgrep
-    netscanner
-    tokei
-    just
-    fetch-battery
+      # System utils
+      dust
+      btop
+      netscanner
+      fetch-battery
 
-    # disk partitions
-    gparted
-    ntfs3g
-  ];
+      # Programming
+      lazygit
+      just
+      tokei
+      bat
+    ]
+    ++ lib.optionals config.wortel.gui [
+      firefox
+      libreoffice-qt # qt version because I'm using kde
+      keepassxc
+      alacritty
+
+      # Disk partitions (I basically never use this anymore)
+      # gparted
+      # ntfs3g
+    ];
 
   # font, used automaticly by kitty
   # I want to have support for nerdfonts and ligatures
@@ -51,15 +55,16 @@
   #         Text is more vertical space,
   #         bad for things like btop
   #         in kitty it is fine, int alacritty its worse
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
+  fonts.packages = with pkgs;
+    lib.optionals config.wortel.gui [
+      nerd-fonts.jetbrains-mono
+    ];
 
   # Starts OpenSSH agent on login, so don't have to type
   # passphrase on every git push (ssh connection)
   programs.ssh.startAgent = true;
 
-  programs.kdeconnect.enable = true;
+  programs.kdeconnect.enable = config.wortel.gui;
 
   # Could be cool to use in like 2028
   # programs.ladybird.enable = true;

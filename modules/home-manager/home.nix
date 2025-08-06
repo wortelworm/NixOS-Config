@@ -1,17 +1,24 @@
-{wortel, ...}: {
+{
+  lib,
+  wortel,
+  ...
+}: {
   # Home Manager needs a bit of information about you
   # and the paths it should manage.
   home.username = "wortelworm";
   home.homeDirectory = "/home/wortelworm";
 
-  imports = [
-    ./gui
-    ./programming
-    ./shell
-    ./misc.nix
-    ./onedrive.nix
-    ./xdg.nix
-  ];
+  imports =
+    [
+      ./programming
+      ./shell
+      ./misc.nix
+      ./onedrive.nix
+      ./xdg.nix
+    ]
+    ++ lib.optionals wortel.gui [
+      ./gui
+    ];
 
   # environment variables
   home.sessionVariables = {
