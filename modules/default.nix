@@ -78,6 +78,8 @@
       # arduino-ide = ;
     };
 
+    xdgAlternative = lib.mkEnableOption "Move all xdg folders to diffent location";
+
     hostname = lib.mkOption {
       type = lib.types.str;
       default = null;
@@ -100,7 +102,10 @@
   };
 
   config.nix.settings = {
-    # Why are flakes still experimental??
+    # Why are flakes and the new commands still experimental??
     experimental-features = ["nix-command" "flakes"];
+
+    # Unfortunatly not enabled by default because of backwards compatibility
+    use-xdg-base-directories = true;
   };
 }

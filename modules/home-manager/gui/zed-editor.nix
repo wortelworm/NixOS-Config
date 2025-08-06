@@ -105,8 +105,7 @@ in {
   # TODO: look at the code in zed to find if this can be done better
   xdg.dataFile."zed/debug_adapters/CodeLLDB/CodeLLDB_v1.11.5/extension" =
     lib.mkIf
-    # TODO: c/cpp should also activate this
-    (wortel.textEditors.zed-editor && lang.rust)
+    (wortel.textEditors.zed-editor && (lang.rust || lang.cpp))
     {
       source = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/";
     };

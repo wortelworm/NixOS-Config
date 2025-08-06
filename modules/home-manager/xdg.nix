@@ -1,22 +1,38 @@
-{config, ...}: {
+{
+  config,
+  wortel,
+  ...
+}: {
   # Cross-Desktop Group, standard specifications from freedesktop.org
   # These settings try to enforce the standards to keep the home directory clean.
   xdg = let
     home = config.home.homeDirectory;
+
+    directories =
+      if wortel.xdgAlternative
+      then {
+        configHome = "${home}/.xdg/config";
+        dataHome = "${home}/.xdg/data";
+        stateHome = "${home}/.xdg/state";
+        cacheHome = "${home}/.xdg/cache";
+      }
+      else {
+        # Configuration files, affects behavior of programs
+        configHome = "${home}/.config";
+
+        # Data inherently porable across computers
+        dataHome = "${home}/.local/share";
+
+        # Unique for given machine, like logs and history
+        stateHome = "${home}/.local/state";
+
+        # Non-essential (cached) data
+        cacheHome = "${home}/.cache";
+      };
   in {
     enable = true;
 
-    # Configuration files, affects behavior of programs
-    configHome = "${home}/.config";
-
-    # Data inherently porable across computers
-    dataHome = "${home}/.local/share";
-
-    # Unique for given machine, like logs and history
-    stateHome = "${home}/.local/state";
-
-    # Non-essential (cached) data
-    cacheHome = "${home}/.cache";
+    inherit (directories) configHome dataHome stateHome cacheHome;
 
     # Note: runtime dir is automaticly set
 
@@ -45,6 +61,8 @@
     STARSHIP_CONFIG = "${config.xdg.configHome}/starship.toml";
     STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
 
+    ZELLIJ_CONFIG_DIR = "${config.xdg.configHome}/zellij";
+
     IPYTHONDIR = "${config.xdg.configHome}/jupyter";
 
     # Rust analyzer expects a specific file under ~/.rustup
@@ -60,18 +78,23 @@
     HISTFILE = "${config.xdg.stateHome}/bash/history";
 
     # TODO:
-    #   Maybe's:
+    #   '~/.local/state/nix/', '~/.local/state/home-manager' !!!
+    #   `.profile`, `.bashrc`, `bash_profile`
+    #
+    #   Old maybe's:
     #       to prevent '~/.java/fonts' from coming back, I might have to
     #           set one of '_JAVA_OPTIONS', 'JAVA_TOOL_OPTIONS' or 'JAVA_FONTS'
     #       do I need to set 'KDEHOME' or the likes?
-    #   Unsure how's:
-    #       '~/.nix-defexpr', '~/.nix-profile', '~/.nix-channels',
-    #       '~/.local/state/nix/', '~/.local/state/home-manager'
+    #   Old unsure how's:
     #       rustup analyzer refering to '~/.rustup' instead of '$RUSTUP_HOME'
-    #       vscode :(
-    #       mozilla firefox
+    #       vscode, but I'm gonna use zed instead
+    #       mozilla firefox, maybe look at libreoffice with different home.
     #       thunderbird, want to use different mail client anyways
     #       '~/.pulsecookie'
+
+    # NOTE:
+    #     For ssh keys, I will still continue to use ~/.ssh
+    #       The configuration is done system wide
   };
 
   # Some applications dont even have an environment variable to the location

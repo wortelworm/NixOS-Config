@@ -14,7 +14,10 @@ in {
 
   # Source: https://github.com/lervag/vimtex/issues/576
   # Remove .synctex.gz files with clean
-  home.file.".latexmkrc".text = "push @generated_exts, \"synctex.gz\";";
+  # Note that nowadays latexmk also support the xdg base directories
+  xdg.configFile."latexmk/latexmkrc".text = ''
+    push @generated_exts, "synctex.gz";
+  '';
 
   programs.nixvim = {
     plugins = {

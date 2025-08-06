@@ -33,7 +33,6 @@ in {
     enable = true;
 
     shellWrapperName = "y";
-    enableBashIntegration = true;
 
     keymap.mgr.prepend_keymap = [
       {

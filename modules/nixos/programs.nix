@@ -60,9 +60,26 @@
       nerd-fonts.jetbrains-mono
     ];
 
-  # Starts OpenSSH agent on login, so don't have to type
-  # passphrase on every git push (ssh connection)
-  programs.ssh.startAgent = true;
+  programs.ssh = {
+    # Starts OpenSSH agent on login, so don't have to type
+    # passphrase on every git push (ssh connection)
+    startAgent = true;
+
+    knownHosts = {
+      "github" = {
+        # Source: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+        hostNames = ["github.com"];
+      };
+
+      # TODO: check publicKey. Only the fingerprint can be found here:
+      # https://git.science.uu.nl/help/instance_configuration
+      # "uni gitlab" = {
+      #   publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPEbg2mBaox7ZwGa/0o+JM+EUWPnPtknfCltzm1Xap9x";
+      #   hostNames = ["git.science.uu.nl"];
+      # };
+    };
+  };
 
   programs.kdeconnect.enable = config.wortel.gui;
 
