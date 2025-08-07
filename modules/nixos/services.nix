@@ -8,6 +8,9 @@
     # to enroll, use kde's ui??
     # it is not working :(
     enable = true;
+
+    # tod.enable = true;
+    # tod.driver = pkgs.libfprint-2-tod1-elan;
   };
 
   # Enable networking

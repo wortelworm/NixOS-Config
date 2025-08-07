@@ -7,6 +7,9 @@
 
     gui = true;
 
+    # Note: the fingerprint is working, but it's very finicky and I do not trust it.
+    # fingerprint = true;
+
     cosmic = true;
     nvidia = true;
     kanata = true;
