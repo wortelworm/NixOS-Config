@@ -82,3 +82,27 @@ def --env hs [...rest: string] {
     manual-zoxide-change-dir ...$rest
     nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu -e "hx"'
 }
+
+
+# Custom completion for bash, because it was not working on it's own or with carapace...
+def "manpages" [] {
+    ^man -w
+    | str trim
+    | split row (char esep)
+    | par-each { glob $'($in)/man?' }
+    | flatten
+    | par-each { ls $in | get name }
+    | flatten
+    | path basename
+    | str replace ".gz" ""
+}
+
+export extern "man" [
+    ...targets: string@"manpages"
+]
+
+# Should take a look at better manpages one day again
+# alias man = batman
+# export extern "batman" [
+#     ...targets: string@"manpages"
+# ]
