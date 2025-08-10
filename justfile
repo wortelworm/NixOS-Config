@@ -8,11 +8,6 @@ alias t := test
 path_flake := `pwd`
 flake_ref := "path:" + path_flake
 
-# I tried to use '$env.NIXOS_LABEL', but it doesn't work
-# this could be because of nh or some purity setting
-# This location is used by the nixos config in 'modules/default.nix'
-path_nixos_label := path_flake / "nixos-label.txt"
-
 profiles_path := '/nix/var/nix/profiles'
 generations_toml := '/boot/nixos-generations.toml'
 
