@@ -109,8 +109,12 @@ test-offline:
 [group("modify")]
 update:
     #!/usr/bin/env nu
-    let workspace_dirty = git status -s | lines | length | $in == 1
-    if workspace_dirty { error make {msg: 'Cannot update when workspace is dirty!'} }
+    let workspace_dirty = git status -s | lines | length | $in != 1
+    if $workspace_dirty {
+        error make {
+            msg: 'Cannot update when workspace is dirty!'
+        }
+    }
 
     # This command does the actual work
     nix flake update --flake {{flake_ref}}
@@ -119,7 +123,7 @@ update:
     git commit -m 'Updates'
     git push
 
-    switch-boot
+    just switch-boot
 
 # Switch to generation and record it
 [group("modify")]
