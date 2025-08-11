@@ -12,9 +12,6 @@
     "postgresql"
   ];
 in {
-  # TODO: disable autostart,
-  # only start manually via command line
-
   services.immich = lib.mkIf immich-enabled {
     enable = true;
     port = 2283;
@@ -45,7 +42,7 @@ in {
     # Note that users are set up using the UI.
   };
 
-  # Disabling autostart, add command line utilty for starting/stopping
+  # Disable autostart, add command line utilty for starting/stopping
   systemd.services = builtins.listToAttrs (
     builtins.map (name: {
       name = name;

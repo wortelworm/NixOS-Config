@@ -14,37 +14,18 @@
 
     desktopManager.plasma6.enable = true;
 
-    # Cosmic-epoch is working now lets go!
-
-    # Notes
-    #   Closing window is mapped to SUPER+Q by default instead of alt+f4
+    # Notes:
     #   A bunch of keybinds can be found in the settings
-
-    # Issues/missing stuff found:
-    #   home.sessionVariables is not working -> only on autostarted alacritty
-    #   Cannot switch CAPSLOCK and ESC -> using kmonad now which does work
-    #   Alt+tab is global opposed to per workspace -> use stacking windows instead?
-    #   Blurry/unsharp ui (background, discord) -> scaling of xorg stuff, fixed using settings
-    #   KDE apps use light mode -> dolphin works, its just other programs?
     #
-    #   Blurry windows -> restack
-    #   New stacking window not reading keyboard -> refocus
+    # Issues: (hopefully fixed in 25.11)
+    #   Bluetooth cpu usage -> workaround in cosmic-applets overlay
+    #   Systemd timeout -> workaround with `just kill-cosmic`
+    #   Occasional crashes
     #
-    #   Apps slow to start? -> its fine now
-    #   Fullscreen transparancy black screen -> no longer using fullscreen
-    #   Spamming SUPER+ up arrow does weird -> fixed
-    #   Rows and columns for workspaces (like KDE) -> using stacking windows instead
-    #   Using a set amount of workspaces instead of automaticly adding and removing -> Maybe this is fine? would be nice to insert in the start
+    # Missing stuff:
+    #   home-manager module
     desktopManager.cosmic = lib.mkIf config.wortel.cosmic {
       enable = true;
     };
-
-    # Trying to fix some cosmic issues with shutting down, TODO
-    geoclue2.enable = true;
-    # This is being used, but don't create duplicate systemd service's
-    geoclue2.enableDemoAgent = false;
-
-    # This is only needed in unstable right now, not 25.05
-    # geoclue2.whitelistedAgents = [ "geoclue-demo-agent" ];
   };
 }

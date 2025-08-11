@@ -15,33 +15,6 @@ generations_toml := '/boot/nixos-generations.toml'
 default:
     just --list
 
-# List past generations, using the old labeling system
-[group("info")]
-list-old:
-    #!/usr/bin/env nu
-    let base_path = '{{profiles_path}}'
-    ls --short-names $base_path
-        | each {|row| {
-            generation: (
-                $row.name
-                    | parse "system-{generation}-link"
-                    | $in.generation.0?
-            )
-            modified: $row.modified
-            label: (do --ignore-errors {
-                open --raw $'($base_path)/($row.name)/nixos-version'
-            })
-        }}
-        | filter {|row|
-            $row.generation != null
-        }
-        | each {|row| {
-            modified: $row.modified
-            generation: ($row.generation | into int)
-            label: ($row.label | str replace --all '_' ' ')
-        }}
-        | sort-by generation
-
 # List past generations
 [group("info")]
 list:
@@ -51,11 +24,9 @@ list:
 [group("info")]
 show:
     #!/usr/bin/env nu
-    # TODO: can this be simplified?
-    let lockfile = '{{path_flake}}/flake.lock'
-    let json = open $lockfile | from json
-    let version = $json | get version
+    let json = open '{{path_flake}}/flake.lock' | from json
 
+    let version = $json | get version
     if $version != 7 {
         error make {msg: $'Expected flake version 7, instead version is ($version)!'}
     }
@@ -68,16 +39,13 @@ show:
             if $elt.name == $root_name {
                 return
             }
-            # Convert seconds to nanoseconds
-            # It is in utc timezone, but we want to convert it to local anyway
-            let datetime = $elt.value
-                | get locked.lastModified
-                | $in * 1sec // 1ns
-                | into datetime -z l
 
-            {datetime: $datetime, name: $elt.name}
+            # The lockfile datetime is in seconds of unix time
+            let datetime = $elt.value.locked.lastModified
+                | into datetime --timezone LOCAL --format '%s'
+
+            $datetime
         }
-        | each {|elt| $elt.datetime}
         | math max
 
     let days = ((date now) - $latest) / 1day | math round --precision 1
@@ -131,8 +99,7 @@ switch: log-next-generation-to-boot-partition
 switch-boot: log-next-generation-to-boot-partition
     nh os boot '{{flake_ref}}'
 
-# TODO: hide/private this command from cli
-[group("zz do not use")]
+[private]
 log-next-generation-to-boot-partition:
     #!/usr/bin/env nu
     let workspace_dirty = git status -s | lines | length | $in != 1
@@ -162,7 +129,7 @@ log-next-generation-to-boot-partition:
         {}
     };
 
-    let new = $prev | merge { ($last_generation | $in + 1 | into string): $description } | sort --reverse
+    let new = $prev | merge { ($last_generation | $in + 1 | into string): $description } | sort
 
     $new | to toml | sudo cp /dev/stdin '{{generations_toml}}'
 

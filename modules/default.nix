@@ -50,7 +50,6 @@
 
       nixvim = lib.mkEnableOption "Vim managed through nixvim, with programming support";
 
-      # TODO: currently needs to compile node from source!?
       zed-editor = lib.mkEnableOption "Zed code editor";
 
       vscode = lib.mkEnableOption "VScode editor, I want to replace its role with zed";

@@ -30,7 +30,6 @@
   };
 
   # Automaticly adds completions for some many programs
-  # TODO: proper look at autocompletion again
   programs.carapace = {
     enable = true;
 
