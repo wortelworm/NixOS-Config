@@ -65,6 +65,11 @@
     # passphrase on every git push (ssh connection)
     startAgent = true;
 
+    # 'confirm': add key after first use, confirm every use after that
+    extraConfig = ''
+      AddKeysToAgent confirm
+    '';
+
     knownHosts = {
       "github" = {
         # Source: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints
