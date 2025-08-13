@@ -5,6 +5,7 @@
     ./vscode.nix
     ./games.nix
     ./plasma-home.nix
+    ./hyprland.nix
   ];
 
   # These are misc thing that need a proper home
