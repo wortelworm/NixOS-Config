@@ -4,6 +4,7 @@
     ./zed-editor.nix
     ./vscode.nix
     ./plasma-home.nix
+    ./hyprland.nix
   ];
 
   # These are misc thing that need a proper home

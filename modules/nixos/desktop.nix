@@ -7,6 +7,7 @@
     xserver.enable = true;
 
     # sddm is the default display manager for KDE plasma
+    # Should look if there is a nicer one, some day
     displayManager.sddm = {
       enable = true;
       settings.General.DefaultSession = lib.mkIf config.wortel.cosmic "cosmic.desktop";
@@ -28,4 +29,12 @@
       enable = true;
     };
   };
+
+  programs.hyprland = {
+    enable = true;
+
+    # Maybe withUWSM? NixOS recommends it, but hyprland says its for advanced users...
+  };
+
+  # Hyperlock?
 }
