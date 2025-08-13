@@ -5,6 +5,7 @@
 }: {
   # Maybe look at gitui someday in the future
   # Or maybe an alternative system like:
+  # - https://github.com/jj-vcs/jj
   # - https://www.fossil-scm.org/
   # - https://pijul.org/
 
