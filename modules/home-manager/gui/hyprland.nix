@@ -60,6 +60,32 @@
         rounding_power = 2.0;
       };
 
+      animations = {
+        bezier = "exponential, 0.15, 1, 0.4, 1";
+        animation = [
+          # "global, 1, 10, exponential"
+          "global,        1,     10,    exponential           "
+          "border,        1,     5.39,  exponential           "
+          "windows,       1,     4.79,  exponential           "
+          "windowsIn,     1,     4.1,   exponential, popin 87%"
+          "windowsOut,    1,     1.49,  exponential, popin 87%"
+          "fadeIn,        1,     1.73,  exponential           "
+          "fadeOut,       1,     1.46,  exponential           "
+          "fade,          1,     3.03,  exponential           "
+          "layers,        1,     3.81,  exponential           "
+          "layersIn,      1,     4,     exponential, fade     "
+          "layersOut,     1,     1.5,   exponential, fade     "
+          "fadeLayersIn,  1,     1.79,  exponential           "
+          "fadeLayersOut, 1,     1.39,  exponential           "
+          "workspaces,    1,     1.94,  exponential, fade     "
+          "workspacesIn,  1,     1.21,  exponential, fade     "
+          "workspacesOut, 1,     1.94,  exponential, fade     "
+
+          # This one is only in a later version of hyprland
+          # "zoomFactor,    1,     7,     exponential           "
+        ];
+      };
+
       # TODO: more settings?
       #   Authentication Agent
       #   wallpaper (propably hyprpaper)
@@ -148,5 +174,16 @@
         ",XF86AudioPrev, exec, playerctl previous"
       ];
     };
+  };
+
+  # The toml format requires the unstable package for now
+  # There is a home-manager module in 25.11, not in 25.05...
+  xdg.configFile."ashell/config.toml".source = (pkgs.formats.toml {}).generate "ashell-config" {
+    # TODO, where can I read the logs?
+    # Maybe need to enable logging in hyprland?
+    log_level = "debug";
+
+    # TODO: autohide?
+    # TODO: fix wifi and bluetooth
   };
 }
