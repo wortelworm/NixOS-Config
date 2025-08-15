@@ -36,5 +36,6 @@
     # Maybe withUWSM? NixOS recommends it, but hyprland says its for advanced users...
   };
 
-  # Hyperlock?
+  # Hyprlock needs PAM access to authenticate, else it fallbacks to su
+  security.pam.services.hyprlock = {};
 }
