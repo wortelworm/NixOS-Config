@@ -47,6 +47,8 @@
       # ntfs3g
     ];
 
+  services.flatpak.enable = config.wortel.gui;
+
   # font, used automaticly by kitty
   # I want to have support for nerdfonts and ligatures
   #     Hack: does not have ligatures
