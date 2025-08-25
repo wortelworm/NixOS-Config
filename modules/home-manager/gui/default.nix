@@ -3,7 +3,6 @@
     ./terminal.nix
     ./zed-editor.nix
     ./vscode.nix
-    ./games.nix
     ./plasma-home.nix
   ];
 

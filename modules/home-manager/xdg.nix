@@ -81,6 +81,11 @@
     #   '~/.local/state/nix/', '~/.local/state/home-manager' !!!
     #   `.profile`, `.bashrc`, `bash_profile`
     #
+    #   Maybe move the ~/.var/app to ~/.xdg/flatpaks?
+    #   Then I could also move steam, rustup?, firefox, thunderbird, ... there?
+    #
+    #   ~/.e4mc_cache is from a minecraft mod...
+    #
     #   Old maybe's:
     #       to prevent '~/.java/fonts' from coming back, I might have to
     #           set one of '_JAVA_OPTIONS', 'JAVA_TOOL_OPTIONS' or 'JAVA_FONTS'

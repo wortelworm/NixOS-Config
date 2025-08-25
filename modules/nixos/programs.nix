@@ -47,6 +47,7 @@
       # ntfs3g
     ];
 
+  # TODO: declaring installed flatpaks via home-manager or globally or something
   services.flatpak.enable = config.wortel.gui;
 
   # font, used automaticly by kitty
