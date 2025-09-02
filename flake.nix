@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixos";
     };
 
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixos";
+    };
+
     # Could try again in the future, not right now
     # zen-browser = {
     #   url = "github:0xc000022070/zen-browser-flake";
@@ -32,8 +37,9 @@
   outputs = {nixos, ...} @ inputs: let
     system = "x86_64-linux";
     hosts = [
-      "wortelworm5"
       "nixos-testing"
+      "vm-testing"
+      "wortelworm5"
     ];
 
     additionalCache = {
