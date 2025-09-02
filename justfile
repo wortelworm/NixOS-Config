@@ -133,6 +133,20 @@ log-next-generation-to-boot-partition:
 
     $new | to toml | sudo cp /dev/stdin '{{generations_toml}}'
 
+[group("vm")]
+vm-run-terminal:
+    #!/usr/bin/env nu
+    let dir = mktemp -d; cd $dir
+    $env.QEMU_KERNEL_PARAMS = 'console=ttyS0'
+    nix run '{{flake_ref}}#nixosConfigurations.vm-testing.config.system.build.vm' -- -nographic
+    cd /; rm --recursive $dir
+
+[group("vm")]
+vm-run-graphics:
+    #!/usr/bin/env nu
+    let dir = mktemp -d; cd $dir
+    nix run '{{flake_ref}}#nixosConfigurations.vm-testing.config.system.build.vm'
+    cd /; rm --recursive $dir
 
 # Terminates cosmic session, as a workaround for the systemd timeout
 # Should be removed once cosmic can be updated, and the isssue is fixed

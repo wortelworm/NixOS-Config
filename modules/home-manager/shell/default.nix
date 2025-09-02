@@ -38,7 +38,6 @@
   };
 
   # Database location: $XDG_DATA_HOME/zoxide/db.zo
-  # Bash and nushell integration is enabled by default in home-manager
   programs.zoxide.enable = true;
 
   # TODO: find a good way of having a terminal with helix?
