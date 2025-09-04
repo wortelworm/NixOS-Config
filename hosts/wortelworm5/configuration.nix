@@ -18,7 +18,10 @@
     games = true;
     terminalFun = true;
 
-    self-hosting.immich = true;
+    self-hosting = {
+      immich = true;
+      radicale = true;
+    };
 
     textEditors = {
       helix.enable = true;

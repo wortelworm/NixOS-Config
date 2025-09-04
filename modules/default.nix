@@ -37,6 +37,8 @@
       #
       # Maybe also an global 'enable' option??
       immich = lib.mkEnableOption "Photo and video backup solution";
+
+      radicale = lib.mkEnableOption "CalDAV and CardDAV server";
     };
 
     # TODO:
