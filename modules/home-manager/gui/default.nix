@@ -14,7 +14,6 @@
 
     # Do I really need these?
     vlc
-    zathura
     chromium
   ];
 
@@ -36,6 +35,15 @@
         # so need to set it using about:config anyway
         "full-screen-api.ignore-widgets" = true;
       };
+    };
+  };
+
+  # A nice, keyboard controlled, pdf viewer
+  programs.zathura = {
+    enable = true;
+    options = {
+      # Copy text to main clipboard on select, instead of the weird 'primary' clipboard
+      selection-clipboard = "clipboard";
     };
   };
 }
