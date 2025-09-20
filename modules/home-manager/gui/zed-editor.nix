@@ -95,6 +95,9 @@ in {
         hls = lib.mkIf lang.haskell {
           binary.path = lib.getExe pkgs.haskell-ghcup-lsp;
         };
+        omnisharp = lib.mkIf lang.mono {
+          binary.path = lib.getExe pkgs.omnisharp-roslyn;
+        };
       };
     };
   };

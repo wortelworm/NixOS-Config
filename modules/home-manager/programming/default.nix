@@ -38,5 +38,8 @@
         elixir
         gleam
         erlang
+      ]
+      ++ lib.optionals lang.mono [
+        mono
       ];
 }

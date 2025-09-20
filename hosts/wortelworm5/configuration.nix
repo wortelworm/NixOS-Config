@@ -30,6 +30,7 @@
       typst = true;
       latex = true;
       cpp = true;
+      mono = true;
     };
 
     ensureInstalled.librariesWGPU = true;

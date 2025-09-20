@@ -67,10 +67,12 @@
       # But I only use this for competative programming which seems to use gcc everywhere
       cpp = lib.mkEnableOption "Support for c++ using the gnu compiler collection";
 
+      # Note: compile sln files using msbuild, not included??
+      mono = lib.mkEnableOption "C# support using mono and omnisharp-roslyn";
+
       # TODO
       # nix = ;
       # nu = ;
-      # mono = ;
       # - maybe omnisharp-roslyn, netcoredbg
       # nodejs = ;
       # python = ;

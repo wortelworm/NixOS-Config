@@ -41,6 +41,9 @@ in {
         ]
         ++ lib.optionals lang.typst [
           tinymist
+        ]
+        ++ lib.optionals lang.mono [
+          omnisharp-roslyn
         ];
 
     package = lib.mkIf wortel.textEditors.helix.local-build (pkgs.writeShellScriptBin "hx" ''
