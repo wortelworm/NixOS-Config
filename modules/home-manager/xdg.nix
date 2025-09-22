@@ -11,10 +11,12 @@
     directories =
       if wortel.xdgAlternative
       then {
-        configHome = "${home}/.xdg/config";
-        dataHome = "${home}/.xdg/data";
-        stateHome = "${home}/.xdg/state";
-        cacheHome = "${home}/.xdg/cache";
+        # These locations are chosen because data of flatpaks are put in ~/.var/app
+        # And you cannot easily change that location...
+        configHome = "${home}/.var/config";
+        dataHome = "${home}/.var/data";
+        stateHome = "${home}/.var/state";
+        cacheHome = "${home}/.var/cache";
       }
       else {
         # Configuration files, affects behavior of programs
@@ -56,7 +58,7 @@
     };
   };
 
-  # Some applications dont follow the xdg standard :(
+  # Some applications dont follow the xdg standard by default :(
   home.sessionVariables = {
     STARSHIP_CONFIG = "${config.xdg.configHome}/starship.toml";
     STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
@@ -80,22 +82,17 @@
     # TODO:
     #   '~/.local/state/nix/', '~/.local/state/home-manager' !!!
     #   `.profile`, `.bashrc`, `bash_profile`
+    #    '~/.pulsecookie', '~/.java/fonts': might be fixed if they are in flatpaks now
     #
-    #   Maybe move the ~/.var/app to ~/.xdg/flatpaks?
     #   Then I could also move steam, rustup?, firefox, thunderbird, ... there?
     #
-    #   ~/.e4mc_cache is from a minecraft mod...
+    #   ~/.e4mc_cache is from a minecraft mod... Now that prismlauncher is installed as a flatpack it shouldn't be a problem right?
     #
-    #   Old maybe's:
-    #       to prevent '~/.java/fonts' from coming back, I might have to
-    #           set one of '_JAVA_OPTIONS', 'JAVA_TOOL_OPTIONS' or 'JAVA_FONTS'
-    #       do I need to set 'KDEHOME' or the likes?
     #   Old unsure how's:
     #       rustup analyzer refering to '~/.rustup' instead of '$RUSTUP_HOME'
     #       vscode, but I'm gonna use zed instead
     #       mozilla firefox, maybe look at libreoffice with different home.
     #       thunderbird, want to use different mail client anyways
-    #       '~/.pulsecookie'
 
     # NOTE:
     #     For ssh keys, I will still continue to use ~/.ssh
