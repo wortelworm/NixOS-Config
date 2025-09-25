@@ -12,7 +12,7 @@
 in
   rustPlatform.buildRustPackage {
     pname = "steel-lsp";
-    version = "unstable";
+    version = "git";
     src = repo;
     buildAndTestSubdir = "crates/steel-language-server";
     cargoLock.lockFile = "${repo}/Cargo.lock";

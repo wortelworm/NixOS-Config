@@ -8,7 +8,7 @@
   # TODO: it would be nice to skip all the imports if nixvim not enabled
   imports =
     [
-      inputs.nixvim.homeManagerModules.nixvim
+      inputs.nixvim.homeModules.nixvim
       ./language.nix
       ./running.nix
       ./shortcuts.nix

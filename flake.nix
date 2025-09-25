@@ -2,12 +2,12 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixos";
     };
 
@@ -44,7 +44,8 @@
       };
     };
 
-    pkgs-unstable = import inputs.nixos-unstable {inherit system;};
+    # pkgs-unstable = import inputs.nixos-unstable {inherit system;};
+    pkgs-unstable = import inputs.nixos {inherit system;};
 
     hostToSystem = hostname: {
       name = hostname;

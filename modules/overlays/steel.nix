@@ -12,7 +12,7 @@
 in
   rustPlatform.buildRustPackage {
     pname = "steel";
-    version = "unstable";
+    version = "git";
     src = repo;
     cargoLock.lockFile = "${repo}/Cargo.lock";
     doCheck = false;

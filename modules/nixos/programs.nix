@@ -63,6 +63,9 @@
       nerd-fonts.jetbrains-mono
     ];
 
+  # TODO: check, maybe the gnome ssh key agent is nicer
+  services.gnome.gcr-ssh-agent.enable = false;
+
   programs.ssh = {
     # Starts OpenSSH agent on login, so don't have to type
     # passphrase on every git push (ssh connection)
