@@ -6,6 +6,7 @@
   ...
 }: let
   lang = wortel.programmingLanguages;
+  zed-enabled = wortel.textEditors.zed-editor;
 in {
   # TODO:
   #   Disabling lsp by default, manually starting
@@ -14,7 +15,7 @@ in {
   #   tabbing through open files (maybe change something in kanata as well)
   #   compitest
   #   Highlight TODO's (see https://github.com/zed-industries/extensions/issues/523)
-  programs.zed-editor = lib.mkIf wortel.textEditors.zed-editor {
+  programs.zed-editor = lib.mkIf zed-enabled {
     enable = true;
 
     package = pkgs-unstable.zed-editor;
@@ -98,6 +99,9 @@ in {
         omnisharp = lib.mkIf lang.mono {
           binary.path = lib.getExe pkgs.omnisharp-roslyn;
         };
+        clangd = lib.mkIf lang.cpp {
+          binary.path = lib.getExe' pkgs.clang-tools "clangd";
+        };
       };
     };
   };
@@ -108,13 +112,13 @@ in {
   # TODO: look at the code in zed to find if this can be done better
   xdg.dataFile."zed/debug_adapters/CodeLLDB/CodeLLDB_v1.11.5/extension" =
     lib.mkIf
-    (wortel.textEditors.zed-editor && (lang.rust || lang.cpp))
+    (zed-enabled && (lang.rust || lang.cpp))
     {
       source = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/";
     };
 
   # FIXME: configure via zed-editor.userTasks when updating from homemanager 25.05
-  xdg.configFile."zed/tasks.json" = lib.mkIf (wortel.textEditors.zed-editor && lang.typst) {
+  xdg.configFile."zed/tasks.json" = lib.mkIf (zed-enabled && lang.typst) {
     text = builtins.toJSON [
       {
         label = "Tinymist: preview file";
@@ -129,5 +133,44 @@ in {
         hide = "always";
       }
     ];
+  };
+
+  # FIXME: same for these 2, but it is not even on unstable or in documentation yet..
+
+  xdg.configFile."zed/debug.json" = lib.mkIf zed-enabled {
+    text = builtins.toJSON (lib.optionals lang.cpp [
+      {
+        label = "Debug single file C++ program";
+        build = {
+          "command" = "g++";
+          "args" = ["$ZED_FILE" "-g"];
+        };
+        program = "a.out";
+        request = "launch";
+        adapter = "CodeLLDB";
+      }
+    ]);
+  };
+
+  xdg.configFile."zed/snippets/c++.json" = lib.mkIf (zed-enabled && lang.cpp) {
+    text = builtins.toJSON {
+      "C++ main template" = {
+        prefix = "comp";
+        description = "C++ competative programming template";
+        body = [
+          "#include <bits/stdc++.h>"
+          "using namespace std;"
+          ""
+          "#define loop(i, n) for(int i = 0; i < n; i++)"
+          "#define all(x) x.begin(), x.end()"
+          "typedef long long ll;"
+          "typedef vector<int> vi;"
+          ""
+          "signed main() {"
+          "    $0"
+          "}"
+        ];
+      };
+    };
   };
 }
