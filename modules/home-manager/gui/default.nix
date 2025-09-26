@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  wortel,
+  ...
+}: {
   imports = [
     ./terminal.nix
     ./zed-editor.nix
@@ -7,14 +12,22 @@
   ];
 
   # These are misc thing that need a proper home
-  home.packages = with pkgs; [
-    # obsidian # no longer used
-    thunderbird
-    remmina
+  home.packages = with pkgs;
+    [
+      # obsidian # no longer used
+      thunderbird
+      remmina
 
-    # Do I really need these?
-    vlc
-    chromium
+      # Do I really need these?
+      vlc
+      chromium
+    ]
+    ++ lib.optionals wortel.textEditors.jetbrains-rider [
+      jetbrains.rider
+    ];
+
+  warnings = lib.optionals (wortel.textEditors.jetbrains-rider && !wortel.programmingLanguages.dotnet) [
+    "Jetbrains rider is enabled, but no dotnet sdk is installed"
   ];
 
   # TODO: blender

@@ -10,6 +10,9 @@
       "vscode-extension-ms-vscode-cpptools"
       "vscode-extension-ms-dotnettools-csharp"
 
+      # Usefull for uni assignments that have to be in C#
+      "rider"
+
       # Nvidia driver and gpu compute stuff
       "nvidia-x11"
       "cuda-merged"

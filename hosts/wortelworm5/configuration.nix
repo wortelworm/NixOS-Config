@@ -23,6 +23,7 @@
     textEditors = {
       helix.enable = true;
       zed-editor = true;
+      jetbrains-rider = true;
     };
 
     programmingLanguages = {
@@ -31,6 +32,7 @@
       latex = true;
       cpp = true;
       mono = true;
+      dotnet = true;
     };
 
     ensureInstalled.librariesWGPU = true;

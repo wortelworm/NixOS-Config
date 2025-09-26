@@ -53,6 +53,8 @@
       zed-editor = lib.mkEnableOption "Zed code editor";
 
       vscode = lib.mkEnableOption "VScode editor, I want to replace its role with zed";
+
+      jetbrains-rider = lib.mkEnableOption ".NET IDE from JetBrains. Might also want to enable mono?";
     };
 
     programmingLanguages = {
@@ -69,6 +71,8 @@
 
       # Note: compile sln files using msbuild, not included??
       mono = lib.mkEnableOption "C# support using mono and omnisharp-roslyn";
+
+      dotnet = lib.mkEnableOption ".NET Sdk 8.0";
 
       # TODO
       # nix = ;
