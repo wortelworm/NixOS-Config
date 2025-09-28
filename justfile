@@ -132,9 +132,3 @@ log-next-generation-to-boot-partition:
     let new = $prev | merge { ($last_generation | $in + 1 | into string): $description } | sort
 
     $new | to toml | sudo cp /dev/stdin '{{generations_toml}}'
-
-
-# Terminates cosmic session, as a workaround for the systemd timeout
-# Should be removed once cosmic can be updated, and the isssue is fixed
-kill-cosmic:
-    ps | where name == 'cosmic-session' | get 0.pid | kill $in

@@ -17,13 +17,12 @@
     # Notes:
     #   A bunch of keybinds can be found in the settings
     #
-    # Issues: (hopefully fixed in 25.11)
-    #   Bluetooth cpu usage -> workaround in cosmic-applets overlay
-    #   Systemd timeout -> workaround with `just kill-cosmic`
-    #   Occasional crashes
+    # Issues:
+    #   Since the 1.0.0-beta.1.1 all of them are fixed?
     #
     # Missing stuff:
     #   home-manager module
+    #   blurred transparent window
     desktopManager.cosmic = lib.mkIf config.wortel.cosmic {
       enable = true;
     };

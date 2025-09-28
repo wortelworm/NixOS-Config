@@ -39,8 +39,6 @@
     additionalCache = {
       nix.settings = {
         # Note: the nix-community cache does not contain nvidia-x11 package...
-        # substituters = ["https://cosmic.cachix.org/"];
-        # trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
       };
     };
 
