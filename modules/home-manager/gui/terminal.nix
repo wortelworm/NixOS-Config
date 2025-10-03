@@ -11,7 +11,7 @@
 
       # Appearance
       # TODO: more background transparency and blur once cosmic supports it
-      background_opacity = "0.85";
+      background_opacity = 0.85;
       placement_strategy = "top-left";
     };
 
@@ -32,7 +32,7 @@
     enable = true;
     settings = {
       general.import = [
-        "${pkgs.alacritty-theme}/xterm.toml"
+        "${pkgs.alacritty-theme}/share/alacritty-theme/xterm.toml"
       ];
       cursor = {
         style = {
@@ -49,8 +49,7 @@
       font.normal.family = "JetBrainsMono Nerd Font";
       window = {
         blur = true;
-        opacity = 0.6;
-        startup_mode = "Maximized";
+        opacity = 0.85;
         position = {
           x = 100;
           y = 100;
