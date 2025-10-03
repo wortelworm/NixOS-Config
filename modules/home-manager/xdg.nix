@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   wortel,
   ...
 }: {
@@ -56,6 +57,12 @@
         "image/webp" = "org.kde.gwenview.desktop";
       };
     };
+
+    # Add steam's share directory for the ".desktop" files
+    # Because steam has a different home directory
+    systemDirs.data = lib.optionals wortel.games [
+      "${directories.stateHome}/steam-home/.local/share"
+    ];
   };
 
   # Some applications dont follow the xdg standard by default :(
