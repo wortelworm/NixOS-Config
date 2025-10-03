@@ -13,7 +13,7 @@ generations_toml := '/boot/nixos-generations.toml'
 
 # Shows this list
 default:
-    just --list
+    @just --list
 
 # List past generations
 [group("info")]
@@ -57,6 +57,7 @@ show:
 [group("modify")]
 clean:
     nh clean all --keep 2 --ask
+    just filter-generations-toml
 
 # Test out current configuration, without adding to bootloader
 [group("modify")]
@@ -132,3 +133,20 @@ log-next-generation-to-boot-partition:
     let new = $prev | merge { ($last_generation | $in + 1 | into string): $description } | sort
 
     $new | to toml | sudo cp /dev/stdin '{{generations_toml}}'
+
+# Removes all generations not present on the system from the generations toml file
+[private]
+filter-generations-toml:
+    #!/usr/bin/env nu
+    let generations_existing = ls '/nix/var/nix/profiles'
+        | get name
+        | each {|row| $row | parse "/nix/var/nix/profiles/system-{num}-link"}
+        | flatten
+        | get num
+
+    let prev_content = open '{{generations_toml}}' | sort | transpose gen desc
+    let new_content = $prev_content | where {|row| $generations_existing has $row.gen}
+
+    let text = $new_content | transpose --as-record --header-row | to toml
+
+    $text | sudo cp /dev/stdin '{{generations_toml}}'
