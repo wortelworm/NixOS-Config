@@ -78,6 +78,7 @@ in {
         Nix.language_servers = ["nixd" "!nil"];
       };
 
+      # The lsp and dap must be patched by nixos, so zed is not allowed to download them itself
       lsp = {
         rust-analyzer = lib.mkIf lang.rust {
           # This should by installed via rustup,
@@ -103,24 +104,20 @@ in {
           binary.path = lib.getExe' pkgs.clang-tools "clangd";
         };
       };
-    };
-  };
 
-  # Zed really wants to download the debug adapter itself,
-  # but that version is not patched for use on nixos.
-  # So instead we manually insert the debugger in here.
-  # TODO: look at the code in zed to find if this can be done better
-  xdg.dataFile."zed/debug_adapters/CodeLLDB/CodeLLDB_v1.11.5/extension" =
-    lib.mkIf
-    (zed-enabled && (lang.rust || lang.cpp))
-    {
-      source = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/";
+      # See also: https://zed.dev/docs/debugger#customizing-debug-adapters
+      dap = {
+        CodeLLDB = lib.mkIf (lang.rust || lang.cpp) {
+          binary = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
+
+          # No clue what that --wait-for-debugger flag is for.
+          args = [];
+        };
+      };
     };
 
-  # FIXME: configure via zed-editor.userTasks when updating from homemanager 25.05
-  xdg.configFile."zed/tasks.json" = lib.mkIf (zed-enabled && lang.typst) {
-    text = builtins.toJSON [
-      {
+    userTasks = [
+      (lib.mkIf lang.typst {
         label = "Tinymist: preview file";
 
         # This works, but only updates on save instead of every edit like in helix.
@@ -131,12 +128,11 @@ in {
         args = ["preview" "$ZED_FILE"];
         reveal = "never";
         hide = "always";
-      }
+      })
     ];
   };
 
-  # FIXME: same for these 2, but it is not even on unstable or in documentation yet..
-
+  # FIXME: these 2 are not in home manager yet, even on unstable...
   xdg.configFile."zed/debug.json" = lib.mkIf zed-enabled {
     text = builtins.toJSON (lib.optionals lang.cpp [
       {
