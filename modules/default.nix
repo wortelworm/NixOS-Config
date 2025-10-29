@@ -72,7 +72,7 @@
       # Note: compile sln files using msbuild, not included??
       mono = lib.mkEnableOption "C# support using mono and omnisharp-roslyn";
 
-      dotnet = lib.mkEnableOption ".NET Sdk 8.0";
+      dotnet = lib.mkEnableOption ".NET Sdk 9.0";
 
       # TODO
       # nix = ;

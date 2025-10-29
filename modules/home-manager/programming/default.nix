@@ -43,7 +43,6 @@
         mono
       ]
       ++ lib.optionals lang.dotnet [
-        # This should be version 8.0
-        dotnet-sdk
+        dotnet-sdk_9
       ];
 }
