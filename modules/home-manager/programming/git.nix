@@ -21,21 +21,31 @@
       # Using delta as a pager, with a bunch of settings copied from
       #     https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
       git = {
-        paging.pager = "${lib.getExe pkgs.delta} --paging=never --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+        pagers = [
+          {
+            pager = "${lib.getExe pkgs.delta} --paging=never --dark --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+          }
+        ];
         autoFetch = false;
       };
     };
   };
 
+  # Replace the default git diff
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+  };
+
   programs.git = {
     enable = true;
 
-    # Replace the default git diff
-    delta.enable = true;
+    settings = {
+      user = {
+        name = "wortelworm";
+        email = "wortelworm@gmail.com";
+      };
 
-    userName = "wortelworm";
-    userEmail = "wortelworm@gmail.com";
-    extraConfig = {
       init.defaultBranch = "main";
       pull.rebase = false;
 
