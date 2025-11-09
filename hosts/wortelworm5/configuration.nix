@@ -21,6 +21,7 @@
     self-hosting = {
       immich = true;
       radicale = true;
+      syncthing = true;
     };
 
     textEditors = {

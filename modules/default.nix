@@ -30,6 +30,7 @@
     # homelab services options
     # - This needs especially some attention
     # virtualisation settings
+    # Rename this to 'services' instead of 'self-hosting'
 
     self-hosting = {
       # TODO: a bunch of stuffies :)
@@ -39,6 +40,8 @@
       immich = lib.mkEnableOption "Photo and video backup solution";
 
       radicale = lib.mkEnableOption "CalDAV and CardDAV server";
+
+      syncthing = lib.mkEnableOption "Peer to peer file sync";
     };
 
     # TODO:
