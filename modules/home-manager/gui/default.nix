@@ -17,6 +17,7 @@
       # obsidian # no longer used
       thunderbird
       remmina
+      signal-desktop
 
       # Do I really need these?
       vlc
