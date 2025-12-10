@@ -63,8 +63,9 @@
       nerd-fonts.jetbrains-mono
     ];
 
-  # TODO: check, maybe the gnome ssh key agent is nicer
-  services.gnome.gcr-ssh-agent.enable = false;
+  # If this would be true then cosmic thinks I use gnome's ssh agent,
+  # breaking some environment variable's required for the agent I'm currently using.
+  services.gnome.gnome-keyring.enable = false;
 
   programs.ssh = {
     # Starts OpenSSH agent on login, so don't have to type
