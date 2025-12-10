@@ -49,6 +49,9 @@
       init.defaultBranch = "main";
       pull.rebase = false;
 
+      # See also: https://github.com/jesseduffield/lazygit/issues/4802
+      fetch.prune = true;
+
       core = {
         # Default compression level, from 1 to 9, with 9 being the slowest
         compression = 9;
