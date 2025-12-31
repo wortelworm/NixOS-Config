@@ -1,11 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   wortel = {
     hostname = "wortelworm5";
 
@@ -66,10 +62,6 @@
       }
     ];
   };
-
-  # Used for:
-  # P2P-device interface mode of wifi card
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Trying to fix build warnings
   users.groups.uinput.gid = lib.mkForce 990;
