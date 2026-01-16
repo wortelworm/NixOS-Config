@@ -2,33 +2,10 @@
   lib,
   pkgs,
   ...
-}: let
-  yazi-plugins = pkgs.fetchFromGitHub {
-    owner = "yazi-rs";
-    repo = "plugins";
-    rev = "63f9650e522336e0010261dcd0ffb0bf114cf912";
-    hash = "sha256-ZCLJ6BjMAj64/zM606qxnmzl2la4dvO/F5QFicBEYfU=";
-  };
+}: {
+  # Would love to set yazi as default file picker, but all my attempts so far have not worked.
 
-  # TODO: after the last update this seems to have stopped working?
-  yazi-onedark = pkgs.fetchFromGitHub {
-    owner = "BennyOe";
-    repo = "onedark.yazi";
-    rev = "fa1da70556a5654f5d40d063a95e55ecc63b3ef7";
-    hash = "sha256-SJdkLjF2i5/G0H/x9kTPXv/ozzMO1WhddWMjZi6+x3A=";
-  };
-
-  yazi-plugin-starship = pkgs.fetchFromGitHub {
-    owner = "Rolv-Apneseth";
-    repo = "starship.yazi";
-    rev = "6c639b474aabb17f5fecce18a4c97bf90b016512";
-    hash = "sha256-bhLUziCDnF4QDCyysRn7Az35RAy8ibZIVUzoPgyEO1A=";
-  };
-in {
-  # Note that right now version 0.4 is under development,
-  # with changes to the plugin api
-
-  # Also note that help is available by pressing <F1> or '~'
+  # Note that help is available within yazi by pressing <F1> or '~'
   programs.yazi = {
     enable = true;
 
@@ -38,49 +15,74 @@ in {
       {
         on = "<C-n>";
         run = ''shell '${lib.getExe pkgs.ripdrag} "$@" --all --and-exit --no-click 2>/dev/null &' --confirm'';
+        desc = "Drag and drop selected files out of the terminal";
+      }
+      {
+        on = "<C-d>";
+        run = "plugin diff";
+        desc = "Diff the selected with the hovered file";
+      }
+      {
+        on = "C";
+        run = "plugin ouch";
+        desc = "Compress with ouch";
       }
     ];
 
     settings = {
-      mgr.sort_by = "natural";
-
-      preview = {
-        max_width = 1000;
-        max_height = 1000;
-      };
-
       # Make the git plugin work
-      plugin.prepend_fetchers = [
-        {
-          id = "git";
-          name = "*";
-          run = "git";
-        }
-        {
-          id = "git";
-          name = "*/";
-          run = "git";
-        }
-      ];
+      plugin = {
+        prepend_fetchers = [
+          {
+            id = "git";
+            url = "*";
+            run = "git";
+          }
+          {
+            id = "git";
+            url = "*/";
+            run = "git";
+          }
+        ];
+        prepend_previewers = [
+          {
+            mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}";
+            run = "ouch --show-file-icons";
+          }
+        ];
+      };
     };
 
-    # Theming
-    theme.flavor.dark = "onedark";
-    flavors.onedark = yazi-onedark;
+    # Required for the ouch.yazi plugin, for working with compression/decompression
+    extraPackages = [
+      pkgs.ouch
+    ];
+
+    # Unfortunatly yazi themes are not in nixpkgs yet, so package ourselves
+    # TODO: the github directory contains more than just the theme, remove unnessary files
+    theme.flavor.dark = "tokyo-night";
+    flavors.tokyo-night = pkgs.fetchFromGitHub {
+      owner = "BennyOe";
+      repo = "tokyo-night.yazi";
+      rev = "8e6296f14daff24151c736ebd0b9b6cd89b02b03";
+      hash = "sha256-LArhRteD7OQRBguV1n13gb5jkl90sOxShkDzgEf3PA0=";
+    };
 
     # Plugins
     initLua =
       # lua
       ''
-        require("git"):setup()
         require("full-border"):setup()
+        require("git"):setup()
         require("starship"):setup()
       '';
 
     plugins = {
-      git = "${yazi-plugins}/git.yazi/";
-      full-border = "${yazi-plugins}/full-border.yazi/";
-      starship = "${yazi-plugin-starship}";
+      diff = pkgs.yaziPlugins.diff;
+      full-border = pkgs.yaziPlugins.full-border;
+      git = pkgs.yaziPlugins.git;
+      ouch = pkgs.yaziPlugins.ouch;
+      starship = pkgs.yaziPlugins.starship;
     };
   };
 }
