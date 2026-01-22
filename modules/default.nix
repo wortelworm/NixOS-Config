@@ -12,6 +12,7 @@
     gui = lib.mkEnableOption "Enable graphical environment, otherwise only linux terminal";
 
     cosmic = lib.mkEnableOption "Cosmic desktop environment";
+    niri = lib.mkEnableOption "Niri + noctalia setup";
     plasma-home = lib.mkEnableOption "Managing plasma configuration using home-manager";
 
     fingerprint = lib.mkEnableOption "Fingerprint reader drivers";

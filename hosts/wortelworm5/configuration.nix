@@ -11,6 +11,7 @@
     # fingerprint = true;
 
     cosmic = true;
+    niri = true;
     nvidia = true;
     kanata = true;
 

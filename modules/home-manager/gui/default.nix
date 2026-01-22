@@ -4,12 +4,16 @@
   wortel,
   ...
 }: {
-  imports = [
-    ./terminal.nix
-    ./zed-editor.nix
-    ./vscode.nix
-    ./plasma-home.nix
-  ];
+  imports =
+    [
+      ./terminal.nix
+      ./zed-editor.nix
+      ./vscode.nix
+      ./plasma-home.nix
+    ]
+    ++ lib.optionals wortel.niri [
+      ./niri.nix
+    ];
 
   # These are misc thing that need a proper home
   home.packages = with pkgs;

@@ -27,4 +27,9 @@
       enable = true;
     };
   };
+
+  programs.niri = lib.mkIf config.wortel.niri {
+    enable = true;
+    useNautilus = false;
+  };
 }
