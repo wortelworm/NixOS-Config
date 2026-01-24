@@ -3,9 +3,21 @@
   pkgs,
   ...
 }: {
+  # TODO:
+  # external brightness support...
+  # plugins:
+  #   Privacy indicator
+  # steam is not scaled
+  # steam notifications
+  # color scheme
+  # Hear the sound volume edited??
+  # font?
+  # tray icons not working (like steam)
+  # wallpaper
+
   # The configuration in nix is not available yet, for both niri and noctalia...
   xdg.configFile."niri/config.kdl".text = let
-    octalia-call = "${lib.getExe pkgs.noctalia-shell} ipc call";
+    noctalia-call = "${lib.getExe pkgs.noctalia-shell} ipc call";
   in
     # kdl
     ''
@@ -17,6 +29,10 @@
           repeat-delay 300
           repeat-rate 40
         }
+        touchpad {
+          tap
+          natural-scroll
+        }
         warp-mouse-to-focus
         focus-follows-mouse max-scroll-amount="30%"
       }
@@ -27,13 +43,13 @@
         scale 2.0
       }
 
-      // TODO:
-      // steam notifications
-      // blocking out keepass from screen capture
-      // compose key
-      // xwayland-satellite?
-      // Better server side decorations!
-      // Keyboard shortcut for session management (instead of the meta + escape)
+      layout {
+        always-center-single-column
+        gaps 4
+        focus-ring {
+          width 3
+        }
+      }
 
       // Noctalia includes bar, notifications, wallpaper, launcher, etc
       spawn-at-startup "${lib.getExe pkgs.noctalia-shell}"
@@ -49,13 +65,24 @@
         path "${lib.getExe pkgs.xwayland-satellite}"
       }
 
+      window-rule {
+          match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+          block-out-from "screencast"
+      }
+
+      hotkey-overlay {
+        skip-at-startup
+      }
+
       // I want this to be more similar to cosmic, so I will overwrite everything
       binds {
         // Mod-Shift-/, which is usually the same as Mod-?,
         // shows a list of important hotkeys.
         Mod+Shift+Slash { show-hotkey-overlay; }
 
-        Mod+Slash hotkey-overlay-title="Run an Application" { spawn-sh "${octalia-call} launcher toggle"; }
+        Mod+Slash hotkey-overlay-title="Run an Application" { spawn-sh "${noctalia-call} launcher toggle"; }
+        Mod+X hotkey-overlay-title="Session options..." { spawn-sh "${noctalia-call} sessionMenu toggle"; }
+        Mod+V hotkey-overlay-title="Toggle bar visiblity" { spawn-sh "${noctalia-call} bar toggle"; }
         Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
         Mod+B hotkey-overlay-title="Open a Browser: firefox" { spawn "firefox"; }
 
@@ -81,7 +108,6 @@
         // The quit action will show a confirmation dialog to avoid accidental exits.
         Ctrl+Alt+Delete { quit; }
         Mod+Shift+Escape { quit; }
-        Mod+Escape hotkey-overlay-title="Lock the Screen" { spawn-sh "${octalia-call} lockScreen lock"; }
 
         // Powers off the monitors. To turn them back on, do any input like
         // moving the mouse or pressing any other key.
@@ -90,7 +116,7 @@
 
         // "-l 1.0" limits the volume to 100%, maybe want the maximum to be 150% like in cosmic?
         // ALso, do I want to call these directly or instead through noctalia
-        XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+        XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.5"; }
         XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
         XF86AudioMute         allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
         XF86AudioMicMute      allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
@@ -251,8 +277,8 @@
         // Mod+R { switch-preset-column-width-back; }
         Mod+Shift+R { switch-preset-window-height; }
         Mod+Ctrl+R { reset-window-height; }
-        Mod+F { maximize-column; }
-        Mod+Shift+F { fullscreen-window; }
+        Mod+M { maximize-column; }
+        Mod+F { fullscreen-window; }
 
         // Expand the focused column to space not taken up by other fully visible columns.
         // Makes the column "fill the rest of the space".
@@ -279,8 +305,8 @@
         Mod+Shift+Equal { set-window-height "+10%"; }
 
         // Move the focused window between the floating and the tiling layout.
-        Mod+V       { toggle-window-floating; }
-        Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+        Mod+G       { toggle-window-floating; }
+        Mod+Shift+G { switch-focus-between-floating-and-tiling; }
 
         // Toggle tabbed column display mode.
         // Windows in this column will appear as vertical tabs,
@@ -301,23 +327,66 @@
   xdg.configFile."noctalia/settings.json".text = builtins.toJSON {
     location = {
       name = "utrecht";
-      # TODO: firstDayOfWeek?
     };
+
+    wallpaper = {
+      directory = "/home/wortelworm/Config-NixOS/resources";
+    };
+
+    osd.enabledTypes = [
+      0 # Output volume
+      1 # Input volume
+      2 # Brightness
+      3 # Lock keys
+    ];
+
+    # Note that this only an option on a later version of noctalia
+    audio.volumeFeedback = true;
+    brightness.enableDdcSupport = true;
+
+    # Replace xterm by kitty for programs like btop
+    appLauncher = {
+      terminalCommand = "kitty";
+      sortByMostUsed = false;
+    };
+
+    systemMonitor.externalMonitor = "kitty btop";
+
+    bar = {
+      widgets = {
+        left = [
+          {id = "Launcher";}
+          {id = "Clock";}
+          {id = "SystemMonitor";}
+          {id = "ActiveWindow";}
+          {id = "MediaMini";}
+        ];
+        center = [
+          {id = "Workspace";}
+        ];
+        right = [
+          {id = "Tray";}
+          {id = "NotificationHistory";}
+          {id = "Battery";}
+          {id = "Volume";}
+          {id = "Brightness";}
+          {
+            id = "ControlCenter";
+            useDistroLogo = true;
+          }
+        ];
+      };
+    };
+
+    controlCenter.cards = [
+      {
+        enabled = true;
+        id = "profile-card";
+      }
+      {
+        enabled = true;
+        id = "shortcuts-card";
+      }
+    ];
   };
-
-  # TODO:
-  # wallpaper
-  # plugins:
-  #   Audiovisualizer
-  #   Privacy indicator
-  # color scheme
-  # Hear the sound volume edited??
-  # OSD: lock keys
-  # terminal command (for things like btop)
-  # font?
-  # control center:
-  #   use distro icon
-  #   remove weather
-
-  # xwayland-satelite?
 }
