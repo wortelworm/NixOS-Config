@@ -13,7 +13,7 @@
   # Hear the sound volume edited??
   # font?
   # tray icons not working (like steam)
-  # wallpaper
+  # kitty launch instanced
 
   # The configuration in nix is not available yet, for both niri and noctalia...
   xdg.configFile."niri/config.kdl".text = let
@@ -124,8 +124,8 @@
         XF86AudioStop         allow-when-locked=true { spawn-sh "playerctl stop"; }
         XF86AudioPrev         allow-when-locked=true { spawn-sh "playerctl previous"; }
         XF86AudioNext         allow-when-locked=true { spawn-sh "playerctl next"; }
-        XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+        XF86MonBrightnessUp   allow-when-locked=true { spawn-sh "${noctalia-call} brightness increase"; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn-sh "${noctalia-call} brightness decrease"; }
 
         // Manipulating windows
         // Shift and Ctrl are swapped from the default layout
@@ -282,7 +282,7 @@
 
         // Expand the focused column to space not taken up by other fully visible columns.
         // Makes the column "fill the rest of the space".
-        Mod+Ctrl+F { expand-column-to-available-width; }
+        Mod+Ctrl+M { expand-column-to-available-width; }
 
         Mod+C { center-column; }
 
