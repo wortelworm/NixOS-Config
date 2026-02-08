@@ -70,6 +70,12 @@
           block-out-from "screencast"
       }
 
+      // Suggested from noctalia
+      window-rule {
+        geometry-corner-radius 7
+        clip-to-geometry true
+      }
+
       hotkey-overlay {
         skip-at-startup
       }
@@ -116,10 +122,10 @@
 
         // "-l 1.0" limits the volume to 100%, maybe want the maximum to be 150% like in cosmic?
         // ALso, do I want to call these directly or instead through noctalia
-        XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.5"; }
-        XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-        XF86AudioMute         allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-        XF86AudioMicMute      allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+        XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "${noctalia-call} volume increase"; }
+        XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "${noctalia-call} volume decrease"; }
+        XF86AudioMute         allow-when-locked=true { spawn-sh "${noctalia-call} volume muteOutput"; }
+        XF86AudioMicMute      allow-when-locked=true { spawn-sh "${noctalia-call} volume muteInput"; }
         XF86AudioPlay         allow-when-locked=true { spawn-sh "playerctl play-pause"; }
         XF86AudioStop         allow-when-locked=true { spawn-sh "playerctl stop"; }
         XF86AudioPrev         allow-when-locked=true { spawn-sh "playerctl previous"; }
@@ -323,7 +329,7 @@
       }
     '';
 
-  # noctalia-shell??
+  # noctalia-shell
   xdg.configFile."noctalia/settings.json".text = builtins.toJSON {
     location = {
       name = "utrecht";
@@ -340,12 +346,11 @@
       3 # Lock keys
     ];
 
-    # Note that this only an option on a later version of noctalia
     audio.volumeFeedback = true;
     brightness.enableDdcSupport = true;
 
-    # Replace xterm by kitty for programs like btop
     appLauncher = {
+      # Replace xterm with kitty for programs like btop
       terminalCommand = "kitty";
       sortByMostUsed = false;
     };
@@ -353,13 +358,13 @@
     systemMonitor.externalMonitor = "kitty btop";
 
     bar = {
+      displayMode = "auto_hide";
       widgets = {
         left = [
           {id = "Launcher";}
           {id = "Clock";}
           {id = "SystemMonitor";}
           {id = "ActiveWindow";}
-          {id = "MediaMini";}
         ];
         center = [
           {id = "Workspace";}
