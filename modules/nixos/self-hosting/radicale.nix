@@ -4,8 +4,10 @@
   lib,
   ...
 }: {
-  # Allow syncthing to synchronize the contacts, by adding group and giving group write permissions
-  users.users.syncthing.extraGroups = ["radicale"];
+  # Allow syncthing to synchronize the contacts.
+  # Syncthing now runs as the 'wortelworm' user, so add group to that one.
+  # Also give group write permissions
+  users.users.wortelworm.extraGroups = ["radicale"];
   systemd.services.radicale.serviceConfig.StateDirectoryMode = lib.mkForce "0770";
   systemd.services.radicale.serviceConfig.UMask = lib.mkForce "0007";
 
