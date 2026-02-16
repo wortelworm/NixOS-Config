@@ -20,7 +20,6 @@
     terminalFun = true;
 
     self-hosting = {
-      immich = true;
       radicale = true;
       syncthing = true;
     };

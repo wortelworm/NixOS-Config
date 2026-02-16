@@ -65,9 +65,6 @@ in {
         # Patched font so that starship works
         # Note that the buffer font already has ligatures and such
         font_family = "JetBrainsMono Nerd Font";
-
-        # By default it uses bash
-        shell.program = "nu";
       };
 
       icon_theme = "Material Icon Theme";
