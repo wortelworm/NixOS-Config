@@ -82,11 +82,11 @@ in {
           # to match the way helix works
           binary.path = "rust-analyzer";
 
-          settings.check.command = "clippy";
+          initialization_options.check.command = "clippy";
         };
         nixd = {
           binary.path = lib.getExe pkgs.nixd;
-          settings.formatting.command = ["alejandra"];
+          initialization_options.formatting.command = ["alejandra"];
         };
         elixir-ls = lib.mkIf lang.beam {
           binary.path = lib.getExe pkgs.elixir-ls;
