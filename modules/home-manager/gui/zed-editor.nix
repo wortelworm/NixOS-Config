@@ -77,6 +77,9 @@ in {
 
       # The lsp and dap must be patched by nixos, so zed is not allowed to download them itself
       lsp = {
+        package-version-server = {
+          binary.path = lib.getExe pkgs.package-version-server;
+        };
         rust-analyzer = lib.mkIf lang.rust {
           # This should by installed via rustup,
           # to match the way helix works
