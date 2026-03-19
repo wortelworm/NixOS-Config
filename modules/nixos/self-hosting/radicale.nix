@@ -11,6 +11,9 @@
   systemd.services.radicale.serviceConfig.StateDirectoryMode = lib.mkForce "0770";
   systemd.services.radicale.serviceConfig.UMask = lib.mkForce "0007";
 
+  # In turn, the radicale needs rights to the files created by syncthing
+  users.users.radicale.extraGroups = ["users"];
+
   # Default port: 5232
   services.radicale = lib.mkIf config.wortel.self-hosting.radicale {
     enable = true;
