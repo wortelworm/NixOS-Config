@@ -330,6 +330,7 @@
     '';
 
   # noctalia-shell
+  # To view the settings configured by niri, run: `noctalia-shell ipc call state all`
   xdg.configFile."noctalia/settings.json".text = builtins.toJSON {
     location = {
       name = "utrecht";
