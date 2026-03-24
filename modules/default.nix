@@ -80,12 +80,13 @@
 
       dotnet = lib.mkEnableOption ".NET Sdk 9.0";
 
+      python = lib.mkEnableOption "Python...";
+
       # TODO
       # nix = ;
       # nu = ;
       # - maybe omnisharp-roslyn, netcoredbg
       # nodejs = ;
-      # python = ;
       # arduino-ide = ;
     };
 

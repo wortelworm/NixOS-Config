@@ -44,6 +44,9 @@ in {
         ]
         ++ lib.optionals lang.mono [
           omnisharp-roslyn
+        ]
+        ++ lib.optionals lang.python [
+          ty
         ];
 
     package = lib.mkIf wortel.textEditors.helix.local-build (pkgs.writeShellScriptBin "hx" ''

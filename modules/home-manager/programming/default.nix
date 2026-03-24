@@ -44,5 +44,8 @@
       ]
       ++ lib.optionals lang.dotnet [
         dotnet-sdk_9
+      ]
+      ++ lib.optionals lang.python [
+        python3
       ];
 }

@@ -33,6 +33,7 @@
       rust = true;
       typst = true;
       cpp = true;
+      python = true;
     };
 
     ensureInstalled.librariesWGPU = true;
