@@ -44,9 +44,6 @@
     ../../modules
   ];
 
-  # This is only here for dualbooting with windows
-  time.hardwareClockInLocalTime = true;
-
   # Trying to fix podman issues
   users.users.wortelworm = {
     subUidRanges = [
