@@ -10,10 +10,8 @@
   # steam is not scaled
   # steam notifications
   # color scheme
-  # Hear the sound volume edited??
   # font?
   # tray icons not working (like steam)
-  # kitty launch instanced
 
   # The configuration in nix is not available yet, for both niri and noctalia...
   xdg.configFile."niri/config.kdl".text = let
@@ -89,7 +87,7 @@
         Mod+Slash hotkey-overlay-title="Run an Application" { spawn-sh "${noctalia-call} launcher toggle"; }
         Mod+X hotkey-overlay-title="Session options..." { spawn-sh "${noctalia-call} sessionMenu toggle"; }
         Mod+V hotkey-overlay-title="Toggle bar visiblity" { spawn-sh "${noctalia-call} bar toggle"; }
-        Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+        Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty" "-1"; }
         Mod+B hotkey-overlay-title="Open a Browser: firefox" { spawn "firefox"; }
 
         Mod+W repeat=false { toggle-overview; }

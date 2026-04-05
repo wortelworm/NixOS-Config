@@ -5,8 +5,7 @@
   programs.kitty = {
     enable = true;
     settings = {
-      # Disable unnessicary things
-      confirm_os_window_close = 0;
+      # Disable unnecessary things
       enable_audio_bell = false;
 
       # Appearance
@@ -21,6 +20,15 @@
     # kitten show-key -m kitty
     keybindings = {
       "ctrl+BACKSPACE" = "send_key ctrl+w";
+
+      # Change the default font changing settings to
+      # only apply to 'current' instead of 'all'
+      "ctrl+shift+equal" = "change_font_size current +2.0";
+      "ctrl+shift+plus" = "change_font_size current +2.0";
+      "ctrl+shift+kp_add" = "change_font_size current +2.0";
+      "ctrl+shift+minus" = "change_font_size current -2.0";
+      "ctrl+shift+kp_subtract" = "change_font_size current -2.0";
+      "ctrl+shift+backspace" = "change_font_size current 0";
     };
   };
 
