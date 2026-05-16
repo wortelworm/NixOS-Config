@@ -42,6 +42,9 @@
       keepassxc
       alacritty
 
+      # Package needed for dolphin to mount audio cd's
+      kdePackages.audiocd-kio
+
       # Disk partitions (I basically never use this anymore)
       # gparted
       # ntfs3g
