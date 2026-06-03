@@ -43,6 +43,7 @@
       alacritty
 
       # Package needed for dolphin to mount audio cd's
+      libopus
       kdePackages.audiocd-kio
 
       # Disk partitions (I basically never use this anymore)
