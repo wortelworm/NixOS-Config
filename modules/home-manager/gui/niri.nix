@@ -8,10 +8,16 @@
   # plugins:
   #   Privacy indicator
   # steam is not scaled
+  #   Did some digging, apparently wayland-satallite scales to the lowest scale of all current monitors
+  #   Since my main is 200% and side is 100%, it looks incorrect...
   # steam notifications
+  #   Maybe should search for niri docs on this?
   # color scheme
+  #   Maybe use the noctalia things for this.
   # font?
   # tray icons not working (like steam)
+  #
+  # Maybe look through the default config once again.
 
   # The configuration in nix is not available yet, for both niri and noctalia...
   xdg.configFile."niri/config.kdl".text = let
@@ -72,6 +78,11 @@
       window-rule {
         geometry-corner-radius 7
         clip-to-geometry true
+      }
+
+      layer-rule {
+        match namespace="^noctalia-overview*"
+        place-within-backdrop true
       }
 
       hotkey-overlay {
@@ -328,7 +339,13 @@
     '';
 
   # noctalia-shell
-  # To view the settings configured by niri, run: `noctalia-shell ipc call state all`
+  # To view the settings configured by noctalia, run: `noctalia-shell ipc call state all`
+  #
+  # This config file is for v4 of noctialia. They are currently rewriting to v5, which
+  # uses a proper toml settings file instead of a json one that is not meant to be edited.
+  # It looks like nixpkgs is waiting until v5 is offically released, see:
+  #   https://github.com/NixOS/nixpkgs/pull/530804
+  #
   xdg.configFile."noctalia/settings.json".text = builtins.toJSON {
     location = {
       name = "utrecht";
@@ -336,6 +353,7 @@
 
     wallpaper = {
       directory = "/home/wortelworm/Config-NixOS/resources";
+      overviewEnabled = true;
     };
 
     osd.enabledTypes = [

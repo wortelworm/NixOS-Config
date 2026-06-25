@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   # TODO: maybe ghostty is a beter terminal for minimal configuration
+  #   but it is also libadwaita...
 
   # Using kitty as terminal for the image support
   programs.kitty = {
@@ -9,8 +10,12 @@
       enable_audio_bell = false;
 
       # Appearance
-      # TODO: more background transparency and blur once cosmic supports it
+      # Added blur again since niri supports it as of v26.04
+      # TODO:
+      #   cosmic does not yet support blur... See:
+      #   https://github.com/pop-os/cosmic-comp/issues/511
       background_opacity = 0.85;
+      background_blur = 5;
       placement_strategy = "top-left";
     };
 
