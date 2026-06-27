@@ -22,6 +22,7 @@
       thunderbird
       remmina
       signal-desktop
+      cosmic-monitor # trying it out
 
       # Do I really need these?
       vlc
