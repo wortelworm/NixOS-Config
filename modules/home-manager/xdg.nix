@@ -6,6 +6,9 @@
 }: {
   # Cross-Desktop Group, standard specifications from freedesktop.org
   # These settings try to enforce the standards to keep the home directory clean.
+  #
+  # See https://wiki.archlinux.org/title/XDG_user_directories for service responsable for creating (some of) the dirs.
+  # If you don't want a directory, remove it and it will stay removed!
   xdg = let
     home = config.home.homeDirectory;
 
