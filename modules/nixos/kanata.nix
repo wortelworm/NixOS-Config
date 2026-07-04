@@ -1,10 +1,19 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
+  # Give the kanata systemd service access to nushell for the date typing command.
+  systemd.services.kanata-regulars.path = [pkgs.nushell];
+
   services.kanata = lib.mkIf config.wortel.kanata {
     enable = true;
+
+    # The 'cmd' is used to input current date.
+    # It is perfectly safe here since I created the entire config myself.
+    # On top of that, the kanata service created by nixos is also hardened.
+    package = pkgs.kanata-with-cmd;
 
     # Intercept all devices with this config
     keyboards."regulars" = {
@@ -20,10 +29,14 @@
       # Restart using `systemctl start kanata-[keyboard name].service`
       extraDefCfg = ''
         process-unmapped-keys yes
+        danger-enable-cmd yes
       '';
 
       config = ''
         (defalias
+            type-date (cmd-output-keys nu -c "date now | format date '%Y-%m-%d' | split row ''' | skip 1 | str join ' ' | '(' + $in + ')'")
+            grv-date (tap-hold-press 200 200 grv @type-date)
+
             tem (tap-hold-press 200 200 esc lmet)
             nav (layer-while-held navigation)
 
@@ -42,7 +55,7 @@
 
         (deflayer qwerty
           caps
-          grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+          @grv-date 1 2  3    4    5    6    7    8    9    0    -    =    bspc
           tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
           @tem a    s    d    f    g    h    j    k    l    ;    '    ret
           lsft z    x    c    v    b    n    m    ,    .    /    rsft
@@ -63,7 +76,7 @@
 
         (deflayer colemak
           caps
-          grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+          @grv-date 1 2  3    4    5    6    7    8    9    0    -    =    bspc
           tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
           esc  @aa  @rr  @ss  @tt  d    h    @nn  @ee  @ii  @oo  '    ret
           lsft z    x    c    v    b    k    m    ,    .    /    rsft
