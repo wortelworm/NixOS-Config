@@ -83,6 +83,15 @@ def --env hs [...rest: string] {
     nix-shell --command 'export NU_WITHIN_NIX_SHELL=1; nu -e "hx"'
 }
 
+# Locate original location of a binary.
+# Uses 'which' and then follows all symlinks.
+def locate [application: string] {
+    which $application | each {|c| {
+        path: (readlink --canonicalize $c.path),
+        type: ($c.type)
+    }}
+}
+
 
 # Custom completion for bash, because it was not working on it's own or with carapace...
 def "manpages" [] {
