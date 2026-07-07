@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -16,6 +17,17 @@
   #         really cool but does not work for math images
   #     ncspot:
   #         ncurses spotify client
+
+  # Comma is a nice program for some programs I don't need in my regular environment.
+  imports = [
+    inputs.nix-index-database.nixosModules.default
+  ];
+  # Disable default command that uses full database instead of small version.
+  # Comma is already wrapped using the small database.
+  programs.nix-index.enable = false;
+  programs.nix-index-database = {
+    comma.enable = true;
+  };
 
   # These are the only non-homemanager programs in path
   environment.systemPackages = with pkgs;

@@ -11,6 +11,11 @@
       inputs.nixpkgs.follows = "nixos";
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixos";
+    };
+
     nixvim = {
       url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixos";
