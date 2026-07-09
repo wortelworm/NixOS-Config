@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   wortel,
   ...
 }: {
@@ -66,7 +67,23 @@
     systemDirs.data = lib.optionals wortel.games [
       "${directories.stateHome}/steam-home/.local/share"
     ];
+
+    # Following the edited `CARGO_HOME`, here is the configuration for cargo.
+    # It configures rust to use `mold` as linker, see:
+    # https://github.com/rui314/mold#how-to-use
+    #
+    # For some reason configuring `-fuse-ld` in `gcc` doesn't want to take a path,
+    # instead just one of a fixed set of allowed linkers. So instead we add it to the packages.
+    #
+    # I have not configured sccache, since I don't think it is the tool I'm looking for.
+    # Instead I think I should write a shell script that removes everything but the last
+    # build from the `target` directory.
+    stateFile."cargo/config.toml".text = ''
+      [target.'cfg(target_os = "linux")']
+      rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+    '';
   };
+  home.packages = [pkgs.mold];
 
   # Some applications dont follow the xdg standard by default :(
   home.sessionVariables = {
