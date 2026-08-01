@@ -3,10 +3,9 @@
   pkgs,
   ...
 }: {
-  # TODO:
-  # external brightness support...
-  # plugins:
-  #   Privacy indicator
+  # TODO niri:
+  #
+  # polkit agent (probably from cosmic)
   # steam is not scaled
   #   Did some digging, apparently wayland-satallite scales to the lowest scale of all current monitors
   #   Since my main is 200% and side is 100%, it looks incorrect...
@@ -15,13 +14,33 @@
   # color scheme
   #   Maybe use the noctalia things for this.
   # font?
-  # tray icons not working (like steam)
+  # Maybe look through the defaults of niri config once again.
   #
-  # Maybe look through the default config once again.
+  #
+  # TODO noctalia:
+  # change the bars components, take a look at screenshots on noctalia website
+  #   Maybe even add weather info
+  # Remove wifi tray (is duplicate with builtin thingy)
+  #
+  #
+  # Left and right mouse click in tray seems reversed?
+  # Proper volume feedback.
+  #   There is an 'enable sounds' option,
+  #   but the sound feedback is way too quiet in comparison to elisa.
+  #
+  # Also:
+  # create a derivation which takes the noctalia toml file and let's noctalia check it.
+  # (do a grep on warnings and invert the error code)
+  # Probably through own modules build on top of hjem.
+  # Or even wrapping a noctalia package with configuration.
+  #
+  # testing brightness on second monitor
+  # checking monitor layout editor
 
   # The configuration in nix is not available yet, for both niri and noctalia...
   xdg.configFile."niri/config.kdl".text = let
-    noctalia-call = "${lib.getExe pkgs.noctalia-shell} ipc call";
+    noctalia-exe = "${lib.getExe pkgs.noctalia}";
+    noctalia-call = "${noctalia-exe} msg";
   in
     # kdl
     ''
@@ -56,7 +75,7 @@
       }
 
       // Noctalia includes bar, notifications, wallpaper, launcher, etc
-      spawn-at-startup "${lib.getExe pkgs.noctalia-shell}"
+      spawn-at-startup "${noctalia-exe}"
 
       // You can change the path where screenshots are saved.
       // A ~ at the front will be expanded to the home directory.
@@ -80,13 +99,27 @@
         clip-to-geometry true
       }
 
+      // Floating Noctalia settings window.
+      // window-rule {
+      //   match app-id="dev.noctalia.Noctalia"
+      //   open-floating true
+      //   default-column-width { fixed 1080; }
+      //   default-window-height { fixed 920; }
+      // }
+
+      // Noctalia background in backdrop
       layer-rule {
-        match namespace="^noctalia-overview*"
+        match namespace="^noctalia-backdrop"
         place-within-backdrop true
       }
 
       hotkey-overlay {
         skip-at-startup
+      }
+
+      debug {
+        // Allows notification actions and window activation from Noctalia.
+        honor-xdg-activation-with-invalid-serial
       }
 
       // I want this to be more similar to cosmic, so I will overwrite everything
@@ -95,9 +128,10 @@
         // shows a list of important hotkeys.
         Mod+Shift+Slash { show-hotkey-overlay; }
 
-        Mod+Slash hotkey-overlay-title="Run an Application" { spawn-sh "${noctalia-call} launcher toggle"; }
-        Mod+X hotkey-overlay-title="Session options..." { spawn-sh "${noctalia-call} sessionMenu toggle"; }
-        Mod+V hotkey-overlay-title="Toggle bar visiblity" { spawn-sh "${noctalia-call} bar toggle"; }
+        Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "${noctalia-call} panel-toggle launcher"; }
+        Mod+S hotkey-overlay-title="Noctalia settings" { spawn-sh "${noctalia-call} panel-toggle control-center"; }
+        //Mod+X hotkey-overlay-title="Session options..." { spawn-sh "${noctalia-call} panel-toggle        TODO      sessionMenu toggle"; }
+        //Mod+V hotkey-overlay-title="Toggle bar visiblity" { spawn-sh "${noctalia-call} bar toggle"; }
         Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty" "-1"; }
         Mod+B hotkey-overlay-title="Open a Browser: firefox" { spawn "firefox"; }
 
@@ -131,16 +165,19 @@
 
         // "-l 1.0" limits the volume to 100%, maybe want the maximum to be 150% like in cosmic?
         // ALso, do I want to call these directly or instead through noctalia
-        XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "${noctalia-call} volume increase"; }
-        XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "${noctalia-call} volume decrease"; }
-        XF86AudioMute         allow-when-locked=true { spawn-sh "${noctalia-call} volume muteOutput"; }
-        XF86AudioMicMute      allow-when-locked=true { spawn-sh "${noctalia-call} volume muteInput"; }
+        XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "${noctalia-call} volume-up"; }
+        XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "${noctalia-call} volume-down"; }
+        XF86AudioMute         allow-when-locked=true { spawn-sh "${noctalia-call} volume-mute"; }
+        //TODO
+        //XF86AudioMicMute      allow-when-locked=true { spawn-sh "${noctalia-call} volume muteInput"; }
+
         XF86AudioPlay         allow-when-locked=true { spawn-sh "playerctl play-pause"; }
         XF86AudioStop         allow-when-locked=true { spawn-sh "playerctl stop"; }
         XF86AudioPrev         allow-when-locked=true { spawn-sh "playerctl previous"; }
         XF86AudioNext         allow-when-locked=true { spawn-sh "playerctl next"; }
-        XF86MonBrightnessUp   allow-when-locked=true { spawn-sh "${noctalia-call} brightness increase"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn-sh "${noctalia-call} brightness decrease"; }
+
+        XF86MonBrightnessUp   allow-when-locked=true { spawn-sh "${noctalia-call} brightness-up"; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn-sh "${noctalia-call} brightness-down"; }
 
         // Manipulating windows
         // Shift and Ctrl are swapped from the default layout
@@ -326,7 +363,7 @@
         // Toggle tabbed column display mode.
         // Windows in this column will appear as vertical tabs,
         // rather than stacked on top of each other.
-        Mod+S { toggle-column-tabbed-display; }
+        // Mod+S { toggle-column-tabbed-display; }
 
         // Actions to switch layouts.
         // Note: if you uncomment these, make sure you do NOT have
@@ -338,77 +375,99 @@
       }
     '';
 
-  # noctalia-shell
-  # To view the settings configured by noctalia, run: `noctalia-shell ipc call state all`
-  #
-  # This config file is for v4 of noctialia. They are currently rewriting to v5, which
-  # uses a proper toml settings file instead of a json one that is not meant to be edited.
-  # It looks like nixpkgs is waiting until v5 is offically released, see:
-  #   https://github.com/NixOS/nixpkgs/pull/530804
-  #
-  xdg.configFile."noctalia/settings.json".text = builtins.toJSON {
-    location = {
-      name = "utrecht";
-    };
+  # This config file is finally for v5 of noctalia.
+  # To view the settings configured by noctalia, run:
+  # `, noctalia config export full | bat -l toml`
+  xdg.configFile."noctalia/settings.toml".source = (pkgs.formats.toml {}).generate "noctalia-settings.toml" {
+    location.address = "Utrecht";
 
-    wallpaper = {
+    theme.builtin = "Eldritch";
+    backdrop.enabled = true;
+    wallpaper = rec {
       directory = "/home/wortelworm/Config-NixOS/resources";
-      overviewEnabled = true;
+      default.path = "${directory}/wallpaper.png";
     };
 
-    osd.enabledTypes = [
-      0 # Output volume
-      1 # Input volume
-      2 # Brightness
-      3 # Lock keys
-    ];
+    nightlight.enabled = true;
+    shell = {
+      clipboard_enabled = false;
 
-    audio.volumeFeedback = true;
-    brightness.enableDdcSupport = true;
+      launcher = {
+        sort_by_usage = false;
 
-    appLauncher = {
-      # Replace xterm with kitty for programs like btop
-      terminalCommand = "kitty";
-      sortByMostUsed = false;
-    };
-
-    systemMonitor.externalMonitor = "kitty btop";
-
-    bar = {
-      displayMode = "auto_hide";
-      widgets = {
-        left = [
-          {id = "Launcher";}
-          {id = "Clock";}
-          {id = "SystemMonitor";}
-          {id = "ActiveWindow";}
-        ];
-        center = [
-          {id = "Workspace";}
-        ];
-        right = [
-          {id = "Tray";}
-          {id = "NotificationHistory";}
-          {id = "Battery";}
-          {id = "Volume";}
-          {id = "Brightness";}
-          {
-            id = "ControlCenter";
-            useDistroLogo = true;
-          }
-        ];
+        providers = {
+          session.global = true;
+        };
       };
     };
 
-    controlCenter.cards = [
-      {
-        enabled = true;
-        id = "profile-card";
-      }
-      {
-        enabled = true;
-        id = "shortcuts-card";
-      }
-    ];
+    notification = {
+      position = "bottom_right";
+      history_retention_hours = 10;
+    };
+
+    bar.default = {
+      auto_hide = true;
+      reserve_space = false;
+      show_on_workspace_switch = false;
+
+      margin_ends = 0;
+      radius_top_left = 0;
+      radius_top_right = 0;
+
+      start = [
+        "launcher"
+        "wallpaper"
+        "workspaces"
+        "media"
+      ];
+
+      end = [
+        "tray"
+        "notifications"
+        "privacy"
+        "network"
+        "bluetooth"
+        "volume"
+        "input_volume"
+        "brightness"
+        "battery"
+        "session"
+      ];
+
+      # TODO: test this out with a game
+      layer = "overlay";
+    };
+
+    widget = {
+      clock = {
+        format = "{%d %B, %H:%M}";
+      };
+      brightness = {
+        show_label = false;
+      };
+      volume = {
+        show_label = false;
+      };
+      input_volume = {
+        show_label = false;
+      };
+      network = {
+        show_label = false;
+      };
+      notifications = {
+        hide_when_no_unread = true;
+      };
+      media = {
+        hide_when_no_media = true;
+      };
+      privacy = {
+        hide_inactive = true;
+      };
+      workspaces = {
+        display = "none";
+        hide_when_empty = true;
+      };
+    };
   };
 }

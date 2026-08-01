@@ -14,7 +14,7 @@
       # TODO:
       #   cosmic does not yet support blur... See:
       #   https://github.com/pop-os/cosmic-comp/issues/511
-      background_opacity = 0.85;
+      background_opacity = 0.65;
       background_blur = 5;
       placement_strategy = "top-left";
     };
