@@ -441,7 +441,7 @@
 
     widget = {
       clock = {
-        format = "{%d %B, %H:%M}";
+        format = "{:%d %B, %H:%M}";
       };
       brightness = {
         show_label = false;
