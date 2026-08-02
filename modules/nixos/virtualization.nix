@@ -126,4 +126,8 @@
     enable = true;
   };
   environment.systemPackages = [pkgs.podman-compose];
+
+  virtualisation.waydroid = {
+    enable = true;
+  };
 }
