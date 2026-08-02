@@ -127,7 +127,13 @@
   };
   environment.systemPackages = [pkgs.podman-compose];
 
+  # Enable waydroid, but don't start the container automatically on every boot.
+  # Notes on usage:
+  # See https://wiki.nixos.org/wiki/Waydroid, mostly running `sudo waydroid init` on first boot.
+  # Also https://docs.waydro.id/faq/disable-on-screen-keyboard is nice.
+  systemd.services.waydroid-container.wantedBy = lib.mkForce [];
   virtualisation.waydroid = {
     enable = true;
+    package = pkgs.waydroid-nftables;
   };
 }
