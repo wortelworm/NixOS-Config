@@ -20,8 +20,6 @@
   # TODO noctalia:
   # change the bars components, take a look at screenshots on noctalia website
   #   Maybe even add weather info
-  # Remove wifi tray (is duplicate with builtin thingy)
-  #
   #
   # Left and right mouse click in tray seems reversed?
   # Proper volume feedback.
@@ -442,6 +440,9 @@
     widget = {
       clock = {
         format = "{:%d %B, %H:%M}";
+      };
+      tray = {
+        hidden = ["nm-applet"];
       };
       brightness = {
         show_label = false;
