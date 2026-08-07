@@ -413,9 +413,32 @@ in {
       };
     };
 
+    idle = {
+      behavior_order = ["screen-off" "lock-and-suspend"];
+      behavior = {
+        screen-off = {
+          action = "screen_off";
+          enabled = true;
+          timeout = 40;
+        };
+        lock-and-suspend = {
+          action = "lock_and_suspend";
+          enabled = true;
+          timeout = 90;
+        };
+      };
+    };
+
     notification = {
       position = "bottom_right";
       history_retention_hours = 10;
+    };
+
+    plugin_settings = {
+      "radimous/prismlauncher-instances" = {
+        launcher_exec_command = "flatpak run org.prismlauncher.PrismLauncher";
+        prism_path = "~/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher";
+      };
     };
 
     bar.default = {
