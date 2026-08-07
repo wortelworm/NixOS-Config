@@ -2,7 +2,12 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  # Synchronized between niri and noctalia for the initial login animation.
+  # TODO: maybe also change default backdrop color?
+  # background-color = "#404040"; # See comment in usage with noctalia
+  background-color = "#000000";
+in {
   # TODO niri:
   #
   # polkit agent (probably from cosmic)
@@ -15,6 +20,7 @@
   #   Maybe use the noctalia things for this.
   # font?
   # Maybe look through the defaults of niri config once again.
+  #   Maybe change some animations to be exponential?
   #
   #
   # TODO noctalia:
@@ -66,6 +72,7 @@
 
       layout {
         always-center-single-column
+        background-color "${background-color}"
         gaps 4
         focus-ring {
           width 3
@@ -382,6 +389,13 @@
     theme.builtin = "Eldritch";
     backdrop.enabled = true;
     wallpaper = rec {
+      # TODO: there seems to be a bug in noctalia with this fill_color.
+      # It doesn't load this until: in monitor settings do eDP-1 fill color back and forth to 'Inherit'.
+      # Should look it up if someone else has run into this in github.
+      #
+      # For now workaround by setting background-color to fully black, which is the default in noctalia.
+      fill_color = background-color;
+      transition_on_startup = true;
       directory = "/home/wortelworm/Config-NixOS/resources";
       default.path = "${directory}/wallpaper.png";
     };
@@ -412,6 +426,8 @@
       margin_ends = 0;
       radius_top_left = 0;
       radius_top_right = 0;
+
+      dead_zone.actions.middle = "settings-open bar";
 
       start = [
         "launcher"
