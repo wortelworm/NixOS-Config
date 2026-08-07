@@ -483,6 +483,9 @@ in {
       tray = {
         hidden = ["nm-applet"];
       };
+      battery = {
+        actions.right = "power-cycle";
+      };
       brightness = {
         show_label = false;
       };
