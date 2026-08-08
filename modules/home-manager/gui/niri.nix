@@ -434,8 +434,10 @@ in {
       history_retention_hours = 10;
     };
 
+    plugins.auto_update = false;
     plugin_settings = {
       "radimous/prismlauncher-instances" = {
+        # TODO: change the launcher prefix somehow...
         launcher_exec_command = "flatpak run org.prismlauncher.PrismLauncher";
         prism_path = "~/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher";
       };
