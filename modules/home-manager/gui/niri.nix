@@ -9,6 +9,8 @@
   background-color = "#000000";
 in {
   # TODO niri:
+  # Do post processing on the string here to remove all comments and empty lines.
+  #   Should probably also be in a different file all together.
   #
   # polkit agent (probably from cosmic)
   # steam is not scaled
@@ -24,6 +26,8 @@ in {
   #
   #
   # TODO noctalia:
+  # privacy indicator doesn't show camera usage? Microphone usage does seem to be used.
+  #
   # change the bars components, take a look at screenshots on noctalia website
   #   Maybe even add weather info
   #
@@ -51,6 +55,7 @@ in {
       input {
         keyboard {
           xkb {
+            // See also: Compose(5)
             options "compose:ralt"
           }
           repeat-delay 300
@@ -419,12 +424,12 @@ in {
         screen-off = {
           action = "screen_off";
           enabled = true;
-          timeout = 40;
+          timeout = 80;
         };
         lock-and-suspend = {
           action = "lock_and_suspend";
           enabled = true;
-          timeout = 90;
+          timeout = 100;
         };
       };
     };
