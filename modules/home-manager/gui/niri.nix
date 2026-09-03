@@ -439,7 +439,7 @@ in {
       history_retention_hours = 10;
     };
 
-    plugins.auto_update = false;
+    plugins.auto_update = "none";
     plugin_settings = {
       "radimous/prismlauncher-instances" = {
         # TODO: change the launcher prefix somehow...
@@ -479,8 +479,11 @@ in {
         "session"
       ];
 
-      # TODO: test this out with a game
-      layer = "overlay";
+      monitor.HDMI-A-1 = {
+        auto_hide = false;
+        reserve_space = true;
+        start = ["launcher" "wallpaper" "cpu" "ram" "media"];
+      };
     };
 
     widget = {
@@ -515,7 +518,7 @@ in {
         hide_inactive = true;
       };
       workspaces = {
-        display = "none";
+        show_labels = false;
         hide_when_empty = true;
       };
     };
