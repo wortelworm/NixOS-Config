@@ -18,12 +18,12 @@
         timeFormat = "02 Jan 2006";
         shortTimeFormat = "15:04 today";
       };
-      # Using delta as a pager, with a bunch of settings copied from
-      #     https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
+      # Using delta as a pager, with settings copied from
+      #     https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_DiffRenderers.md
       git = {
-        pagers = [
+        diffRenderers = [
           {
-            pager = "${lib.getExe pkgs.delta} --paging=never --dark --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+            command = "${lib.getExe pkgs.delta} --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
           }
         ];
         autoFetch = false;
