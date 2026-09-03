@@ -6,10 +6,13 @@
   services = lib.mkIf config.wortel.gui {
     xserver.enable = true;
 
-    # sddm is the default display manager for KDE plasma
-    displayManager.sddm = {
-      enable = true;
-      settings.General.DefaultSession = lib.mkIf config.wortel.cosmic "cosmic.desktop";
+    # A 'displayManager' is the login screen before your desktop session.
+    displayManager = {
+      # Sddm is the default display manager for KDE plasma.
+      # I'm considering using COSMIC's or noctalia's.
+      sddm.enable = true;
+
+      defaultSession = lib.mkIf config.wortel.niri "niri";
     };
 
     desktopManager.plasma6.enable = true;
