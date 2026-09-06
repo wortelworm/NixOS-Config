@@ -130,6 +130,10 @@
       extraBwrapArgs = [
         "--bind $XDG_STATE_HOME/steam-home $HOME"
 
+        # Niri uses xwayland-satellite which defaults to the smallest scale of all monitors.
+        # In my case that is wrong, as my primary monitor has scale 2x and secondary 1x.
+        "--setenv GDK_SCALE 2"
+
         # Will do more harm than good here
         "--unsetenv XDG_CACHE_HOME"
         "--unsetenv XDG_CONFIG_HOME"
