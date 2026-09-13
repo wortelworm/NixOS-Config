@@ -27,6 +27,11 @@
         run = "plugin ouch";
         desc = "Compress with ouch";
       }
+      {
+        on = "M";
+        run = "plugin mount";
+        desc = "Open mount manager";
+      }
     ];
 
     settings = {
@@ -77,12 +82,13 @@
         require("starship"):setup()
       '';
 
-    plugins = {
-      diff = pkgs.yaziPlugins.diff;
-      full-border = pkgs.yaziPlugins.full-border;
-      git = pkgs.yaziPlugins.git;
-      ouch = pkgs.yaziPlugins.ouch;
-      starship = pkgs.yaziPlugins.starship;
+    plugins = with pkgs.yaziPlugins; {
+      diff = diff;
+      full-border = full-border;
+      git = git;
+      ouch = ouch;
+      mount = mount;
+      starship = starship;
     };
   };
 }
