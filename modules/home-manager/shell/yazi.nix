@@ -13,11 +13,6 @@
 
     keymap.mgr.prepend_keymap = [
       {
-        on = "<C-n>";
-        run = ''shell '${lib.getExe pkgs.ripdrag} "$@" --all --and-exit --no-click 2>/dev/null &' --confirm'';
-        desc = "Drag and drop selected files out of the terminal";
-      }
-      {
         on = "<C-d>";
         run = "plugin diff";
         desc = "Diff the selected with the hovered file";
