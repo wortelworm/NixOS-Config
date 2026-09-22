@@ -143,8 +143,10 @@ in {
         Mod+W repeat=false { toggle-overview; }
         Mod+Q repeat=false { close-window; }
 
-        Print { screenshot; }
-        Ctrl+Print { screenshot-screen; }
+        Print { spawn-sh "${noctalia-call} screenshot-region"; }
+        Ctrl+Print { spawn-sh "${noctalia-call} screenshot-fullscreen"; }
+        // TODO: noctalia does not support this yet, see:
+        // https://github.com/noctalia-dev/noctalia/issues/3380
         Alt+Print { screenshot-window; }
 
         // Applications such as remote-desktop clients and software KVM switches may
@@ -400,6 +402,7 @@ in {
     nightlight.enabled = true;
     shell = {
       clipboard_enabled = false;
+      screenshot.annotate = true;
 
       launcher = {
         sort_by_usage = false;
