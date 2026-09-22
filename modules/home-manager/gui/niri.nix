@@ -4,18 +4,13 @@
   ...
 }: let
   # Synchronized between niri and noctalia for the initial login animation.
-  # TODO: maybe also change default backdrop color?
-  # background-color = "#404040"; # See comment in usage with noctalia
-  background-color = "#000000";
+  background-color = "#404040";
 in {
   # TODO niri:
   # Do post processing on the string here to remove all comments and empty lines.
   #   Should probably also be in a different file all together.
   #
   # polkit agent (probably from cosmic)
-  # steam is not scaled
-  #   Did some digging, apparently wayland-satallite scales to the lowest scale of all current monitors
-  #   Since my main is 200% and side is 100%, it looks incorrect...
   # steam notifications
   #   Maybe should search for niri docs on this?
   # color scheme
@@ -26,7 +21,7 @@ in {
   #
   #
   # TODO noctalia:
-  # privacy indicator doesn't show camera usage? Microphone usage does seem to be used.
+  # privacy indicator doesn't show camera usage? Microphone usage does seem to be correct.
   #
   # change the bars components, take a look at screenshots on noctalia website
   #   Maybe even add weather info
@@ -394,11 +389,8 @@ in {
     theme.builtin = "Eldritch";
     backdrop.enabled = true;
     wallpaper = rec {
-      # TODO: there seems to be a bug in noctalia with this fill_color.
-      # It doesn't load this until: in monitor settings do eDP-1 fill color back and forth to 'Inherit'.
-      # Should look it up if someone else has run into this in github.
-      #
-      # For now workaround by setting background-color to fully black, which is the default in noctalia.
+      # This background-color is synchronized between noctalia and niri,
+      # so that this `transition_on_startup` works nicely.
       fill_color = background-color;
       transition_on_startup = true;
       directory = "/home/wortelworm/Config-NixOS/resources";
