@@ -26,7 +26,7 @@
     # should they change based on config.wortel?
     SHELL = "nu";
     EDITOR = "hx";
-    BROWSER = "zen";
+    BROWSER = "firefox";
     TERMINAL = "kitty";
 
     NIXOS_FLAKE_CONFIG = "${wortel.flakePath}";
