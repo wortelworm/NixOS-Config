@@ -9,6 +9,11 @@ $env.config = {
     }
 }
 
+# Starship provides an arrow with a color indicating success/failure.
+# Remove this duplicate indicator of nushell, as vi mode is also indicated by cursor.
+$env.PROMPT_INDICATOR_VI_NORMAL = ""
+$env.PROMPT_INDICATOR_VI_INSERT = ""
+
 # Initial prompt, if not entering a nix-shell
 if ($env.NU_WITHIN_NIX_SHELL? == null) {
     use std
