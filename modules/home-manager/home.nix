@@ -24,7 +24,7 @@
   home.sessionVariables = {
     # TODO: which of these are being used?
     # should they change based on config.wortel?
-    SHELL = "nu";
+    SHELL = "fish";
     EDITOR = "hx";
     BROWSER = "firefox";
     TERMINAL = "kitty";
