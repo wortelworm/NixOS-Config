@@ -16,11 +16,17 @@
     configFile.source = ./config.nu;
   };
 
+  # Important (default) keybinds:
+  # ctrl+shift+g: in kitty, pipe output of last command in pager
+  # ctrl+e: complete using history
+  # ??
   programs.fish = {
     enable = true;
     shellInit =
       # fish
       ''
+        set -x fish_greeting
+
         abbr --add j just
         abbr --add g lazygit
         abbr --add cr cargo run

@@ -50,14 +50,7 @@ in {
       # Maybe just use the default zed mode with homemods instead?
       # vim_mode = true;
 
-      # For now, testing
-      # agent.enabled = false;
-      # features.edit_prediction_provider = "none";
-
-      # TODO: whenever 0.197 is out on unstable nix, use this option instead
-      # disable_ai = true;
-
-      hour_format = "hour24";
+      disable_ai = true;
       calls.mute_on_join = true;
 
       terminal = {
@@ -65,10 +58,15 @@ in {
         # Patched font so that starship works
         # Note that the buffer font already has ligatures and such
         font_family = "JetBrainsMono Nerd Font";
+
+        shell.program = "fish";
       };
 
       icon_theme = "Material Icon Theme";
+      project_panel.dock = "left";
+      git_panel.dock = "left";
 
+      # TODO: can there be a keyboard shortcut for this??
       inlay_hints.enabled = true;
 
       languages = {
@@ -160,7 +158,10 @@ in {
           "#define loop(i, n) for(int i = 0; i < n; i++)"
           "#define all(x) x.begin(), x.end()"
           "typedef long long ll;"
+          "typedef pair<int, int> ii;"
           "typedef vector<int> vi;"
+          "typedef vector<ii> vii;"
+          "typedef vector<vi> vvi;"
           ""
           "signed main() {"
           "    $0"
