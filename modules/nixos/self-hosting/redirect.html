@@ -63,7 +63,6 @@
         // Fetches bangs from kagi and puts them into localStorage.
         async function raw_fetch_bangs() {
             localStorage.clear();
-            localStorage.setItem(last_refresh_key, Date.now());
             console.log('Updating cache');
 
             const response = await ((await fetch(bangs_json_source)).json());
@@ -130,6 +129,8 @@
                 localStorage.setItem(key, JSON.stringify(custom_bangs[key]));
             }
 
+            // It's important to set this item last.
+            localStorage.setItem(last_refresh_key, Date.now());
             bangs_cache_state = 'ready';
             set_status('Ready!', color_green)
 
