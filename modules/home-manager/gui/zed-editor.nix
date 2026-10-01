@@ -87,7 +87,14 @@ in {
         };
         nixd = {
           binary.path = lib.getExe pkgs.nixd;
+
+          # What is the exact diff between `initialization_options` and `settings`?
+          # Through testing only `settings` works for specifying nixd options to evaluate.
           initialization_options.formatting.command = ["alejandra"];
+          settings.options = {
+            nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wortelworm5.options";
+            home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wortelworm5.options.home-manager.users.type.getSubOptions []";
+          };
         };
         elixir-ls = lib.mkIf lang.beam {
           binary.path = lib.getExe pkgs.elixir-ls;

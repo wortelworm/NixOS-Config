@@ -7,6 +7,8 @@
   #   just because duckduckgo's bangs are outdated (!nixos, !mcw),
   #   and I don't feel like paying for kagi.
   #   Its pretty nice :)
+  #
+  # TODO: Rewrite this entire thing for server-side computation?
   services.caddy = {
     enable = true;
     virtualHosts = {
