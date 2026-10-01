@@ -96,6 +96,12 @@ in {
             home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wortelworm5.options.home-manager.users.type.getSubOptions []";
           };
         };
+        ruff = lib.mkIf lang.python {
+          binary = {
+            path = lib.getExe pkgs.ruff;
+            arguments = ["server"];
+          };
+        };
         elixir-ls = lib.mkIf lang.beam {
           binary.path = lib.getExe pkgs.elixir-ls;
         };
