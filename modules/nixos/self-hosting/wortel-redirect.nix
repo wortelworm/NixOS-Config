@@ -22,8 +22,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "wortelworm";
           repo = "wortel-redirect";
-          tag = version;
-          hash = "sha256-kQ1Mb4hTypSFnAv4i0CLmDGiF47BLbiSfsDd7A21Od0=";
+          rev = "ea65b48b678cb9db6b8155ae8a0527216f3ed870";
+          hash = "sha256-yYYAGNE2tQLvLR8sbfLASPw6SyGnZspVnm99nsOSJ7Q=";
         };
 
         cargoHash = "sha256-T2+L00PEiW9UzQ3w1zlrFECqdtUJBTfe4ACRe9OX3+o=";
