@@ -405,7 +405,7 @@ in {
       screenshot.annotate = true;
 
       launcher = {
-        sort_by_usage = false;
+        track_usage = false;
 
         providers = {
           session.global = true;
